@@ -193,15 +193,15 @@ cat > Dockerfile <<'EOF'
 FROM openresty/openresty:alpine
 RUN apk add --no-cache ca-certificates wget unzip tini
 
-# 🚩 GINAMIT ANG GH PROXY PARA HINDI MA-BLOCK/ERROR SA QWIKLABS
-RUN wget --no-check-certificate --timeout=180 -qO /tmp/xray.zip https://mirror.ghproxy.com/https://github.com/XTLS/Xray-core/releases/download/v25.03.01/Xray-linux-64.zip && \
-    unzip -q /tmp/xray.zip -d /tmp/xray/ && \
-    mv /tmp/xray/xray /usr/local/bin/ && \
-    mkdir -p /usr/local/share/xray/ && \
-    mv /tmp/xray/geoip.dat /usr/local/share/xray/ && \
-    mv /tmp/xray/geosite.dat /usr/local/share/xray/ && \
-    chmod +x /usr/local/bin/xray && \
-    rm -rf /tmp/xray /tmp/xray.zip
+# ✅ PRE-BUILT • HINDI NA KAILANGANG MAG-DOWNLOAD • SIGURADONG GAGANA
+FROM xtls/xray:latest AS xray
+FROM openresty/openresty:alpine
+
+RUN apk add --no-cache ca-certificates tini
+
+# KOKOPYAHIN NA LANG NATIN ANG XRAY MULA SA OFFICIAL IMAGE
+COPY --from=xray /usr/local/bin/xray /usr/local/bin/xray
+COPY --from=xray /usr/local/share/xray/ /usr/local/share/xray/
 
 COPY config.json /etc/xray.json
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
@@ -212,6 +212,7 @@ EXPOSE 8080
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD sh -c "xray run -c /etc/xray.json & exec openresty -g 'daemon off;'"
+
 EOF
 
 loading "BUILDING CONTAINER IMAGE"
