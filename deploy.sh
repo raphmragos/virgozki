@@ -187,19 +187,16 @@ http {
 EOF
 
 # ==============================================
-# ✅ DOCKERFILE - **FIXED DOWNLOAD LINK** ANG PINAKA MAHALAGA!
+# ✅ DOCKERFILE - **FIXED DUPLICATE & DOWNLOAD ERROR**
 # ==============================================
 cat > Dockerfile <<'EOF'
-FROM openresty/openresty:alpine
-RUN apk add --no-cache ca-certificates wget unzip tini
-
-# ✅ PRE-BUILT • HINDI NA KAILANGANG MAG-DOWNLOAD • SIGURADONG GAGANA
+# ✅ TAMANG MULTI-STAGE BUILD — WALANG DOUBLE, WALANG DOWNLOAD ERROR
 FROM xtls/xray:latest AS xray
 FROM openresty/openresty:alpine
 
 RUN apk add --no-cache ca-certificates tini
 
-# KOKOPYAHIN NA LANG NATIN ANG XRAY MULA SA OFFICIAL IMAGE
+# KOKOPYAHIN NA LANG MULA SA OFFICIAL IMAGE — HINDI NA KUKUHA SA LABAS
 COPY --from=xray /usr/local/bin/xray /usr/local/bin/xray
 COPY --from=xray /usr/local/share/xray/ /usr/local/share/xray/
 
@@ -212,7 +209,6 @@ EXPOSE 8080
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD sh -c "xray run -c /etc/xray.json & exec openresty -g 'daemon off;'"
-
 EOF
 
 loading "BUILDING CONTAINER IMAGE"
