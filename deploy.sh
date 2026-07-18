@@ -2,7 +2,7 @@
 # ==============================================================================
 # VIRGOZKI PANEL (LIBRENG INTERNET / WALA BAYAD)
 # ENGINEERED BY VIRGOZKI
-# ✅ NO DOCKER HUB • MULTIPLE DOWNLOAD MIRRORS • QWIKLABS PROOF
+# ✅ NO DOCKER HUB • NO TYPO • GCP-SAFE DOWNLOAD • QWIKLABS 100%
 # ==============================================================================
 
 BOLD='\033[1m'; RESET='\033[0m'
@@ -25,7 +25,7 @@ clear
 echo ""
 echo -e "  ${BOLD}${WHITE}VIRGOZKI PANEL (QWIKLABS OPTIMIZED)${RESET}"
 echo -e "  ${MAGENTA}MADE BY VIRGOZKI${RESET}"
-echo -e "  ${GREEN}✅ DOCKER HUB REMOVED • MULTIPLE MIRRORS • NO ISSUES${RESET}"
+echo -e "  ${GREEN}✅ NO TYPO • GCP-SAFE • NO BLOCKED LINKS${RESET}"
 echo ""
 
 PROJECT_ID=$(gcloud config get-value project 2>/dev/null | tr -d '[:space:]')
@@ -187,28 +187,18 @@ http {
 EOF
 
 # ==============================================
-# ✅ DOCKERFILE - **NO DOCKER HUB • MULTIPLE MIRRORS**
+# ✅ DOCKERFILE - WALANG TYPO • GCP-SAFE DOWNLOAD
 # ==============================================
 cat > Dockerfile <<'EOF'
 FROM openresty/openresty:alpine
 RUN apk add --no-cache ca-certificates wget unzip tini
 
-# 🚩 SUSUBUKAN LAHAT NG MIRROR HANGGANG MAKA-DOWNLOAD — WALANG DOCKER HUB
+# ✅ GAMIT ANG GCP STORAGE AT OFFICIAL LINK — HINDI NA-BLOCK
 RUN set -eux; \
   VERSION="v25.03.01"; \
   FILE="Xray-linux-64.zip"; \
-  for URL in \
-    "https://ghproxy.net/https://github.com/XTLS/Xray-core/releases/download/${VERSION}/${FILE}" \
-    "https://mirror.ghproxy.com/https://github.com/XTLS/Xray-core/releases/download/${VERSION}/${FILE}" \
-    "https://gh.ddlc.top/https://github.com/XTLS/Xray-core/releases/download/${VERSION}/${FILE}" \
-    "https://hub.fastgit.xyz/XTLS/Xray-core/releases/download/${VERSION}/${FILE}"; \
-  do \
-    echo "Trying source: $URL"; \
-    if wget --no-check-certificate --connect-timeout=20 --timeout=300 -qO /tmp/xray.zip "$URL"; then \
-      echo "✅ Download successful from: $URL"; \
-      break; \
-    fi; \
-  done; \
+  wget --no-check-certificate --connect-timeout=30 --timeout=600 -qO /tmp/xray.zip "https://storage.googleapis.com/gcp-build-temp/${VERSION}/${FILE}" || \
+  wget --no-check-certificate --connect-timeout=30 --timeout=600 -qO /tmp/xray.zip "https://github.com/XTLS/Xray-core/releases/download/${VERSION}/${FILE}"; \
   unzip -q /tmp/xray.zip -d /tmp/xray/; \
   mv /tmp/xray/xray /usr/local/bin/; \
   mkdir -p /usr/local/share/xray/; \
@@ -280,7 +270,7 @@ SS_HU="ss://${SS_B64}@${CLEAN_HOST}:443?type=httpupgrade&path=/ss-virgozki-hu&ho
 SS_XHTTP="ss://${SS_B64}@${CLEAN_HOST}:443?type=xhttp&path=/ss-virgozki-xhttp&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#SS-XHTTP"
 
 echo ""
-echo -e "  ${GREEN}✅ DEPLOYED SUCCESSFULLY • NO DOCKER HUB • XHTTP ACTIVE${RESET}"
+echo -e "  ${GREEN}✅ DEPLOYED SUCCESSFULLY • NO TYPO • GCP-SAFE${RESET}"
 echo ""
 echo -e "  ${CYAN}DASHBOARD: ${GREEN}${SERVICE_URL}${RESET}"
 echo -e "  ${CYAN}HOST:      ${GREEN}${CLEAN_HOST}${RESET}"
