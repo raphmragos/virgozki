@@ -2,7 +2,7 @@
 # ==============================================================================
 # VIRGOZKI PANEL (LIBRENG INTERNET / WALA BAYAD)
 # ENGINEERED BY VIRGOZKI
-# ✅ FIXED DOWNLOAD ERROR • ✅ ADDED XHTTP • ✅ QWIKLABS OPTIMIZED
+# ✅ NO DOCKER HUB • MULTIPLE DOWNLOAD MIRRORS • QWIKLABS PROOF
 # ==============================================================================
 
 BOLD='\033[1m'; RESET='\033[0m'
@@ -25,7 +25,7 @@ clear
 echo ""
 echo -e "  ${BOLD}${WHITE}VIRGOZKI PANEL (QWIKLABS OPTIMIZED)${RESET}"
 echo -e "  ${MAGENTA}MADE BY VIRGOZKI${RESET}"
-echo -e "  ${GREEN}✅ DOWNLOAD ERROR FIXED • XHTTP ACTIVE • NO ISSUES${RESET}"
+echo -e "  ${GREEN}✅ DOCKER HUB REMOVED • MULTIPLE MIRRORS • NO ISSUES${RESET}"
 echo ""
 
 PROJECT_ID=$(gcloud config get-value project 2>/dev/null | tr -d '[:space:]')
@@ -187,18 +187,35 @@ http {
 EOF
 
 # ==============================================
-# ✅ DOCKERFILE - **FIXED DUPLICATE & DOWNLOAD ERROR**
+# ✅ DOCKERFILE - **NO DOCKER HUB • MULTIPLE MIRRORS**
 # ==============================================
 cat > Dockerfile <<'EOF'
-# ✅ TAMANG MULTI-STAGE BUILD — WALANG DOUBLE, WALANG DOWNLOAD ERROR
-FROM xtls/xray:latest AS xray
 FROM openresty/openresty:alpine
+RUN apk add --no-cache ca-certificates wget unzip tini
 
-RUN apk add --no-cache ca-certificates tini
-
-# KOKOPYAHIN NA LANG MULA SA OFFICIAL IMAGE — HINDI NA KUKUHA SA LABAS
-COPY --from=xray /usr/local/bin/xray /usr/local/bin/xray
-COPY --from=xray /usr/local/share/xray/ /usr/local/share/xray/
+# 🚩 SUSUBUKAN LAHAT NG MIRROR HANGGANG MAKA-DOWNLOAD — WALANG DOCKER HUB
+RUN set -eux; \
+  VERSION="v25.03.01"; \
+  FILE="Xray-linux-64.zip"; \
+  for URL in \
+    "https://ghproxy.net/https://github.com/XTLS/Xray-core/releases/download/${VERSION}/${FILE}" \
+    "https://mirror.ghproxy.com/https://github.com/XTLS/Xray-core/releases/download/${VERSION}/${FILE}" \
+    "https://gh.ddlc.top/https://github.com/XTLS/Xray-core/releases/download/${VERSION}/${FILE}" \
+    "https://hub.fastgit.xyz/XTLS/Xray-core/releases/download/${VERSION}/${FILE}"; \
+  do \
+    echo "Trying source: $URL"; \
+    if wget --no-check-certificate --connect-timeout=20 --timeout=300 -qO /tmp/xray.zip "$URL"; then \
+      echo "✅ Download successful from: $URL"; \
+      break; \
+    fi; \
+  done; \
+  unzip -q /tmp/xray.zip -d /tmp/xray/; \
+  mv /tmp/xray/xray /usr/local/bin/; \
+  mkdir -p /usr/local/share/xray/; \
+  mv /tmp/xray/geoip.dat /usr/local/share/xray/; \
+  mv /tmp/xray/geosite.dat /usr/local/share/xray/; \
+  chmod +x /usr/local/bin/xray; \
+  rm -rf /tmp/*
 
 COPY config.json /etc/xray.json
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
@@ -263,7 +280,7 @@ SS_HU="ss://${SS_B64}@${CLEAN_HOST}:443?type=httpupgrade&path=/ss-virgozki-hu&ho
 SS_XHTTP="ss://${SS_B64}@${CLEAN_HOST}:443?type=xhttp&path=/ss-virgozki-xhttp&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#SS-XHTTP"
 
 echo ""
-echo -e "  ${GREEN}✅ DEPLOYED SUCCESSFULLY • DOWNLOAD ERROR FIXED • XHTTP ACTIVE${RESET}"
+echo -e "  ${GREEN}✅ DEPLOYED SUCCESSFULLY • NO DOCKER HUB • XHTTP ACTIVE${RESET}"
 echo ""
 echo -e "  ${CYAN}DASHBOARD: ${GREEN}${SERVICE_URL}${RESET}"
 echo -e "  ${CYAN}HOST:      ${GREEN}${CLEAN_HOST}${RESET}"
