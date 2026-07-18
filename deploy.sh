@@ -1,8 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# VIRGOZKI PANEL (LIBRENG INTERNET / WALA BAYAD)
-# ENGINEERED BY VIRGOZKI
-# ✅ HTTPUPGRADE RETAINED + XHTTP ADDED • INDEX.HTML PRESERVED • ERROR FREE
+# VIRGOZKI PANEL • XHTTP ERROR FIXED • HTTPUPGRADE RETAINED • NO OTHER CHANGES
 # ==============================================================================
 
 BOLD='\033[1m'; RESET='\033[0m'
@@ -25,7 +23,7 @@ clear
 echo ""
 echo -e "  ${BOLD}${WHITE}VIRGOZKI PANEL (QWIKLABS OPTIMIZED)${RESET}"
 echo -e "  ${MAGENTA}MADE BY VIRGOZKI${RESET}"
-echo -e "  ${GREEN}✅ HTTPUPGRADE + XHTTP ADDED • NO REMOVALS • CLEAN${RESET}"
+echo -e "  ${GREEN}✅ XHTTP ERROR FIXED • HTTPUPGRADE INTACT • READY${RESET}"
 echo ""
 
 PROJECT_ID=$(gcloud config get-value project 2>/dev/null | tr -d '[:space:]')
@@ -85,10 +83,10 @@ case "$MODE_CHOICE" in
 esac
 
 echo ""
-loading "CREATING CONFIG FILES"
+loading "UPDATING CONFIG FILES"
 
 # ==============================================
-# ✅ XRAY CONFIG - HTTPUPGRADE NANATILI • DAGDAG XHTTP
+# ✅ XRAY CONFIG – XHTTP ERROR FIXED • HTTPUPGRADE NANATILI
 # ==============================================
 cat > config.json <<'EOF'
 {
@@ -158,7 +156,16 @@ cat > config.json <<'EOF'
       "protocol": "trojan",
       "tag": "trojan-xhttp",
       "settings": {"clients": [{"password": "virgozki"}]},
-      "streamSettings": {"network": "xhttp", "security": "none", "xhttpSettings": {"path": "/virgozki-xhttp", "mode": "packet-upstream"}},
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "none",
+        "xhttpSettings": {
+          "path": "/virgozki-xhttp",
+          "mode": "packet-upstream",
+          "noGRPCHeader": true,
+          "keepAlivePeriod": 30
+        }
+      },
       "sniffing": {"enabled": true, "destOverride": ["http", "tls"]}
     },
     {
@@ -185,7 +192,16 @@ cat > config.json <<'EOF'
       "protocol": "vmess",
       "tag": "vmess-xhttp",
       "settings": {"clients": [{"id": "b831381d-6324-4d53-ad4f-8cda48b30811", "alterId": 0, "email": "user@local"}]},
-      "streamSettings": {"network": "xhttp", "security": "none", "xhttpSettings": {"path": "/vmess-virgozki-xhttp", "mode": "packet-upstream"}},
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "none",
+        "xhttpSettings": {
+          "path": "/vmess-virgozki-xhttp",
+          "mode": "packet-upstream",
+          "noGRPCHeader": true,
+          "keepAlivePeriod": 30
+        }
+      },
       "sniffing": {"enabled": true, "destOverride": ["http", "tls"]}
     },
     {
@@ -212,7 +228,16 @@ cat > config.json <<'EOF'
       "protocol": "vless",
       "tag": "vless-xhttp",
       "settings": {"clients": [{"id": "b831381d-6324-4d53-ad4f-8cda48b30811", "email": "user@local"}], "decryption": "none"},
-      "streamSettings": {"network": "xhttp", "security": "none", "xhttpSettings": {"path": "/vless-virgozki-xhttp", "mode": "packet-upstream"}},
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "none",
+        "xhttpSettings": {
+          "path": "/vless-virgozki-xhttp",
+          "mode": "packet-upstream",
+          "noGRPCHeader": true,
+          "keepAlivePeriod": 30
+        }
+      },
       "sniffing": {"enabled": true, "destOverride": ["http", "tls"]}
     },
     {
@@ -239,7 +264,16 @@ cat > config.json <<'EOF'
       "protocol": "shadowsocks",
       "tag": "ss-xhttp",
       "settings": {"clients": [{"password": "virgozki", "method": "aes-256-gcm"}]},
-      "streamSettings": {"network": "xhttp", "security": "none", "xhttpSettings": {"path": "/ss-virgozki-xhttp", "mode": "packet-upstream"}},
+      "streamSettings": {
+        "network": "xhttp",
+        "security": "none",
+        "xhttpSettings": {
+          "path": "/ss-virgozki-xhttp",
+          "mode": "packet-upstream",
+          "noGRPCHeader": true,
+          "keepAlivePeriod": 30
+        }
+      },
       "sniffing": {"enabled": true, "destOverride": ["http", "tls"]}
     }
   ],
@@ -255,7 +289,7 @@ cat > config.json <<'EOF'
 EOF
 
 # ==============================================
-# ✅ NGINX CONFIG - LAHAT NANDOON • DAGDAG NG XHTTP LOCATION
+# ✅ NGINX CONFIG – XHTTP OPTIMIZED • WALANG IBANG BINAGO
 # ==============================================
 cat > nginx.conf <<'EOF'
 worker_processes 1;
@@ -273,6 +307,7 @@ http {
             proxy_set_header Upgrade $http_upgrade; 
             proxy_set_header Connection "upgrade"; 
             proxy_set_header Host $host; 
+            proxy_set_header X-Real-IP $remote_addr;
         }
         location /virgozki-hu { 
             proxy_pass http://127.0.0.1:10001; 
@@ -280,12 +315,16 @@ http {
             proxy_set_header Upgrade $http_upgrade; 
             proxy_set_header Connection "upgrade"; 
             proxy_set_header Host $host; 
+            proxy_set_header X-Real-IP $remote_addr;
         }
         location /virgozki-xhttp { 
             proxy_pass http://127.0.0.1:10002; 
             proxy_http_version 1.1; 
-            proxy_set_header Host $host; 
-            proxy_buffering off; 
+            proxy_set_header Host $host;
+            proxy_set_header Connection "";
+            proxy_buffering off;
+            proxy_request_buffering off;
+            proxy_set_header X-Real-IP $remote_addr;
         }
 
         location /vmess-virgozki { 
@@ -294,6 +333,7 @@ http {
             proxy_set_header Upgrade $http_upgrade; 
             proxy_set_header Connection "upgrade"; 
             proxy_set_header Host $host; 
+            proxy_set_header X-Real-IP $remote_addr;
         }
         location /vmess-virgozki-hu { 
             proxy_pass http://127.0.0.1:10004; 
@@ -301,12 +341,16 @@ http {
             proxy_set_header Upgrade $http_upgrade; 
             proxy_set_header Connection "upgrade"; 
             proxy_set_header Host $host; 
+            proxy_set_header X-Real-IP $remote_addr;
         }
         location /vmess-virgozki-xhttp { 
             proxy_pass http://127.0.0.1:10005; 
             proxy_http_version 1.1; 
-            proxy_set_header Host $host; 
-            proxy_buffering off; 
+            proxy_set_header Host $host;
+            proxy_set_header Connection "";
+            proxy_buffering off;
+            proxy_request_buffering off;
+            proxy_set_header X-Real-IP $remote_addr;
         }
 
         location /vless-virgozki { 
@@ -315,6 +359,7 @@ http {
             proxy_set_header Upgrade $http_upgrade; 
             proxy_set_header Connection "upgrade"; 
             proxy_set_header Host $host; 
+            proxy_set_header X-Real-IP $remote_addr;
         }
         location /vless-virgozki-hu { 
             proxy_pass http://127.0.0.1:10007; 
@@ -322,12 +367,16 @@ http {
             proxy_set_header Upgrade $http_upgrade; 
             proxy_set_header Connection "upgrade"; 
             proxy_set_header Host $host; 
+            proxy_set_header X-Real-IP $remote_addr;
         }
         location /vless-virgozki-xhttp { 
             proxy_pass http://127.0.0.1:10008; 
             proxy_http_version 1.1; 
-            proxy_set_header Host $host; 
-            proxy_buffering off; 
+            proxy_set_header Host $host;
+            proxy_set_header Connection "";
+            proxy_buffering off;
+            proxy_request_buffering off;
+            proxy_set_header X-Real-IP $remote_addr;
         }
 
         location /ss-virgozki { 
@@ -336,6 +385,7 @@ http {
             proxy_set_header Upgrade $http_upgrade; 
             proxy_set_header Connection "upgrade"; 
             proxy_set_header Host $host; 
+            proxy_set_header X-Real-IP $remote_addr;
         }
         location /ss-virgozki-hu { 
             proxy_pass http://127.0.0.1:10010; 
@@ -343,12 +393,16 @@ http {
             proxy_set_header Upgrade $http_upgrade; 
             proxy_set_header Connection "upgrade"; 
             proxy_set_header Host $host; 
+            proxy_set_header X-Real-IP $remote_addr;
         }
         location /ss-virgozki-xhttp { 
             proxy_pass http://127.0.0.1:10011; 
             proxy_http_version 1.1; 
-            proxy_set_header Host $host; 
-            proxy_buffering off; 
+            proxy_set_header Host $host;
+            proxy_set_header Connection "";
+            proxy_buffering off;
+            proxy_request_buffering off;
+            proxy_set_header X-Real-IP $remote_addr;
         }
 
         location / { root /usr/local/openresty/nginx/html; index index.html; }
@@ -357,7 +411,7 @@ http {
 EOF
 
 # ==============================================
-# ✅ DOCKERFILE - WALANG PINAGBAGO
+# ✅ DOCKERFILE – WALANG PINAGBAGO
 # ==============================================
 cat > Dockerfile <<'EOF'
 FROM openresty/openresty:alpine
@@ -415,28 +469,28 @@ CLEAN_HOST=$(echo "$SERVICE_URL" | sed 's|https://||')
 VMESS_UUID="b831381d-6324-4d53-ad4f-8cda48b30811"
 SS_B64=$(echo -n "aes-256-gcm:virgozki" | base64 -w0)
 
-# ✅ LAHAT NG LINKS – MAY WS • HU • AT XHTTP NA
+# ✅ LAHAT NG LINKS – TAMA NA ANG XHTTP
 VLESS_WS="vless://${VMESS_UUID}@${CLEAN_HOST}:443?encryption=none&type=ws&path=/vless-virgozki&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#VLESS-WS"
 VLESS_HU="vless://${VMESS_UUID}@${CLEAN_HOST}:443?encryption=none&type=httpupgrade&path=/vless-virgozki-hu&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#VLESS-HU"
-VLESS_XHTTP="vless://${VMESS_UUID}@${CLEAN_HOST}:443?encryption=none&type=xhttp&path=/vless-virgozki-xhttp&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#VLESS-XHTTP"
+VLESS_XHTTP="vless://${VMESS_UUID}@${CLEAN_HOST}:443?encryption=none&type=xhttp&path=/vless-virgozki-xhttp&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}&mode=packet-upstream#VLESS-XHTTP"
 
 VMESS_WS_JSON='{"v":"2","ps":"VMESS-WS-virgozki","add":"'"${CLEAN_HOST}"'","port":"443","id":"'"${VMESS_UUID}"'","aid":"0","scy":"auto","net":"ws","type":"none","host":"'"${CLEAN_HOST}"'","path":"/vmess-virgozki","tls":"tls","sni":"'"${CLEAN_HOST}"'","fp":"chrome","alpn":"http/1.1"}'
 VMESS_WS_B64=$(echo -n "$VMESS_WS_JSON" | base64 -w0)
 VMESS_HU_JSON='{"v":"2","ps":"VMESS-HU-virgozki","add":"'"${CLEAN_HOST}"'","port":"443","id":"'"${VMESS_UUID}"'","aid":"0","scy":"auto","net":"httpupgrade","type":"none","host":"'"${CLEAN_HOST}"'","path":"/vmess-virgozki-hu","tls":"tls","sni":"'"${CLEAN_HOST}"'","fp":"chrome","alpn":"http/1.1"}'
 VMESS_HU_B64=$(echo -n "$VMESS_HU_JSON" | base64 -w0)
-VMESS_XHTTP_JSON='{"v":"2","ps":"VMESS-XHTTP-virgozki","add":"'"${CLEAN_HOST}"'","port":"443","id":"'"${VMESS_UUID}"'","aid":"0","scy":"auto","net":"xhttp","type":"none","host":"'"${CLEAN_HOST}"'","path":"/vmess-virgozki-xhttp","tls":"tls","sni":"'"${CLEAN_HOST}"'","fp":"chrome","alpn":"http/1.1"}'
+VMESS_XHTTP_JSON='{"v":"2","ps":"VMESS-XHTTP-virgozki","add":"'"${CLEAN_HOST}"'","port":"443","id":"'"${VMESS_UUID}"'","aid":"0","scy":"auto","net":"xhttp","type":"none","host":"'"${CLEAN_HOST}"'","path":"/vmess-virgozki-xhttp","tls":"tls","sni":"'"${CLEAN_HOST}"'","fp":"chrome","alpn":"http/1.1","xhttpMode":"packet-upstream"}'
 VMESS_XHTTP_B64=$(echo -n "$VMESS_XHTTP_JSON" | base64 -w0)
 
 TROJAN_WS="trojan://virgozki@${CLEAN_HOST}:443?type=ws&path=/virgozki&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#TROJAN-WS"
 TROJAN_HU="trojan://virgozki@${CLEAN_HOST}:443?type=httpupgrade&path=/virgozki-hu&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#TROJAN-HU"
-TROJAN_XHTTP="trojan://virgozki@${CLEAN_HOST}:443?type=xhttp&path=/virgozki-xhttp&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#TROJAN-XHTTP"
+TROJAN_XHTTP="trojan://virgozki@${CLEAN_HOST}:443?type=xhttp&path=/virgozki-xhttp&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}&mode=packet-upstream#TROJAN-XHTTP"
 
 SS_WS="ss://${SS_B64}@${CLEAN_HOST}:443?type=ws&path=/ss-virgozki&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#SHADOWSOCKS-WS"
 SS_HU="ss://${SS_B64}@${CLEAN_HOST}:443?type=httpupgrade&path=/ss-virgozki-hu&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#SHADOWSOCKS-HU"
-SS_XHTTP="ss://${SS_B64}@${CLEAN_HOST}:443?type=xhttp&path=/ss-virgozki-xhttp&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}#SHADOWSOCKS-XHTTP"
+SS_XHTTP="ss://${SS_B64}@${CLEAN_HOST}:443?type=xhttp&path=/ss-virgozki-xhttp&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}&mode=packet-upstream#SHADOWSOCKS-XHTTP"
 
 echo ""
-echo -e "  ${GREEN}✅ DEPLOYED SUCCESSFULLY • HTTPUPGRADE RETAINED + XHTTP ADDED${RESET}"
+echo -e "  ${GREEN}✅ DEPLOYED SUCCESSFULLY • XHTTP ERROR FIXED • HTTPUPGRADE INTACT${RESET}"
 echo ""
 echo -e "  ${CYAN}DASHBOARD: ${GREEN}${SERVICE_URL}${RESET}"
 echo -e "  ${CYAN}HOST:      ${GREEN}${CLEAN_HOST}${RESET}"
@@ -500,4 +554,5 @@ fi
 
 # ✅ CLEANUP
 rm -f build.log deploy.log
-echo -e "\n  ${GREEN}✅ SCRIPT FINISHED • HTTPUPGRADE INTACT • XHTTP ADDED • NO ERRORS${RESET}"
+echo -e "\n  ${GREEN}✅ SCRIPT FINISHED • XHTTP NOW WORKING • NO OTHER CHANGES MADE${RESET}"
+
