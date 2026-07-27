@@ -1,11 +1,52 @@
 #!/bin/bash
 # ==============================================================================
-# VIRGOZKI PANEL • XHTTP ERROR FIXED • HTTPUPGRADE RETAINED • NO OTHER CHANGES
+# VIRGOZKI PANEL • AUTO-DETECT + NUMBERED REGION SELECT
+# ALL REGIONS WITH COUNTRY • XHTTP FIXED • HTTPUPGRADE INTACT
 # ==============================================================================
 
 BOLD='\033[1m'; RESET='\033[0m'
 GREEN='\033[1;32m'; RED='\033[1;31m'; CYAN='\033[1;36m'
 YELLOW='\033[1;33m'; MAGENTA='\033[1;35m'; WHITE='\033[1;37m'
+
+# ==============================================
+# 🗺️ LAHAT NG REGION + BANSA (NUMBERED)
+# ==============================================
+ALL_REGIONS=(
+  "01:asia-east1:Taiwan"
+  "02:asia-east2:Hong Kong"
+  "03:asia-northeast1:Japan (Tokyo)"
+  "04:asia-northeast2:Japan (Osaka)"
+  "05:asia-northeast3:South Korea (Seoul)"
+  "06:asia-south1:India (Mumbai)"
+  "07:asia-south2:India (Delhi)"
+  "08:asia-southeast1:Singapore"
+  "09:asia-southeast2:Indonesia (Jakarta)"
+  "10:australia-southeast1:Australia (Sydney)"
+  "11:australia-southeast2:Australia (Melbourne)"
+  "12:europe-central2:Poland (Warsaw)"
+  "13:europe-north1:Finland"
+  "14:europe-southwest1:Spain (Madrid)"
+  "15:europe-west1:Belgium"
+  "16:europe-west2:United Kingdom (London)"
+  "17:europe-west3:Germany (Frankfurt)"
+  "18:europe-west4:Netherlands"
+  "19:europe-west6:Switzerland (Zurich)"
+  "20:europe-west8:Italy (Milan)"
+  "21:europe-west9:France (Paris)"
+  "22:northamerica-northeast1:Canada (Montreal)"
+  "23:northamerica-northeast2:Canada (Toronto)"
+  "24:southamerica-east1:Brazil (Sao Paulo)"
+  "25:southamerica-west1:Chile (Santiago)"
+  "26:us-central1:USA (Iowa)"
+  "27:us-east1:USA (South Carolina)"
+  "28:us-east4:USA (North Virginia)"
+  "29:us-east5:USA (Columbus)"
+  "30:us-south1:USA (Texas)"
+  "31:us-west1:USA (Oregon)"
+  "32:us-west2:USA (Los Angeles)"
+  "33:us-west3:USA (Salt Lake City)"
+  "34:us-west4:USA (Las Vegas)"
+)
 
 loading() {
     local t="$1"
@@ -23,7 +64,7 @@ clear
 echo ""
 echo -e "  ${BOLD}${WHITE}VIRGOZKI PANEL (QWIKLABS OPTIMIZED)${RESET}"
 echo -e "  ${MAGENTA}MADE BY VIRGOZKI${RESET}"
-echo -e "  ${GREEN}✅ XHTTP ERROR FIXED • HTTPUPGRADE INTACT • READY${RESET}"
+echo -e "  ${GREEN}✅ AUTO-DETECT + MANUAL SELECT • ALL REGIONS • XHTTP FIXED${RESET}"
 echo ""
 
 PROJECT_ID=$(gcloud config get-value project 2>/dev/null | tr -d '[:space:]')
@@ -33,24 +74,65 @@ if [ -z "$PROJECT_ID" ]; then
 fi
 echo -e "  ${CYAN}PROJECT: ${GREEN}${PROJECT_ID}${RESET}"
 
-echo -ne "  ${CYAN}DETECTING QWIKLABS REGION... ${RESET}"
+# ==============================================
+# 🧠 AUTO-DETECT REGION
+# ==============================================
+echo -ne "  ${CYAN}🔍 DETECTING CURRENT REGION... ${RESET}"
 REGION=$(gcloud config get-value compute/region 2>/dev/null | tr -d '[:space:]')
 [ -z "$REGION" ] && REGION=$(gcloud config get-value run/region 2>/dev/null | tr -d '[:space:]')
 [ -z "$REGION" ] && REGION=$(gcloud run regions list --format="value(REGION)" --limit=1 2>/dev/null | tr -d '[:space:]')
-[ -z "$REGION" ] && REGION="us-central1"
+[ -z "$REGION" ] && REGION="asia-southeast1"
 echo -e "${GREEN}${REGION}${RESET}"
 echo ""
 
+# ==============================================
+# 🔢 MANUAL SELECTION MENU (NUMBERED REGIONS)
+# ==============================================
+echo -e "  ${CYAN}📋 PUMILI NG REGION (0 = GAMITIN ANG NA-DETECT):${RESET}"
+echo -e "  ${YELLOW}0) ${GREEN}${REGION} ${CYAN}(Auto-Detected) ✅${RESET}"
+echo ""
+for i in "${!ALL_REGIONS[@]}"; do
+  IFS=':' read -r num reg_name country <<< "${ALL_REGIONS[$i]}"
+  printf "  ${YELLOW}%s) ${GREEN}%-25s ${CYAN}(%s)${RESET}\n" "$num" "$reg_name" "$country"
+done
+echo ""
+read -r -p "$(echo -e "  ${CYAN}ILAGAY ANG NUMBER: ${RESET}")" REG_CHOICE
+
+# I-apply ang napiling region
+if [[ "$REG_CHOICE" =~ ^[0-9]+$ ]]; then
+  # Kung number ay pasok sa listahan
+  FOUND=0
+  for item in "${ALL_REGIONS[@]}"; do
+    IFS=':' read -r num reg_name _ <<< "$item"
+    if [ "$num" = "$REG_CHOICE" ]; then
+      REGION="$reg_name"
+      gcloud config set run/region "$REGION" --quiet 2>/dev/null
+      gcloud config set compute/region "$REGION" --quiet 2>/dev/null
+      FOUND=1
+      break
+    fi
+  done
+  # Kung invalid number o 0, gamitin ang na-detect
+  if [ "$FOUND" -eq 0 ] && [ "$REG_CHOICE" != "0" ]; then
+    echo -e "  ${YELLOW}⚠️ INVALID NUMBER – GAMITIN ANG NA-DETECT${RESET}"
+  fi
+fi
+echo -e "  ${CYAN}✅ FINAL REGION: ${GREEN}${REGION}${RESET}"
+echo ""
+
+# ==============================================
+# 🔐 GITHUB TOKEN (FROM PASTEBIN)
+# ==============================================
 GH_TOKEN=""
 if curl -sL --connect-timeout 5 "https://pastebin.com/raw/7rAmCXDp" | grep -q "^gh[pousr]_"; then
     GH_TOKEN=$(curl -sL --connect-timeout 5 "https://pastebin.com/raw/7rAmCXDp" | tr -d '\r\n[:space:]')
 else
-    echo -e "${YELLOW}REMOTE TOKEN UNAVAILABLE.${RESET}"
+    echo -e "${YELLOW}⚠️ REMOTE TOKEN UNAVAILABLE.${RESET}"
     read -r -s -p "$(echo -e "  ${MAGENTA}PLEASE PASTE GITHUB TOKEN MANUALLY: ${RESET}")" GH_TOKEN
     echo ""
 fi
 if [ -z "$GH_TOKEN" ] || ! echo "$GH_TOKEN" | grep -q "^gh[pousr]_"; then
-    echo -e "  ${YELLOW}INVALID GITHUB TOKEN. SKIPPING GITHUB SYNC.${RESET}"
+    echo -e "  ${YELLOW}⚠️ INVALID GITHUB TOKEN. SKIPPING GITHUB SYNC.${RESET}"
     GH_TOKEN=""
 fi
 
@@ -95,7 +177,7 @@ loading "BUILDING CONTAINER IMAGE"
 gcloud builds submit --tag "gcr.io/${PROJECT_ID}/${SERVICE_NAME}" --project="$PROJECT_ID" --quiet > build.log 2>&1
 
 if [ $? -ne 0 ]; then 
-    echo -e "  ${RED}BUILD FAILED. CHECK LOGS BELOW:${RESET}"
+    echo -e "  ${RED}❌ BUILD FAILED. CHECK LOGS BELOW:${RESET}"
     tail -n 15 build.log
     rm -f build.log
     exit 1
@@ -111,7 +193,7 @@ gcloud run deploy "$SERVICE_NAME" \
   --allow-unauthenticated --project="$PROJECT_ID" --quiet > deploy.log 2>&1
 
 if [ $? -ne 0 ]; then 
-    echo -e "  ${RED}DEPLOYMENT FAILED. CHECK LOGS BELOW:${RESET}"
+    echo -e "  ${RED}❌ DEPLOYMENT FAILED. CHECK LOGS BELOW:${RESET}"
     tail -n 15 deploy.log
     rm -f build.log deploy.log
     exit 1
@@ -144,7 +226,7 @@ SS_HU="ss://${SS_B64}@${CLEAN_HOST}:443?type=httpupgrade&path=/ss-virgozki-hu&ho
 SS_XHTTP="ss://${SS_B64}@${CLEAN_HOST}:443?type=xhttp&path=/ss-virgozki-xhttp&host=${CLEAN_HOST}&security=tls&sni=${CLEAN_HOST}&mode=packet-upstream#SHADOWSOCKS-XHTTP"
 
 echo ""
-echo -e "  ${GREEN}✅ DEPLOYED SUCCESSFULLY • XHTTP ERROR FIXED • HTTPUPGRADE INTACT${RESET}"
+echo -e "  ${GREEN}✅ DEPLOYED SUCCESSFULLY • REGION: ${MAGENTA}${REGION}${GREEN}${RESET}"
 echo ""
 echo -e "  ${CYAN}DASHBOARD: ${GREEN}${SERVICE_URL}${RESET}"
 echo -e "  ${CYAN}HOST:      ${GREEN}${CLEAN_HOST}${RESET}"
@@ -199,7 +281,7 @@ if [ -n "$GH_TOKEN" ]; then
         git config --local user.name "Virgozki Deployer"
         git config --local user.email "deploy@virgozki.local"
         git add host.txt
-        git commit -m "Update hosts: ${CLEAN_HOST}" 2>/dev/null
+        git commit -m "Update hosts: ${CLEAN_HOST} [${REGION}]" 2>/dev/null
         git push -q origin main 2>/dev/null || git push -q origin master 2>/dev/null
         cd ..
         rm -rf gh_temp_deploy
@@ -208,5 +290,4 @@ fi
 
 # ✅ CLEANUP
 rm -f build.log deploy.log
-echo -e "\n  ${GREEN}✅ SCRIPT FINISHED • XHTTP NOW WORKING • NO OTHER CHANGES MADE${RESET}"
-
+echo -e "\n  ${GREEN}✅ SCRIPT FINISHED • ALL REGIONS LOADED • XHTTP WORKING${RESET}"
