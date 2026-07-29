@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title> VIRGOZKI PANEL | LIBRENG  INTERNET </title>
+    <title> VIRGOZKI PANEL | LIBRENG INTERNET </title>
     <style>
         :root {
             --bg-main: #05050b;
             --bg-dark: #080812;
-            --surface: #0f0f1f;
-            --surface-dark: #0a0a16;
-            --border: #1a1a3a;
-            --border-bright: #60a5fa;
+            --surface: rgba(15, 15, 31, 0.18);
+            --surface-dark: rgba(10, 10, 22, 0.15);
+            --border: rgba(26, 26, 58, 0.35);
+            --border-bright: rgba(96, 165, 250, 0.6);
             --text: #e6e7ff;
-            --text-dim: #9495cc;
-            --accent: #60a5fa;
-            --glow: #93c5fd;
+            --text-dim: #c0c2ff;
+            --accent: #93c5fd;
+            --glow: #bfdbfe;
             --red: #ef4444;
             --yellow: #fbbf24;
             --blue: #60a5fa;
@@ -23,15 +23,19 @@
             --green: #34d399;
             --font-sans: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             --font-mono: 'Consolas', 'Monaco', monospace;
-            --font-size-base: clamp(13px, 3.2vw, 16px);
-            --font-size-sm: clamp(11px, 2.7vw, 14px);
-            --font-size-lg: clamp(18px, 4.5vw, 22px);
-            --font-size-xl: clamp(28px, 8vw, 42px);
+            --font-size-base: clamp(12px, 3vw, 15px);
+            --font-size-sm: clamp(10px, 2.5vw, 13px);
+            --font-size-lg: clamp(16px, 4vw, 20px);
+            --font-size-xl: clamp(24px, 7vw, 36px);
+            --bg-url: url('https://www.dropbox.com/scl/fi/iwrmfrtk9rl3pfio3998t/Screenshot_20260729-191710.jpg?rlkey=odm8d3xsv6mh9pmlsmvleh9dg&st=0pnpvb1d&dl=1');
         }
 
         * {margin: 0; padding: 0; box-sizing: border-box;}
+
         body {
-            background: linear-gradient(180deg, #030308 0%, #080812 100%);
+            background: 
+                linear-gradient(rgba(5, 5, 11, 0.50), rgba(8, 8, 18, 0.55)),
+                var(--bg-url) center/cover no-repeat fixed;
             color: var(--text);
             font-family: var(--font-sans);
             font-size: var(--font-size-base);
@@ -43,79 +47,149 @@
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
-            padding: 20px 0;
+            padding: 12px 0;
             position: relative;
         }
-        .container {width: 100%; max-width: 750px; padding: 16px; display: flex; flex-direction: column; gap: 20px;}
+
+        .container {
+            width: 100%; 
+            max-width: 720px; 
+            padding: 12px;
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px;
+        }
+
         @keyframes fadeInUp {from {opacity: 0; transform: translateY(18px);} to {opacity: 1; transform: translateY(0);}}
-        @keyframes textGlow {0%,100% {text-shadow: 0 0 12px var(--glow), 0 0 24px rgba(96,165,250,0.6);} 50% {text-shadow: 0 0 6px var(--glow), 0 0 14px rgba(96,165,250,0.3);}}
+        @keyframes textGlow {0%,100% {text-shadow: 0 0 15px rgba(147,197,253,0.7), 0 0 30px rgba(96,165,250,0.4);} 50% {text-shadow: 0 0 8px rgba(147,197,253,0.5), 0 0 18px rgba(96,165,250,0.2);}}
         @keyframes akatsukiPulse {0%,100% {opacity: 0.8;} 50% {opacity:1;}}
         .fade-in {animation: fadeInUp 0.6s ease-out forwards;}
         .glow-text {animation: textGlow 3s ease-in-out infinite;}
+
+        /* Loading Screen */
         #loading-screen {
             position: fixed; top:0; left:0; width:100%; height:100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: rgba(3,3,8,0.97); backdrop-filter: blur(20px); z-index:9999; transition: opacity 0.5s ease;
+            background: linear-gradient(rgba(5,5,11,0.4), rgba(8,8,18,0.45)), var(--bg-url) center/cover no-repeat fixed;
+            backdrop-filter: blur(2px);
+            z-index:9999; transition: opacity 0.5s ease;
         }
         #loading-screen.hidden {opacity:0; pointer-events:none;}
-        .loading-digits {font-size: clamp(40px,12vw,60px); font-weight:800; font-family:var(--font-mono); letter-spacing:12px; color:var(--accent); animation: akatsukiPulse 2s infinite;}
-        .loading-subtitle {margin-top:28px; font-size:var(--font-size-sm); color:var(--text-dim); letter-spacing:2px; opacity:0; animation:fadeInUp 0.8s ease 0.5s forwards;}
+        .loading-digits {font-size: clamp(40px,12vw,60px); font-weight:800; font-family:var(--font-mono); letter-spacing:12px; color:var(--accent); animation: akatsukiPulse 2s infinite; text-shadow:0 0 20px rgba(147,197,253,0.8);}
+        .loading-subtitle {margin-top:28px; font-size:var(--font-size-sm); color:var(--text); letter-spacing:2px; opacity:0; animation:fadeInUp 0.8s ease 0.5s forwards; text-shadow:0 0 10px rgba(0,0,0,0.6);}
+        
         .section {
-            background: linear-gradient(160deg,#0d0d22,#14142b); border:2px solid var(--border); border-radius:8px; padding:24px 20px;
-            box-shadow:0 4px 12px rgba(0,0,0,0.6); transition:all 0.3s ease;
+            background: rgba(13, 13, 34, 0.18);
+            border:1px solid var(--border);
+            border-radius:8px;
+            padding: 14px 16px;
+            box-shadow:0 2px 6px rgba(0,0,0,0.2);
+            transition:all 0.3s ease;
+            backdrop-filter: blur(3px);
         }
-        .section:hover {border-color:var(--border-bright); box-shadow:0 0 18px rgba(96,165,250,0.3); transform:translateY(-2px);}
-        .section-title {font-weight:700; font-size:var(--font-size-lg); text-align:center; margin-bottom:14px; color:var(--text-dim); text-transform:uppercase;}
-        .button-bar {display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:10px;}
+        .section:hover {border-color:var(--border-bright); background: rgba(13, 13, 34, 0.25); transform:translateY(-1px);}
+        .section-title {font-weight:700; font-size:var(--font-size-lg); text-align:center; margin-bottom:10px; color:var(--text); text-transform:uppercase; text-shadow: 0 0 8px rgba(0,0,0,0.5);}
+        .button-bar {display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:8px;}
         .btn {
-            background:var(--surface-dark); border:1.5px solid var(--border); color:var(--text);
-            padding:14px 20px; border-radius:6px; cursor:pointer; font-size:calc(var(--font-size-base)+1px);
-            width:100%; text-align:left; display:flex; justify-content:space-between; align-items:center; min-height:54px;
+            background: rgba(10, 10, 22, 0.20);
+            border:1px solid var(--border);
+            color:var(--text);
+            padding:10px 14px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:var(--font-size-base);
+            width:100%;
+            text-align:left;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            min-height:44px;
+            text-shadow: 0 0 6px rgba(0,0,0,0.4);
         }
-        .btn:hover {border-color:var(--accent); background:rgba(96,165,250,0.15);}
-        .btn.active {border-color:var(--accent); background:rgba(96,165,250,0.25); box-shadow:0 0 14px rgba(96,165,250,0.35); font-weight:600; color:#fff;}
-        .ping-display {text-align:center; font-size:var(--font-size-sm); color:var(--text-dim); margin-top:16px; padding:12px; border-radius:6px; background:var(--surface-dark); border:1px solid var(--border);}
-        .speed-row {display:flex; justify-content:space-between; align-items:stretch; margin-top:20px; gap:15px;}
-        .speed-item {text-align:center; flex:1; padding:16px 10px; border-radius:6px; background:var(--surface-dark); border:1px solid var(--border);}
-        .speed-label {font-size:var(--font-size-sm); color:var(--text-dim); margin-bottom:6px; text-transform:uppercase;}
-        .speed-value {font-size:clamp(22px,6vw,30px); font-weight:800; margin-bottom:4px;}
+        .btn:hover {border-color:var(--accent); background:rgba(96,165,250,0.20);}
+        .btn.active {border-color:var(--accent); background:rgba(96,165,250,0.28); box-shadow:0 0 10px rgba(96,165,250,0.25); font-weight:600; color:#fff;}
+        .ping-display {text-align:center; font-size:var(--font-size-sm); color:var(--text); margin-top:10px; padding:10px; border-radius:6px; background: rgba(10, 10, 22, 0.18); border:1px solid var(--border); text-shadow: 0 0 6px rgba(0,0,0,0.4);}
+        .speed-row {display:flex; justify-content:space-between; align-items:stretch; margin-top:12px; gap:10px;}
+        .speed-item {text-align:center; flex:1; padding:12px 8px; border-radius:6px; background: rgba(10, 10, 22, 0.18); border:1px solid var(--border); text-shadow: 0 0 6px rgba(0,0,0,0.4);}
+        .speed-label {font-size:var(--font-size-sm); color:var(--text-dim); margin-bottom:4px; text-transform:uppercase;}
+        .speed-value {font-size:clamp(18px,5vw,26px); font-weight:800; margin-bottom:2px; text-shadow: 0 0 10px rgba(0,0,0,0.5);}
         .speed-value.download {color:var(--green);}
         .speed-value.upload {color:var(--blue);}
         .speed-value.latency {color:var(--yellow);}
-        .graph-container {display:flex; align-items:flex-end; gap:4px; height:80px; margin-top:20px; padding:10px; background:var(--surface-dark); border-radius:6px; border:1px solid var(--border);}
-        .graph-bar {flex:1; background:linear-gradient(to top,var(--accent),#bfdbfe); border-radius:2px; transition:height 0.12s ease; min-height:3px; opacity:0.9;}
+        .graph-container {display:flex; align-items:flex-end; gap:3px; height:60px; margin-top:12px; padding:8px; background: rgba(10, 10, 22, 0.18); border-radius:6px; border:1px solid var(--border);}
+        .graph-bar {flex:1; background:linear-gradient(to top,var(--accent),#bfdbfe); border-radius:2px; transition:height 0.12s ease; min-height:2px; opacity:0.85;}
         .config-wrapper {position:relative;}
         .config-display {
-            background:var(--surface-dark); border:1px solid var(--border); border-radius:6px; padding:20px; padding-top:48px;
-            font-family:var(--font-mono); font-size:var(--font-size-sm); line-height:1.7; word-break:break-all; white-space:pre-wrap;
-            color:var(--green); min-height:120px; max-height:320px; overflow-y:auto;
+            background: rgba(10, 10, 22, 0.22);
+            border:1px solid var(--border);
+            border-radius:6px;
+            padding:14px;
+            padding-top:38px;
+            font-family:var(--font-mono);
+            font-size:var(--font-size-sm);
+            line-height:1.6;
+            word-break:break-all;
+            white-space:pre-wrap;
+            color:var(--green);
+            min-height:90px;
+            max-height:260px;
+            overflow-y:auto;
+            text-shadow: 0 0 5px rgba(0,0,0,0.4);
         }
-        .copy-btn {position:absolute; top:14px; right:18px; background:var(--surface); border:1px solid var(--border); color:var(--text); padding:7px 16px; border-radius:4px; cursor:pointer;}
-        .copy-btn:hover {border-color:var(--accent); background:rgba(96,165,250,0.25);}
-        .status-dot {display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px;}
-        .status-dot.green {background:var(--green); box-shadow:0 0 8px var(--green);}
-        .status-dot.yellow {background:var(--yellow); box-shadow:0 0 8px var(--yellow); animation:pulse 1.2s infinite;}
+        .copy-btn {position:absolute; top:10px; right:14px; background: rgba(15, 15, 31, 0.25); border:1px solid var(--border); color:var(--text); padding:5px 12px; border-radius:4px; cursor:pointer; font-size:13px;}
+        .copy-btn:hover {border-color:var(--accent); background:rgba(96,165,250,0.20);}
+        .status-dot {display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px;}
+        .status-dot.green {background:var(--green); box-shadow:0 0 6px var(--green);}
+        .status-dot.yellow {background:var(--yellow); box-shadow:0 0 6px var(--yellow); animation:pulse 1.2s infinite;}
         @keyframes pulse {0%,100% {opacity:1;} 50% {opacity:0.5;}}
-        .divider {border:none; border-top:1px solid rgba(96,165,250,0.3); margin:16px 0;}
-        .info-row {display:flex; justify-content:space-between; align-items:center; padding:8px 0; font-size:var(--font-size-sm);}
+        .divider {border:none; border-top:1px solid rgba(96,165,250,0.25); margin:12px 0;}
+        .info-row {display:flex; justify-content:space-between; align-items:center; padding:6px 0; font-size:var(--font-size-sm); text-shadow: 0 0 5px rgba(0,0,0,0.4);}
         .info-label {color:var(--text-dim);}
-        .info-value {color:var(--accent); font-weight:600; font-size:15px;}
+        .info-value {color:var(--accent); font-weight:600; font-size:14px;}
+
+        /* ✅ MAY PAREHONG BACKGROUND NA ANG PINAGPIPILIAN */
         .fullscreen-modal {
-            position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(2,2,8,0.98); z-index:999999;
-            display:none; flex-direction:column; padding:20px; animation:fadeInUp 0.25s ease-out;
+            position:fixed; top:0; left:0; width:100%; height:100%;
+            background: linear-gradient(rgba(5,5,11,0.45), rgba(8,8,18,0.5)), var(--bg-url) center/cover no-repeat fixed;
+            z-index:999999;
+            display:none; flex-direction:column; padding:16px;
+            animation:fadeInUp 0.25s ease-out;
+            backdrop-filter: blur(2px));
         }
         .fullscreen-modal.show {display:flex;}
-        .modal-header {display:flex; justify-content:space-between; align-items:center; padding:15px 0; margin-bottom:10px; border-bottom:2px solid var(--border-bright);}
-        .modal-title {font-size:20px; font-weight:bold; color:var(--accent);}
-        .modal-close {background:var(--surface-dark); border:2px solid var(--border-bright); color:var(--text); padding:8px 16px; border-radius:6px; font-size:18px; cursor:pointer;}
-        .modal-close:hover {background:var(--accent); color:white;}
-        .modal-list {flex:1; overflow-y:auto; width:100%;}
-        .dropdown-item {padding:18px 16px; margin-bottom:6px; background:var(--surface-dark); border:1px solid var(--border); border-radius:6px; cursor:pointer; font-size:16px; color:var(--text); transition:all 0.2s;}
-        .dropdown-item:hover {background:rgba(96,165,250,0.2); border-color:var(--accent); transform:scale(1.02);}
-        .dropdown-item.selected {background:rgba(96,165,250,0.3); border-color:var(--accent); color:#dbeafe; font-weight:bold;}
-        .log-container {background:var(--surface-dark); border:1px solid var(--border); border-radius:6px; padding:14px; max-height:140px; overflow-y:auto; font-size:var(--font-size-sm); color:var(--text-dim); margin-top:16px;}
-        .log-entry {padding:4px 0; font-family:var(--font-mono);}
-        .log-entry .time {color:#bfdbfe; margin-right:8px;}
+        .modal-header {
+            display:flex; justify-content:space-between; align-items:center;
+            padding:12px 0; margin-bottom:8px;
+            border-bottom:1px solid rgba(96,165,250,0.4);
+            background: rgba(10,10,22,0.2);
+            border-radius:6px; padding:8px 12px;
+            backdrop-filter: blur(4px);
+        }
+        .modal-title {font-size:18px; font-weight:bold; color:var(--accent); text-shadow:0 0 8px rgba(96,165,250,0.6);}
+        .modal-close {
+            background: rgba(10, 10, 22, 0.25);
+            border:1px solid rgba(96,165,250,0.5);
+            color:var(--text); padding:6px 12px; border-radius:6px;
+            font-size:16px; cursor:pointer;
+            backdrop-filter: blur(3px);
+        }
+        .modal-close:hover {background:rgba(96,165,250,0.3);}
+        .modal-list {flex:1; overflow-y:auto; width:100%; padding-bottom:20px;}
+        .dropdown-item {
+            padding:12px 14px; margin-bottom:4px;
+            background: rgba(10, 10, 22, 0.18);
+            border:1px solid rgba(26,26,58,0.3);
+            border-radius:6px; cursor:pointer;
+            font-size:15px; color:var(--text); transition:all 0.2s;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+            backdrop-filter: blur(3px);
+        }
+        .dropdown-item:hover {background:rgba(96,165,250,0.25); border-color:rgba(96,165,250,0.6); transform:scale(1.01);}
+        .dropdown-item.selected {background:rgba(96,165,250,0.28); border-color:rgba(96,165,250,0.7); color:#dbeafe; font-weight:bold;}
+        
+        .log-container {background: rgba(10, 10, 22, 0.18); border:1px solid var(--border); border-radius:6px; padding:10px; max-height:100px; overflow-y:auto; font-size:12px; color:var(--text); margin-top:12px; text-shadow: 0 0 5px rgba(0,0,0,0.4);}
+        .log-entry {padding:3px 0; font-family:var(--font-mono);}
+        .log-entry .time {color:#bfdbfe; margin-right:6px;}
     </style>
 </head>
 <body>
@@ -128,7 +202,7 @@
 <div class="container" id="main-content" style="display:none;">
     <div class="section fade-in">
         <div class="section-title glow-text" style="font-size:var(--font-size-xl); letter-spacing:4px; color:var(--accent);">VIRGOZKI PANEL</div>
-        <div class="section-subtitle" style="text-align:center; color:var(--text-dim); margin-top:6px;"> • VIRGOZKI EDITION • LIBRENG INTERNET • WS + HU + XHTTP •</div>
+        <div class="section-subtitle" style="text-align:center; color:var(--text-dim); margin-top:4px;"> • VIRGOZKI EDITION • LIBRENG INTERNET • WS + HU + XHTTP •</div>
         <hr class="divider">
         <div class="info-row"><span class="info-label">CURRENT HOST:</span><span class="info-value" id="info-host">---</span></div>
         <div class="info-row"><span class="info-label">VLESS/VMess ID:</span><span class="info-value">b831381d-6324-4d53-ad4f-8cda48b30811</span></div>
@@ -141,7 +215,7 @@
         <div class="dropdown-wrapper">
             <button class="btn" id="address-dropdown-btn">👇 PUMILI NG ADDRESS ▾</button>
         </div>
-        <div id="address-selected" style="text-align:center; margin-top:12px; font-size:var(--font-size-base); color:var(--accent); font-weight:bold;"></div>
+        <div id="address-selected" style="text-align:center; margin-top:8px; font-size:var(--font-size-base); color:var(--accent); font-weight:bold;"></div>
     </div>
 
     <div class="section fade-in">
@@ -149,7 +223,7 @@
         <div class="dropdown-wrapper">
             <button class="btn" id="sni-dropdown-btn">👇 PUMILI NG SNI ▾</button>
         </div>
-        <div id="sni-selected" style="text-align:center; margin-top:12px; font-size:var(--font-size-base); color:var(--accent); font-weight:bold;"></div>
+        <div id="sni-selected" style="text-align:center; margin-top:8px; font-size:var(--font-size-base); color:var(--accent); font-weight:bold;"></div>
         <div class="ping-display" id="ping-display">
             <span class="status-dot yellow"></span> PUMILI MUNA PARA MAKITA ANG PING
         </div>
