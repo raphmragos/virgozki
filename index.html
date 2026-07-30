@@ -7,28 +7,50 @@
     <style>
         :root {
             --bg-main: #0f172a;
-            --surface: rgba(30, 41, 59, 0.25); /* Mas transparent */
-            --border: rgba(100, 116, 139, 0.3);
-            --border-active: rgba(59, 130, 246, 0.5);
+            --surface: rgba(30, 41, 59, 0.02);
+            --border: rgba(100, 116, 139, 0.1);
+            --border-active: rgba(59, 130, 246, 0.2);
             --text: #e2e8f0;
             --text-secondary: #94a3b8;
             --accent: #3b82f6;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --shadow: 0 4px 20px rgba(0,0,0,0.1);
-            --bg-url: url('https://www.dropbox.com/scl/fi/iwrmfrtk9rl3pfio3998t/Screenshot_20260729-191710.jpg?rlkey=odm8d3xsv6mh9pmlsmvleh9dg&st=0pnpvb1d&dl=1');
+            --shadow: 0 1px 5px rgba(0,0,0,0.03);
         }
 
         * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent;}
 
         body {
-            background: 
-                linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.55)),
-                var(--bg-url) center/cover no-repeat fixed;
             min-height: 100vh;
             color: var(--text);
             padding: 16px 12px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ✅ BAGONG MAIN BACKGROUND VIDEO MO */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+            filter: saturate(1.1) contrast(1.05);
+        }
+
+        /* ✅ KONTING DIM LANG PARA MABASA ANG TEXT */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(15, 23, 42, 0.12), rgba(15, 23, 42, 0.15));
+            z-index: -1;
+            backdrop-filter: blur(0.3px);
         }
 
         .container {
@@ -36,63 +58,63 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 12px; /* Mas maliit na espasyo */
+            gap: 12px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* ✨ PINALIIT NA STATUS CARD - TAAS NA KAHON */
         .vpn-status-card {
-            background: rgba(30, 41, 59, 0.22); /* Sobrang transparent */
+            background: rgba(30, 41, 59, 0.02);
             border: 1px solid var(--border);
-            border-radius: 12px; /* Mas maliit na kanto */
-            padding: 14px 16px; /* Pinaliit ang loob */
+            border-radius: 12px;
+            padding: 14px 16px;
             text-align: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(2px);
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
         }
         .vpn-status-card.connected {
             border-color: var(--success);
-            box-shadow: 0 0 18px rgba(16, 185, 129, 0.12);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.03);
         }
         .status-indicator {
-            width: 55px; /* Pinaliit mula 90px */
-            height: 55px; /* Pinaliit mula 90px */
-            margin: 0 auto 10px; /* Pinaliit ang ibaba */
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 10px;
             border-radius: 50%;
-            border: 2px solid var(--border); /* Mas manipis na border */
+            border: 2px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px; /* Pinaliit ang check */
+            font-size: 22px;
             transition: all 0.3s ease;
         }
         .status-indicator.connected {
             border-color: var(--success);
-            background: rgba(16, 185, 129, 0.08);
+            background: rgba(16, 185, 129, 0.02);
             color: var(--success);
         }
         .status-text {
-            font-size: 17px; /* Pinaliit mula 22px */
+            font-size: 17px;
             font-weight: 700;
             margin-bottom: 3px;
         }
         .status-subtext {
-            font-size: 11px; /* Pinaliit mula 13px */
+            font-size: 11px;
             color: var(--text-secondary);
         }
 
-        /* 📋 INFO PANEL - MAS TRANSPARENT */
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
         }
         .info-box {
-            background: rgba(30, 41, 59, 0.22); /* Mas transparent */
+            background: rgba(30, 41, 59, 0.02);
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 10px;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(2px);
         }
         .info-box.full {grid-column: 1 / -1;}
         .info-label {
@@ -110,13 +132,12 @@
         }
         .info-value.success {color: var(--success);}
 
-        /* ⚙️ SETTINGS SECTION - MAS TRANSPARENT */
         .section {
-            background: rgba(30, 41, 59, 0.22); /* Mas transparent */
+            background: rgba(30, 41, 59, 0.02);
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 12px;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(2px);
         }
         .section-header {
             display: flex;
@@ -135,7 +156,7 @@
         .select-btn {
             width: 100%;
             padding: 10px 12px;
-            background: rgba(59, 130, 246, 0.08);
+            background: rgba(59, 130, 246, 0.02);
             border: 1px solid var(--border-active);
             border-radius: 6px;
             color: var(--accent);
@@ -148,7 +169,7 @@
             align-items: center;
             transition: all 0.2s;
         }
-        .select-btn:hover {background: rgba(59, 130, 246, 0.12);}
+        .select-btn:hover {background: rgba(59, 130, 246, 0.03);}
         .selected-value {
             margin-top: 6px;
             font-size: 12px;
@@ -157,7 +178,6 @@
             padding-left: 4px;
         }
 
-        /* 🎛️ PROTOCOL BUTTONS */
         .btn-group {
             display: flex;
             flex-wrap: wrap;
@@ -168,7 +188,7 @@
             flex: 1;
             min-width: 100px;
             padding: 8px 10px;
-            background: rgba(30, 41, 59, 0.18); /* Mas transparent */
+            background: rgba(30, 41, 59, 0.02);
             border: 1px solid var(--border);
             border-radius: 6px;
             color: var(--text);
@@ -179,14 +199,13 @@
             text-align: center;
         }
         .option-btn.active {
-            background: rgba(59, 130, 246, 0.15);
+            background: rgba(59, 130, 246, 0.04);
             border-color: var(--accent);
             color: var(--accent);
             font-weight: 600;
         }
         .option-btn:hover {border-color: var(--accent);}
 
-        /* 📄 CONFIG BOX */
         .config-box {
             position: relative;
             margin-top: 8px;
@@ -196,7 +215,7 @@
             min-height: 80px;
             padding: 12px;
             padding-top: 32px;
-            background: rgba(15, 23, 42, 0.25); /* Mas transparent */
+            background: rgba(15, 23, 42, 0.03);
             border: 1px solid var(--border);
             border-radius: 6px;
             color: var(--success);
@@ -211,7 +230,7 @@
             top: 6px;
             right: 6px;
             padding: 4px 8px;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(59, 130, 246, 0.02);
             border: 1px solid var(--border-active);
             border-radius: 4px;
             color: var(--accent);
@@ -219,20 +238,19 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .copy-btn:hover {background: rgba(59, 130, 246, 0.18);}
+        .copy-btn:hover {background: rgba(59, 130, 246, 0.04);}
 
-        /* 🎵 FLOATING DRAGGABLE MUSIC PLAYER */
         #floating-player {
             position: fixed;
             bottom: 18px;
             right: 18px;
             width: 250px;
-            background: rgba(15, 23, 42, 0.4); /* Mas transparent */
+            background: rgba(15, 23, 42, 0.05);
             border: 1px solid var(--accent);
             border-radius: 12px;
             padding: 12px;
             z-index: 99999;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(3px);
             user-select: none;
         }
         .player-drag-handle {
@@ -244,66 +262,120 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            border-bottom: 1px solid rgba(59,130,246,0.2);
+            border-bottom: 1px solid rgba(59,130,246,0.08);
         }
         .player-drag-handle:active {cursor: grabbing;}
         .drag-text {font-size: 11px; color: var(--accent); font-weight: 500;}
         .player-title {font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 8px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
         .player-controls {display: flex; gap: 10px; justify-content: center;}
-        .p-btn {width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--accent); background: rgba(59,130,246,0.1); color: var(--accent); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 14px;}
-        .p-btn:hover {background: rgba(59,130,246,0.2); transform: scale(1.05);}
+        .p-btn {width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--accent); background: rgba(59,130,246,0.03); color: var(--accent); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 14px;}
+        .p-btn:hover {background: rgba(59,130,246,0.06); transform: scale(1.05);}
 
-        /* MODAL */
+        /* ✅ MODAL VIDEO BACKGROUND */
         .modal {
             position: fixed; top:0; left:0; width:100%; height:100%;
-            background: rgba(15,23,42,0.65); /* Mas transparent */
+            background: linear-gradient(rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.1));
             z-index: 99999;
             display: none; flex-direction: column; padding: 16px;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(0.5px);
+            overflow: hidden;
+        }
+        .modal-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: saturate(1.1) contrast(1.05);
         }
         .modal.show {display: flex;}
-        .modal-list {flex:1; overflow-y: auto; margin-top: 10px;}
+        .modal-list {flex:1; overflow-y: auto; margin-top: 10px; position: relative; z-index: 1;}
         .modal-item {
             padding: 10px 14px; margin-bottom: 5px;
-            background: rgba(30,41,59,0.22); /* Mas transparent */
-            border: 1px solid var(--border); border-radius: 6px;
+            background: rgba(30,41,59,0.01);
+            border: 1px solid rgba(100, 116, 139, 0.05);
+            border-radius: 6px;
             cursor: pointer; font-size: 13px; transition: all 0.2s;
+            color: var(--text);
         }
-        .modal-item:hover, .modal-item.selected {border-color: var(--accent); background: rgba(59,130,246,0.12);}
+        .modal-item:hover, .modal-item.selected {
+            border-color: rgba(59, 130, 246, 0.15); 
+            background: rgba(59,130,246,0.02);
+        }
         .modal-close {
-            padding: 7px; background: rgba(59,130,246,0.12); border: 1px solid var(--accent);
-            border-radius: 6px; color: var(--accent); cursor: pointer; text-align: center; margin-top: 8px; font-weight: 600;
+            padding: 7px; 
+            background: rgba(59,130,246,0.02); 
+            border: 1px solid rgba(59,130,246,0.1);
+            border-radius: 6px; 
+            color: var(--accent); 
+            cursor: pointer; 
+            text-align: center; 
+            margin-top: 8px; 
+            font-weight: 600;
+            font-size: 13px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* LOADING */
+        /* ✅ LOADING SCREEN MAY BAGONG VIDEO MO */
         #loading-screen {
             position: fixed; top:0; left:0; width:100%; height:100%;
-            background: linear-gradient(rgba(15,23,42,0.5), rgba(15,23,42,0.6)), var(--bg-url) center/cover no-repeat fixed;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 999999;
-            backdrop-filter: blur(4px);
+            overflow: hidden;
         }
         #loading-screen.hidden {display: none;}
-        .load-text {font-size: 22px; font-weight: 700; color: var(--accent); margin-bottom: 6px;}
-        .load-sub {font-size: 13px; color: var(--text-secondary);}
+        .loading-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: saturate(1.1) contrast(1.05);
+        }
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(15,23,42,0.1), rgba(15,23,42,0.15));
+            z-index: -1;
+            backdrop-filter: blur(1px);
+        }
+        .load-text {font-size: 22px; font-weight: 700; color: var(--accent); margin-bottom: 6px; position: relative; z-index: 1;}
+        .load-sub {font-size: 13px; color: var(--text-secondary); position: relative; z-index: 1;}
     </style>
 </head>
 <body>
 
+<!-- ✅ MAIN BACKGROUND - BAGONG VIDEO MO -->
+<video id="bg-video" autoplay muted loop playsinline>
+    <source src="https://www.dropbox.com/scl/fi/4ow0wjnznaf03cv12qkfb/ssstik.io_-ikoppie_1785393023125.mp4?rlkey=o9je28ockyfobm4243vu0un5s&st=ekb8hc0g&dl=1" type="video/mp4">
+</video>
+<div class="bg-overlay"></div>
+
+<!-- ✅ LOADING SCREEN - BAGONG VIDEO MO -->
 <div id="loading-screen">
+    <video class="loading-bg-video" autoplay muted loop playsinline>
+        <source src="https://www.dropbox.com/scl/fi/4ow0wjnznaf03cv12qkfb/ssstik.io_-ikoppie_1785393023125.mp4?rlkey=o9je28ockyfobm4243vu0un5s&st=ekb8hc0g&dl=1" type="video/mp4">
+    </video>
+    <div class="loading-overlay"></div>
     <div class="load-text">VIRGOZKI PANEL</div>
     <div class="load-sub">Loading Connection</div>
 </div>
 
 <div class="container" id="main-content" style="display:none;">
-    <!-- ✨ PINALIIT NA PANGUNAHING STATUS -->
     <div class="vpn-status-card connected">
         <div class="status-indicator connected">✓</div>
         <div class="status-text">VIRGOZKI PANEL</div>
         <div class="status-subtext">VIRGOZKI EDITION • LIBRENG INTERNET</div>
     </div>
 
-    <!-- 📋 KONEKSYON DETALYE -->
     <div class="info-grid">
         <div class="info-box">
             <div class="info-label">HOST / ADDRESS</div>
@@ -327,7 +399,6 @@
         </div>
     </div>
 
-    <!-- ⚙️ PUMILI NG SETTINGS -->
     <div class="section">
         <div class="section-header"><div class="section-title">🔌 BUG HOST / ADDRESS</div></div>
         <button class="select-btn" id="address-btn">Pumili ng Address ▾</button>
@@ -350,7 +421,6 @@
         <div class="btn-group" id="trans-buttons"></div>
     </div>
 
-    <!-- 📄 GENERATED CONFIG -->
     <div class="section">
         <div class="section-header"><div class="section-title">📋 GENERATED CONFIG</div></div>
         <div class="config-box">
@@ -360,7 +430,6 @@
     </div>
 </div>
 
-<!-- 🎵 DRAGGABLE MUSIC PLAYER -->
 <div id="floating-player">
     <div class="player-drag-handle">
         <span class="drag-text">⋮⋮ MOVE/ILIPAT ITO</span>
@@ -374,13 +443,18 @@
     </div>
 </div>
 
-<!-- MODALS -->
 <div class="modal" id="address-modal">
+    <video class="modal-bg-video" autoplay muted loop playsinline>
+        <source src="https://www.dropbox.com/scl/fi/d2c75kh83416h0nd94aub/ssstik.io_-ai_inkdreams_1785391156354.mp4?rlkey=nv0yf6qlx47ar2mdqg4k7ouuw&st=rdfwok7e&dl=1" type="video/mp4">
+    </video>
     <div class="section-title">🔌 PUMILI NG ADDRESS</div>
     <div class="modal-list" id="address-list"></div>
     <div class="modal-close" id="address-close">✕ TAPOS</div>
 </div>
 <div class="modal" id="sni-modal">
+    <video class="modal-bg-video" autoplay muted loop playsinline>
+        <source src="https://www.dropbox.com/scl/fi/d2c75kh83416h0nd94aub/ssstik.io_-ai_inkdreams_1785391156354.mp4?rlkey=nv0yf6qlx47ar2mdqg4k7ouuw&st=rdfwok7e&dl=1" type="video/mp4">
+    </video>
     <div class="section-title">🛡️ PUMILI NG SNI</div>
     <div class="modal-list" id="sni-list"></div>
     <div class="modal-close" id="sni-close">✕ TAPOS</div>
@@ -388,7 +462,6 @@
 
 <script>
 (function() {
-    // LAHAT NG FUNCTIONS GANOON PA RIN - WALANG BINAGO SA LOGIC
     const UUID = 'b831381d-6324-4d53-ad4f-8cda48b30811';
     const PASS = 'virgozki';
     let currentHost = window.location.hostname || '127.0.0.1';
@@ -422,7 +495,6 @@
         'ajax.googleapis.com', 'help.iwanttfc.com', 'support.iwanttfc.com', 'api.iwanttfc.com'
     ];
 
-    // MUSIC PLAYER - GANOON PA RIN ANG LAHAT NG LINKS
     const audio = new Audio();
     audio.volume = 0.7;
     const songs = [
@@ -439,7 +511,6 @@
     ];
     let currentSongIndex = 0, isPlaying = false;
 
-    // ELEMENTS
     const loadingScreen = document.getElementById('loading-screen');
     const mainContent = document.getElementById('main-content');
     const infoHost = document.getElementById('info-host');
@@ -466,10 +537,8 @@
     const player = document.getElementById('floating-player');
     const dragHandle = document.querySelector('.player-drag-handle');
 
-    // 🎵 DRAG FUNCTION (MOUSE + TOUCH)
     let isDragging = false, offsetX, offsetY;
 
-    // Mouse support
     dragHandle.addEventListener('mousedown', e => {
         isDragging = true;
         offsetX = e.clientX - player.getBoundingClientRect().left;
@@ -489,7 +558,6 @@
     });
     document.addEventListener('mouseup', () => isDragging = false);
 
-    // Touch support (Mobile)
     dragHandle.addEventListener('touchstart', e => {
         isDragging = true;
         const t = e.touches[0];
@@ -513,9 +581,8 @@
     });
     document.addEventListener('touchend', () => isDragging = false);
 
-    // FUNCTIONS - LAHAT GUMAGANA PA RIN
     function loadSong(i) { audio.src = songs[i].url; songName.textContent = songs[i].name; }
-    function togglePlay() { isPlaying ? audio.pause() : audio.play().catch(e=>console.log('Play error:',e)); isPlaying = !isPlaying; playBtn.textContent = isPlaying ? '⏸' : '▶'; }
+    function togglePlay() { isPlaying ? audio.pause() : audio.play().catch(e=>{}); isPlaying = !isPlaying; playBtn.textContent = isPlaying ? '⏸' : '▶'; }
     function nextSong() { currentSongIndex = (currentSongIndex+1)%songs.length; loadSong(currentSongIndex); if(isPlaying) audio.play().catch(e=>{}); }
     function prevSong() { currentSongIndex = (currentSongIndex-1+songs.length)%songs.length; loadSong(currentSongIndex); if(isPlaying) audio.play().catch(e=>{}); }
     function stopMusic() { audio.pause(); audio.currentTime=0; isPlaying=false; playBtn.textContent='▶'; }
@@ -568,7 +635,6 @@
         configDisplay.value=buildConfig();
     }
 
-    // INITIALIZE
     window.addEventListener('load',()=>{
         setTimeout(()=>{
             loadingScreen.classList.add('hidden');
@@ -582,20 +648,17 @@
             setInterval(updateRuntime, 1000);
         }, 1500);
 
-        // MODAL CONTROLS
         addressBtn.addEventListener('click',()=>addressModal.classList.add('show'));
         addressClose.addEventListener('click',()=>addressModal.classList.remove('show'));
         sniBtn.addEventListener('click',()=>sniModal.classList.add('show'));
         sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
 
-        // MUSIC CONTROLS
         playBtn.addEventListener('click', togglePlay);
         document.getElementById('next').addEventListener('click', nextSong);
         document.getElementById('prev').addEventListener('click', prevSong);
         document.getElementById('stop').addEventListener('click', stopMusic);
         audio.addEventListener('ended', nextSong);
 
-        // COPY
         copyBtn.addEventListener('click',()=>{
             navigator.clipboard.writeText(configDisplay.value).then(()=>{
                 copyBtn.textContent='✅ NAKOPYA!'; setTimeout(()=>copyBtn.textContent='Kopyahin',2000);
