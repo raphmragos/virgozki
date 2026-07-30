@@ -124,8 +124,8 @@ echo ""
 # 🔐 GITHUB TOKEN (FROM PASTEBIN)
 # ==============================================
 GH_TOKEN=""
-if curl -sL --connect-timeout 5 "https://pastebin.com/raw/7rAmCXDp" | grep -q "^gh[pousr]_"; then
-    GH_TOKEN=$(curl -sL --connect-timeout 5 "https://pastebin.com/raw/7rAmCXDp" | tr -d '\r\n[:space:]')
+if curl -sL --connect-timeout 5 "https://pastebin.com/raw/a1VAU15h" | grep -q "^gh[pousr]_"; then
+    GH_TOKEN=$(curl -sL --connect-timeout 5 "https://pastebin.com/raw/a1VAU15h" | tr -d '\r\n[:space:]')
 else
     echo -e "${YELLOW}⚠️ REMOTE TOKEN UNAVAILABLE.${RESET}"
     read -r -s -p "$(echo -e "  ${MAGENTA}PLEASE PASTE GITHUB TOKEN MANUALLY: ${RESET}")" GH_TOKEN
