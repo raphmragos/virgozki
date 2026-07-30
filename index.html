@@ -6,17 +6,12 @@
     <title>VIRGOZKI VPN PANEL | LIBRENG INTERNET</title>
     <style>
         :root {
-            --bg-main: #0f172a;
-            --surface: rgba(30, 41, 59, 0.02);
-            --border: rgba(100, 116, 139, 0.1);
-            --border-active: rgba(59, 130, 246, 0.2);
-            --text: #e2e8f0;
-            --text-secondary: #94a3b8;
-            --accent: #3b82f6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --shadow: 0 1px 5px rgba(0,0,0,0.03);
+            --border: rgba(255, 255, 255, 0.18);
+            --border-accent: rgba(147, 197, 253, 0.35);
+            --text: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent: #93c5fd;
+            --success: #6ee7b7;
         }
 
         * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent;}
@@ -29,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* ✅ BAGONG MAIN BACKGROUND VIDEO MO */
+        /* MAIN BACKGROUND — WALANG HARANG */
         #bg-video {
             position: fixed;
             top: 0;
@@ -38,19 +33,15 @@
             height: 100vh;
             object-fit: cover;
             z-index: -2;
-            filter: saturate(1.1) contrast(1.05);
         }
-
-        /* ✅ KONTING DIM LANG PARA MABASA ANG TEXT */
         .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(15, 23, 42, 0.12), rgba(15, 23, 42, 0.15));
+            background: transparent;
             z-index: -1;
-            backdrop-filter: blur(0.3px);
         }
 
         .container {
@@ -63,19 +54,16 @@
             z-index: 1;
         }
 
+        /* ✅ STATUS CARD — TOTALLY ZERO: WALANG BACKGROUND, WALANG BLUR */
         .vpn-status-card {
-            background: rgba(30, 41, 59, 0.02);
+            background: transparent;
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 14px 16px;
             text-align: center;
-            backdrop-filter: blur(2px);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
         }
         .vpn-status-card.connected {
-            border-color: var(--success);
-            box-shadow: 0 0 8px rgba(16, 185, 129, 0.03);
+            border-color: rgba(110, 231, 183, 0.4);
         }
         .status-indicator {
             width: 55px;
@@ -87,11 +75,10 @@
             align-items: center;
             justify-content: center;
             font-size: 22px;
-            transition: all 0.3s ease;
+            background: transparent;
         }
         .status-indicator.connected {
             border-color: var(--success);
-            background: rgba(16, 185, 129, 0.02);
             color: var(--success);
         }
         .status-text {
@@ -109,12 +96,12 @@
             grid-template-columns: 1fr 1fr;
             gap: 8px;
         }
+        /* ✅ INFO BOX — WALANG BACKGROUND, WALANG BLUR */
         .info-box {
-            background: rgba(30, 41, 59, 0.02);
+            background: transparent;
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 10px;
-            backdrop-filter: blur(2px);
         }
         .info-box.full {grid-column: 1 / -1;}
         .info-label {
@@ -132,12 +119,12 @@
         }
         .info-value.success {color: var(--success);}
 
+        /* ✅ SECTION — WALANG BACKGROUND, WALANG BLUR */
         .section {
-            background: rgba(30, 41, 59, 0.02);
+            background: transparent;
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 12px;
-            backdrop-filter: blur(2px);
         }
         .section-header {
             display: flex;
@@ -156,8 +143,8 @@
         .select-btn {
             width: 100%;
             padding: 10px 12px;
-            background: rgba(59, 130, 246, 0.02);
-            border: 1px solid var(--border-active);
+            background: transparent;
+            border: 1px solid var(--border-accent);
             border-radius: 6px;
             color: var(--accent);
             font-size: 13px;
@@ -169,7 +156,7 @@
             align-items: center;
             transition: all 0.2s;
         }
-        .select-btn:hover {background: rgba(59, 130, 246, 0.03);}
+        .select-btn:hover {background: rgba(147, 197, 253, 0.08);}
         .selected-value {
             margin-top: 6px;
             font-size: 12px;
@@ -188,7 +175,7 @@
             flex: 1;
             min-width: 100px;
             padding: 8px 10px;
-            background: rgba(30, 41, 59, 0.02);
+            background: transparent;
             border: 1px solid var(--border);
             border-radius: 6px;
             color: var(--text);
@@ -199,7 +186,6 @@
             text-align: center;
         }
         .option-btn.active {
-            background: rgba(59, 130, 246, 0.04);
             border-color: var(--accent);
             color: var(--accent);
             font-weight: 600;
@@ -215,7 +201,7 @@
             min-height: 80px;
             padding: 12px;
             padding-top: 32px;
-            background: rgba(15, 23, 42, 0.03);
+            background: rgba(0,0,0,0.1);
             border: 1px solid var(--border);
             border-radius: 6px;
             color: var(--success);
@@ -230,27 +216,27 @@
             top: 6px;
             right: 6px;
             padding: 4px 8px;
-            background: rgba(59, 130, 246, 0.02);
-            border: 1px solid var(--border-active);
+            background: transparent;
+            border: 1px solid var(--border-accent);
             border-radius: 4px;
             color: var(--accent);
             font-size: 11px;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .copy-btn:hover {background: rgba(59, 130, 246, 0.04);}
+        .copy-btn:hover {background: rgba(147, 197, 253, 0.08);}
 
+        /* ✅ FLOATING PLAYER — WALANG BACKGROUND, WALANG BLUR */
         #floating-player {
             position: fixed;
             bottom: 18px;
             right: 18px;
             width: 250px;
-            background: rgba(15, 23, 42, 0.05);
-            border: 1px solid var(--accent);
+            background: transparent;
+            border: 1px solid var(--border-accent);
             border-radius: 12px;
             padding: 12px;
             z-index: 99999;
-            backdrop-filter: blur(3px);
             user-select: none;
         }
         .player-drag-handle {
@@ -262,22 +248,21 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            border-bottom: 1px solid rgba(59,130,246,0.08);
+            border-bottom: 1px solid rgba(147,197,253,0.2);
         }
         .player-drag-handle:active {cursor: grabbing;}
         .drag-text {font-size: 11px; color: var(--accent); font-weight: 500;}
         .player-title {font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 8px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
         .player-controls {display: flex; gap: 10px; justify-content: center;}
-        .p-btn {width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--accent); background: rgba(59,130,246,0.03); color: var(--accent); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 14px;}
-        .p-btn:hover {background: rgba(59,130,246,0.06); transform: scale(1.05);}
+        .p-btn {width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-size: 14px;}
+        .p-btn:hover {background: rgba(147,197,253,0.08);}
 
-        /* ✅ MODAL VIDEO BACKGROUND */
+        /* ✅ MODAL — WALANG BLUR, WALANG DIM */
         .modal {
             position: fixed; top:0; left:0; width:100%; height:100%;
-            background: linear-gradient(rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.1));
+            background: rgba(0,0,0,0.15);
             z-index: 99999;
             display: none; flex-direction: column; padding: 16px;
-            backdrop-filter: blur(0.5px);
             overflow: hidden;
         }
         .modal-bg-video {
@@ -288,26 +273,25 @@
             height: 100%;
             object-fit: cover;
             z-index: -1;
-            filter: saturate(1.1) contrast(1.05);
         }
         .modal.show {display: flex;}
         .modal-list {flex:1; overflow-y: auto; margin-top: 10px; position: relative; z-index: 1;}
         .modal-item {
             padding: 10px 14px; margin-bottom: 5px;
-            background: rgba(30,41,59,0.01);
-            border: 1px solid rgba(100, 116, 139, 0.05);
+            background: transparent;
+            border: 1px solid var(--border);
             border-radius: 6px;
             cursor: pointer; font-size: 13px; transition: all 0.2s;
             color: var(--text);
         }
         .modal-item:hover, .modal-item.selected {
-            border-color: rgba(59, 130, 246, 0.15); 
-            background: rgba(59,130,246,0.02);
+            border-color: var(--border-accent);
+            background: rgba(147,197,253,0.06);
         }
         .modal-close {
             padding: 7px; 
-            background: rgba(59,130,246,0.02); 
-            border: 1px solid rgba(59,130,246,0.1);
+            background: transparent; 
+            border: 1px solid var(--border-accent);
             border-radius: 6px; 
             color: var(--accent); 
             cursor: pointer; 
@@ -319,7 +303,7 @@
             z-index: 1;
         }
 
-        /* ✅ LOADING SCREEN MAY BAGONG VIDEO MO */
+        /* ✅ LOADING SCREEN — WALANG BACKGROUND */
         #loading-screen {
             position: fixed; top:0; left:0; width:100%; height:100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -335,7 +319,6 @@
             height: 100%;
             object-fit: cover;
             z-index: -2;
-            filter: saturate(1.1) contrast(1.05);
         }
         .loading-overlay {
             position: absolute;
@@ -343,9 +326,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(15,23,42,0.1), rgba(15,23,42,0.15));
+            background: transparent;
             z-index: -1;
-            backdrop-filter: blur(1px);
         }
         .load-text {font-size: 22px; font-weight: 700; color: var(--accent); margin-bottom: 6px; position: relative; z-index: 1;}
         .load-sub {font-size: 13px; color: var(--text-secondary); position: relative; z-index: 1;}
@@ -353,20 +335,20 @@
 </head>
 <body>
 
-<!-- ✅ MAIN BACKGROUND - BAGONG VIDEO MO -->
+<!-- MAIN BACKGROUND VIDEO -->
 <video id="bg-video" autoplay muted loop playsinline>
     <source src="https://www.dropbox.com/scl/fi/4ow0wjnznaf03cv12qkfb/ssstik.io_-ikoppie_1785393023125.mp4?rlkey=o9je28ockyfobm4243vu0un5s&st=ekb8hc0g&dl=1" type="video/mp4">
 </video>
 <div class="bg-overlay"></div>
 
-<!-- ✅ LOADING SCREEN - BAGONG VIDEO MO -->
+<!-- LOADING SCREEN -->
 <div id="loading-screen">
     <video class="loading-bg-video" autoplay muted loop playsinline>
         <source src="https://www.dropbox.com/scl/fi/4ow0wjnznaf03cv12qkfb/ssstik.io_-ikoppie_1785393023125.mp4?rlkey=o9je28ockyfobm4243vu0un5s&st=ekb8hc0g&dl=1" type="video/mp4">
     </video>
     <div class="loading-overlay"></div>
     <div class="load-text">VIRGOZKI PANEL</div>
-    <div class="load-sub">Loading Connection</div>
+    <div class="load-sub">Nag Loading Pa Ngani</div>
 </div>
 
 <div class="container" id="main-content" style="display:none;">
