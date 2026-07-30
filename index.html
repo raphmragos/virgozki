@@ -6,21 +6,22 @@
     <title> VIRGOZKI PANEL | LIBRENG INTERNET </title>
     <style>
         :root {
-            --bg-main: #05050b;
-            --bg-dark: #080812;
-            --surface: rgba(15, 15, 31, 0.18);
-            --surface-dark: rgba(10, 10, 22, 0.15);
-            --border: rgba(26, 26, 58, 0.35);
-            --border-bright: rgba(96, 165, 250, 0.6);
-            --text: #e6e7ff;
-            --text-dim: #c0c2ff;
-            --accent: #93c5fd;
-            --glow: #bfdbfe;
-            --red: #ef4444;
+            --bg-main: #0f172a;
+            --bg-dark: #1e293b;
+            --surface: rgba(30, 41, 59, 0.35); /* Mas transparent */
+            --surface-dark: rgba(15, 23, 42, 0.45); /* Mas transparent */
+            --border: rgba(71, 85, 105, 0.4);
+            --border-bright: rgba(59, 130, 246, 0.5);
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --accent: #60a5fa;
+            --glow: rgba(59, 130, 246, 0.3);
+            --blue: #3b82f6;
+            --blue-dark: #2563eb;
             --yellow: #fbbf24;
-            --blue: #60a5fa;
-            --purple: #a78bfa;
             --green: #34d399;
+            --red: #f87171;
+            --purple: #a78bfa;
             --font-sans: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             --font-mono: 'Consolas', 'Monaco', monospace;
             --font-size-base: clamp(12px, 3vw, 15px);
@@ -34,7 +35,7 @@
 
         body {
             background: 
-                linear-gradient(rgba(5, 5, 11, 0.50), rgba(8, 8, 18, 0.55)),
+                linear-gradient(rgba(15, 23, 42, 0.55), rgba(30, 41, 59, 0.6)),
                 var(--bg-url) center/cover no-repeat fixed;
             color: var(--text);
             font-family: var(--font-sans);
@@ -61,37 +62,36 @@
         }
 
         @keyframes fadeInUp {from {opacity: 0; transform: translateY(18px);} to {opacity: 1; transform: translateY(0);}}
-        @keyframes textGlow {0%,100% {text-shadow: 0 0 15px rgba(147,197,253,0.7), 0 0 30px rgba(96,165,250,0.4);} 50% {text-shadow: 0 0 8px rgba(147,197,253,0.5), 0 0 18px rgba(96,165,250,0.2);}}
-        @keyframes akatsukiPulse {0%,100% {opacity: 0.8;} 50% {opacity:1;}}
+        @keyframes blueGlow {0%,100% {text-shadow: 0 0 12px var(--glow), 0 0 24px rgba(59,130,246,0.25);} 50% {text-shadow: 0 0 6px var(--glow), 0 0 12px rgba(59,130,246,0.15);}}
         .fade-in {animation: fadeInUp 0.6s ease-out forwards;}
-        .glow-text {animation: textGlow 3s ease-in-out infinite;}
+        .glow-text {animation: blueGlow 3s ease-in-out infinite;}
 
         /* Loading Screen */
         #loading-screen {
             position: fixed; top:0; left:0; width:100%; height:100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: linear-gradient(rgba(5,5,11,0.4), rgba(8,8,18,0.45)), var(--bg-url) center/cover no-repeat fixed;
+            background: linear-gradient(rgba(15,23,42,0.5), rgba(30,41,59,0.55)), var(--bg-url) center/cover no-repeat fixed;
             backdrop-filter: blur(2px);
             z-index:9999; transition: opacity 0.5s ease;
         }
         #loading-screen.hidden {opacity:0; pointer-events:none;}
-        .loading-digits {font-size: clamp(40px,12vw,60px); font-weight:800; font-family:var(--font-mono); letter-spacing:12px; color:var(--accent); animation: akatsukiPulse 2s infinite; text-shadow:0 0 20px rgba(147,197,253,0.8);}
-        .loading-subtitle {margin-top:28px; font-size:var(--font-size-sm); color:var(--text); letter-spacing:2px; opacity:0; animation:fadeInUp 0.8s ease 0.5s forwards; text-shadow:0 0 10px rgba(0,0,0,0.6);}
+        .loading-digits {font-size: clamp(40px,12vw,60px); font-weight:800; font-family:var(--font-mono); letter-spacing:12px; color:var(--blue); text-shadow:0 0 20px var(--glow);}
+        .loading-subtitle {margin-top:28px; font-size:var(--font-size-sm); color:var(--text-dim); letter-spacing:2px; opacity:0; animation:fadeInUp 0.8s ease 0.5s forwards;}
         
         .section {
-            background: rgba(13, 13, 34, 0.18);
+            background: rgba(30, 41, 59, 0.35); /* Mas transparent */
             border:1px solid var(--border);
             border-radius:8px;
             padding: 14px 16px;
-            box-shadow:0 2px 6px rgba(0,0,0,0.2);
+            box-shadow:0 2px 8px rgba(0,0,0,0.15);
             transition:all 0.3s ease;
-            backdrop-filter: blur(3px);
+            backdrop-filter: blur(4px);
         }
-        .section:hover {border-color:var(--border-bright); background: rgba(13, 13, 34, 0.25); transform:translateY(-1px);}
-        .section-title {font-weight:700; font-size:var(--font-size-lg); text-align:center; margin-bottom:10px; color:var(--text); text-transform:uppercase; text-shadow: 0 0 8px rgba(0,0,0,0.5);}
+        .section:hover {border-color:var(--blue); background: rgba(30, 41, 59, 0.45); transform:translateY(-1px); box-shadow:0 4px 12px rgba(59,130,246,0.1);}
+        .section-title {font-weight:700; font-size:var(--font-size-lg); text-align:center; margin-bottom:10px; color:var(--text); text-transform:uppercase;}
         .button-bar {display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:8px;}
         .btn {
-            background: rgba(10, 10, 22, 0.20);
+            background: rgba(30, 41, 59, 0.25); /* Mas transparent */
             border:1px solid var(--border);
             color:var(--text);
             padding:10px 14px;
@@ -104,23 +104,22 @@
             justify-content:space-between;
             align-items:center;
             min-height:44px;
-            text-shadow: 0 0 6px rgba(0,0,0,0.4);
         }
-        .btn:hover {border-color:var(--accent); background:rgba(96,165,250,0.20);}
-        .btn.active {border-color:var(--accent); background:rgba(96,165,250,0.28); box-shadow:0 0 10px rgba(96,165,250,0.25); font-weight:600; color:#fff;}
-        .ping-display {text-align:center; font-size:var(--font-size-sm); color:var(--text); margin-top:10px; padding:10px; border-radius:6px; background: rgba(10, 10, 22, 0.18); border:1px solid var(--border); text-shadow: 0 0 6px rgba(0,0,0,0.4);}
+        .btn:hover {border-color:var(--blue); background:rgba(59,130,246,0.12);}
+        .btn.active {border-color:var(--blue); background:rgba(59,130,246,0.2); box-shadow:0 0 10px var(--glow); font-weight:600; color:#fff;}
+        .ping-display {text-align:center; font-size:var(--font-size-sm); color:var(--text); margin-top:10px; padding:10px; border-radius:6px; background: rgba(30, 41, 59, 0.35); border:1px solid var(--border);}
         .speed-row {display:flex; justify-content:space-between; align-items:stretch; margin-top:12px; gap:10px;}
-        .speed-item {text-align:center; flex:1; padding:12px 8px; border-radius:6px; background: rgba(10, 10, 22, 0.18); border:1px solid var(--border); text-shadow: 0 0 6px rgba(0,0,0,0.4);}
+        .speed-item {text-align:center; flex:1; padding:12px 8px; border-radius:6px; background: rgba(30, 41, 59, 0.35); border:1px solid var(--border);}
         .speed-label {font-size:var(--font-size-sm); color:var(--text-dim); margin-bottom:4px; text-transform:uppercase;}
-        .speed-value {font-size:clamp(18px,5vw,26px); font-weight:800; margin-bottom:2px; text-shadow: 0 0 10px rgba(0,0,0,0.5);}
+        .speed-value {font-size:clamp(18px,5vw,26px); font-weight:800; margin-bottom:2px;}
         .speed-value.download {color:var(--green);}
         .speed-value.upload {color:var(--blue);}
         .speed-value.latency {color:var(--yellow);}
-        .graph-container {display:flex; align-items:flex-end; gap:3px; height:60px; margin-top:12px; padding:8px; background: rgba(10, 10, 22, 0.18); border-radius:6px; border:1px solid var(--border);}
-        .graph-bar {flex:1; background:linear-gradient(to top,var(--accent),#bfdbfe); border-radius:2px; transition:height 0.12s ease; min-height:2px; opacity:0.85;}
+        .graph-container {display:flex; align-items:flex-end; gap:3px; height:60px; margin-top:12px; padding:8px; background: rgba(30, 41, 59, 0.35); border-radius:6px; border:1px solid var(--border);}
+        .graph-bar {flex:1; background:linear-gradient(to top,var(--blue-dark),var(--accent)); border-radius:2px; transition:height 0.12s ease; min-height:2px; opacity:0.8;}
         .config-wrapper {position:relative;}
         .config-display {
-            background: rgba(10, 10, 22, 0.22);
+            background: rgba(30, 41, 59, 0.4); /* Mas transparent */
             border:1px solid var(--border);
             border-radius:6px;
             padding:14px;
@@ -134,62 +133,136 @@
             min-height:90px;
             max-height:260px;
             overflow-y:auto;
-            text-shadow: 0 0 5px rgba(0,0,0,0.4);
         }
-        .copy-btn {position:absolute; top:10px; right:14px; background: rgba(15, 15, 31, 0.25); border:1px solid var(--border); color:var(--text); padding:5px 12px; border-radius:4px; cursor:pointer; font-size:13px;}
-        .copy-btn:hover {border-color:var(--accent); background:rgba(96,165,250,0.20);}
+        .copy-btn {position:absolute; top:10px; right:14px; background: rgba(30, 41, 59, 0.3); border:1px solid var(--border); color:var(--text); padding:5px 12px; border-radius:4px; cursor:pointer; font-size:13px;}
+        .copy-btn:hover {border-color:var(--blue); background:rgba(59,130,246,0.15);}
         .status-dot {display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px;}
         .status-dot.green {background:var(--green); box-shadow:0 0 6px var(--green);}
         .status-dot.yellow {background:var(--yellow); box-shadow:0 0 6px var(--yellow); animation:pulse 1.2s infinite;}
         @keyframes pulse {0%,100% {opacity:1;} 50% {opacity:0.5;}}
-        .divider {border:none; border-top:1px solid rgba(96,165,250,0.25); margin:12px 0;}
-        .info-row {display:flex; justify-content:space-between; align-items:center; padding:6px 0; font-size:var(--font-size-sm); text-shadow: 0 0 5px rgba(0,0,0,0.4);}
+        .divider {border:none; border-top:1px solid rgba(59,130,246,0.2); margin:12px 0;}
+        .info-row {display:flex; justify-content:space-between; align-items:center; padding:6px 0; font-size:var(--font-size-sm);}
         .info-label {color:var(--text-dim);}
         .info-value {color:var(--accent); font-weight:600; font-size:14px;}
 
-        /* ✅ MAY PAREHONG BACKGROUND NA ANG PINAGPIPILIAN */
+        /* 🎵 FLOATING DRAGGABLE MUSIC PLAYER - MAS TRANSPARENT */
+        #floating-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 270px;
+            background: rgba(15, 23, 42, 0.55); /* Mas transparent */
+            border: 1px solid var(--blue-dark);
+            border-radius: 12px;
+            padding: 12px 14px;
+            z-index: 99999;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+            cursor: move;
+            user-select: none;
+        }
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(59,130,246,0.25);
+        }
+        .player-drag {
+            font-size: 12px;
+            color: var(--accent);
+            cursor: grab;
+            font-weight: 600;
+        }
+        .player-drag:active { cursor: grabbing; }
+        .mini-song-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+            text-shadow: 0 0 6px var(--glow);
+        }
+        .mini-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(30, 58, 95, 0.4);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+        .mini-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--blue-dark), var(--accent));
+            transition: width 0.1s linear;
+        }
+        .mini-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        .mini-btn {
+            background: rgba(30, 58, 95, 0.35); /* Mas transparent */
+            border: 1px solid var(--blue-dark);
+            color: var(--accent);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .mini-btn:hover { background: rgba(59,130,246,0.2); border-color: var(--blue); transform: scale(1.08); box-shadow: 0 0 10px var(--glow); }
+        .mini-btn.play { border-color: var(--blue); background: rgba(59,130,246,0.18); }
+        .mini-btn.stop { border-color: var(--blue-dark); background: rgba(37,99,235,0.12); }
+
+        /* ✅ MODAL - MAS TRANSPARENT */
         .fullscreen-modal {
             position:fixed; top:0; left:0; width:100%; height:100%;
-            background: linear-gradient(rgba(5,5,11,0.45), rgba(8,8,18,0.5)), var(--bg-url) center/cover no-repeat fixed;
+            background: rgba(15,23,42,0.7); /* Mas transparent */
             z-index:999999;
             display:none; flex-direction:column; padding:16px;
             animation:fadeInUp 0.25s ease-out;
-            backdrop-filter: blur(2px));
+            backdrop-filter: blur(4px);
         }
         .fullscreen-modal.show {display:flex;}
         .modal-header {
-            display:flex; justify-content:space-between; align-items:center;
-            padding:12px 0; margin-bottom:8px;
-            border-bottom:1px solid rgba(96,165,250,0.4);
-            background: rgba(10,10,22,0.2);
+            display:flex; justify-content:space-between; align-items:center; padding:12px 0; margin-bottom:8px;
+            border-bottom:1px solid var(--border-bright);
+            background: rgba(30,41,59,0.4); /* Mas transparent */
             border-radius:6px; padding:8px 12px;
-            backdrop-filter: blur(4px);
         }
-        .modal-title {font-size:18px; font-weight:bold; color:var(--accent); text-shadow:0 0 8px rgba(96,165,250,0.6);}
+        .modal-title {font-size:18px; font-weight:bold; color:var(--accent);}
         .modal-close {
-            background: rgba(10, 10, 22, 0.25);
-            border:1px solid rgba(96,165,250,0.5);
-            color:var(--text); padding:6px 12px; border-radius:6px;
+            background: rgba(30,41,59,0.3); /* Mas transparent */
+            border:1px solid var(--border-bright);
+            color:var(--accent); padding:6px 12px; border-radius:6px;
             font-size:16px; cursor:pointer;
-            backdrop-filter: blur(3px);
         }
-        .modal-close:hover {background:rgba(96,165,250,0.3);}
+        .modal-close:hover {background:rgba(59,130,246,0.15);}
         .modal-list {flex:1; overflow-y:auto; width:100%; padding-bottom:20px;}
         .dropdown-item {
             padding:12px 14px; margin-bottom:4px;
-            background: rgba(10, 10, 22, 0.18);
-            border:1px solid rgba(26,26,58,0.3);
+            background: rgba(30,41,59,0.3); /* Mas transparent */
+            border:1px solid var(--border);
             border-radius:6px; cursor:pointer;
             font-size:15px; color:var(--text); transition:all 0.2s;
-            text-shadow: 0 0 5px rgba(0,0,0,0.5);
-            backdrop-filter: blur(3px);
         }
-        .dropdown-item:hover {background:rgba(96,165,250,0.25); border-color:rgba(96,165,250,0.6); transform:scale(1.01);}
-        .dropdown-item.selected {background:rgba(96,165,250,0.28); border-color:rgba(96,165,250,0.7); color:#dbeafe; font-weight:bold;}
+        .dropdown-item:hover {background:rgba(59,130,246,0.15); border-color:var(--blue); transform:scale(1.01);}
+        .dropdown-item.selected {background:rgba(59,130,246,0.2); border-color:var(--blue); color:#bfdbfe; font-weight:bold;}
         
-        .log-container {background: rgba(10, 10, 22, 0.18); border:1px solid var(--border); border-radius:6px; padding:10px; max-height:100px; overflow-y:auto; font-size:12px; color:var(--text); margin-top:12px; text-shadow: 0 0 5px rgba(0,0,0,0.4);}
+        .log-container {background: rgba(30,41,59,0.35); border:1px solid var(--border); border-radius:6px; padding:10px; max-height:100px; overflow-y:auto; font-size:12px; color:var(--text); margin-top:12px;}
         .log-entry {padding:3px 0; font-family:var(--font-mono);}
-        .log-entry .time {color:#bfdbfe; margin-right:6px;}
+        .log-entry .time {color:var(--accent); margin-right:6px;}
     </style>
 </head>
 <body>
@@ -201,7 +274,7 @@
 
 <div class="container" id="main-content" style="display:none;">
     <div class="section fade-in">
-        <div class="section-title glow-text" style="font-size:var(--font-size-xl); letter-spacing:4px; color:var(--accent);">VIRGOZKI PANEL</div>
+        <div class="section-title glow-text" style="font-size:var(--font-size-xl); letter-spacing:4px; color:var(--blue);">VIRGOZKI PANEL</div>
         <div class="section-subtitle" style="text-align:center; color:var(--text-dim); margin-top:4px;"> • VIRGOZKI EDITION • LIBRENG INTERNET • WS + HU + XHTTP •</div>
         <hr class="divider">
         <div class="info-row"><span class="info-label">CURRENT HOST:</span><span class="info-value" id="info-host">---</span></div>
@@ -270,6 +343,23 @@
     </div>
 </div>
 
+<!-- 🎵 FLOATING DRAGGABLE MUSIC PLAYER - DEFAULT BLUE -->
+<div id="floating-player">
+    <div class="player-header">
+        <div class="mini-song-title" id="mini-song-name">NEFFEX - Control</div>
+        <div class="player-drag">⋮⋮ MOVE</div>
+    </div>
+    <div class="mini-progress">
+        <div class="mini-progress-fill" id="mini-progress-fill"></div>
+    </div>
+    <div class="mini-controls">
+        <button class="mini-btn" id="mini-prev" title="Nakaraan">⏮</button>
+        <button class="mini-btn play" id="mini-play" title="I-play/I-hinto">▶</button>
+        <button class="mini-btn stop" id="mini-stop" title="Itigil">⏹</button>
+        <button class="mini-btn" id="mini-next" title="Susunod">⏭</button>
+    </div>
+</div>
+
 <div class="fullscreen-modal" id="address-modal">
     <div class="modal-header">
         <div class="modal-title">🔌 PUMILI NG BUG HOST / ADDRESS</div>
@@ -329,6 +419,78 @@
     let speedHistory = [];
     let lastUpdateTime = Date.now();
 
+    // 🎵 MUSIC PLAYER VARIABLES
+    const audio = new Audio();
+    audio.volume = 0.7;
+    const songs = [
+        { name: 'NEFFEX - Control', url: 'https://www.dropbox.com/scl/fi/5qeqe89ibmyikcj7dmgie/NEFFEX-Control-Official-Lyric-Video-Copyright-Free-No.242-MP3_160K.mp3?rlkey=8mec522bb0mycbgeiw3b2p1st&st=n3xggf1g&dl=1' },
+        { name: 'NEFFEX - Crown', url: 'https://www.dropbox.com/scl/fi/z4sbip8lthzy5piuolpn2/NEFFEX-Crown-Copyright-Free-No.15-MP3_160K.mp3?rlkey=7gf528zikfyrxeav2blxh2ixl&st=b3diiygv&dl=1' },
+        { name: 'NEFFEX - Fight Back', url: 'https://www.dropbox.com/scl/fi/3pjn86px04k8mq7q5q3h6/NEFFEX-Fight-Back-Official-Video-No.37-MP3_160K.mp3?rlkey=k1j7x2woagxujekwxano6n4ge&st=bcl0xd7o&dl=1' },
+        { name: 'NEFFEX - Purpose', url: 'https://www.dropbox.com/scl/fi/ixhlx1kiw3gqnij817rz7/NEFFEX-Purpose-Copyright-Free-No.177-MP3_160K.mp3?rlkey=civmcmnzols7yy2b64dduiq8y&st=j6kqivoc&dl=1' },
+        { name: 'NEFFEX - Rumors', url: 'https://www.dropbox.com/scl/fi/6trrxr9mcu9mhbl061dkj/NEFFEX-Rumors-Lyrics-MP3_160K.mp3?rlkey=fh14ss4axvmt4up01c467nrxk&st=dvsyyzsd&dl=1' },
+        { name: 'NEFFEX - Best of Me', url: 'https://www.dropbox.com/scl/fi/rypimhnwa3f0sc7becgz8/NEFFEX-Best-of-Me-Copyright-Free-No.23-MP3_160K.mp3?rlkey=l6fqcjlklv2f08g8v9du23fb3&st=nguyidh9&dl=1' },
+        { name: 'NEFFEX - Chance', url: 'https://www.dropbox.com/scl/fi/cyxhytondpo74u1mbqdl5/NEFFEX-Chance-Copyright-Free-No.65-MP3_160K.mp3?rlkey=ha1km8kbvg6f8va6sozefdw96&st=v0eg4i31&dl=1' },
+        { name: 'NEFFEX - Cold', url: 'https://www.dropbox.com/scl/fi/3sxfjqb6ph9tfv6k1cz0h/NEFFEX-Cold-Copyright-Free-No.60-MP3_160K.mp3?rlkey=2wxp3ofoq9v26vxd9fh3iq9er&st=ghcd60wa&dl=1' },
+        { name: 'NEFFEX - Grateful', url: 'https://www.dropbox.com/scl/fi/v5419s2y2klq6ookxpzrd/NEFFEX-Grateful-Copyright-Free-No.54-MP3_160K.mp3?rlkey=6to3htylrlnxsru26ik2neds1&st=q47h5sgq&dl=1' },
+        { name: 'NEFFEX - Life', url: 'https://www.dropbox.com/scl/fi/uw1f789tb9v4i2k4xyw42/NEFFEX-Life-Copyright-Free-No.42-MP3_160K.mp3?rlkey=y9y56c3ui6f8kx8ar6l2f9pzv&st=9sgmxut6&dl=1' }
+    ];
+    let currentSongIndex = 0;
+    let isPlaying = false;
+
+    // FLOATING PLAYER DRAG FUNCTION
+    const player = document.getElementById('floating-player');
+    const dragHandle = document.querySelector('.player-drag');
+    let isDragging = false, offsetX, offsetY;
+    dragHandle.addEventListener('mousedown', e => {
+        isDragging = true;
+        offsetX = e.clientX - player.getBoundingClientRect().left;
+        offsetY = e.clientY - player.getBoundingClientRect().top;
+    });
+    document.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        let x = e.clientX - offsetX;
+        let y = e.clientY - offsetY;
+        const w = player.offsetWidth, h = player.offsetHeight;
+        x = Math.max(0, Math.min(x, window.innerWidth - w));
+        y = Math.max(0, Math.min(y, window.innerHeight - h));
+        player.style.left = x + 'px';
+        player.style.top = y + 'px';
+        player.style.bottom = 'auto';
+        player.style.right = 'auto';
+    });
+    document.addEventListener('mouseup', () => isDragging = false);
+    // Touch support for mobile
+    dragHandle.addEventListener('touchstart', e => {
+        isDragging = true;
+        const t = e.touches[0];
+        offsetX = t.clientX - player.getBoundingClientRect().left;
+        offsetY = t.clientY - player.getBoundingClientRect().top;
+        e.preventDefault();
+    });
+    document.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        const t = e.touches[0];
+        let x = t.clientX - offsetX;
+        let y = t.clientY - offsetY;
+        const w = player.offsetWidth, h = player.offsetHeight;
+        x = Math.max(0, Math.min(x, window.innerWidth - w));
+        y = Math.max(0, Math.min(y, window.innerHeight - h));
+        player.style.left = x + 'px';
+        player.style.top = y + 'px';
+        player.style.bottom = 'auto';
+        player.style.right = 'auto';
+        e.preventDefault();
+    });
+    document.addEventListener('touchend', () => isDragging = false);
+
+    // ELEMENTS
+    const miniSongName = document.getElementById('mini-song-name');
+    const miniProgressFill = document.getElementById('mini-progress-fill');
+    const miniPlay = document.getElementById('mini-play');
+    const miniStop = document.getElementById('mini-stop');
+    const miniNext = document.getElementById('mini-next');
+    const miniPrev = document.getElementById('mini-prev');
+
     const infoHost = document.getElementById('info-host');
     const runtimeDisplay = document.getElementById('runtime-display');
     const addressDropdownBtn = document.getElementById('address-dropdown-btn');
@@ -356,6 +518,77 @@
     const sniListEl = document.getElementById('sni-list');
     const sniClose = document.getElementById('sni-close');
 
+    // 🎵 MUSIC PLAYER FUNCTIONS
+    function loadSong(index) {
+        audio.src = songs[index].url;
+        miniSongName.textContent = songs[index].name;
+        addLog('Kanta na-load: ' + songs[index].name);
+    }
+
+    function autoPlayMusic() {
+        audio.play()
+            .then(() => {
+                isPlaying = true;
+                miniPlay.textContent = '⏸';
+                addLog('🎵 Music nagsimula na!');
+            })
+            .catch(err => {
+                addLog('ℹ️ Pindutin ang ▶ para magsimula ng music');
+                const enablePlay = () => {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        miniPlay.textContent = '⏸';
+                        addLog('🎵 Music nagsimula na!');
+                    });
+                    document.removeEventListener('click', enablePlay);
+                };
+                document.addEventListener('click', enablePlay, { once: true });
+            });
+    }
+
+    function togglePlay() {
+        if (isPlaying) {
+            audio.pause();
+            miniPlay.textContent = '▶';
+        } else {
+            audio.play().catch(e => addLog('Error sa pag-play: ' + e.message));
+            miniPlay.textContent = '⏸';
+        }
+        isPlaying = !isPlaying;
+    }
+
+    function stopMusic() {
+        audio.pause();
+        audio.currentTime = 0;
+        miniPlay.textContent = '▶';
+        isPlaying = false;
+        miniProgressFill.style.width = '0%';
+        addLog('Music tumigil na.');
+    }
+
+    function nextSong() {
+        currentSongIndex = (currentSongIndex + 1) % songs.length;
+        loadSong(currentSongIndex);
+        if (isPlaying) audio.play();
+    }
+
+    function prevSong() {
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+        loadSong(currentSongIndex);
+        if (isPlaying) audio.play();
+    }
+
+    function updateProgress() {
+        if (audio.duration) {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            miniProgressFill.style.width = percent + '%';
+        }
+    }
+
+    function songEnded() {
+        nextSong();
+    }
+
     function addLog(message) {
         const now = new Date();
         const time = now.toTimeString().split(' ')[0];
@@ -373,12 +606,27 @@
         addressDropdownBtn.textContent = selectedAddress+' ▾';
         sniDropdownBtn.textContent = selectedSNI+' ▾';
 
+        // 🎵 INIT MUSIC PLAYER
+        loadSong(currentSongIndex);
+        miniPlay.addEventListener('click', togglePlay);
+        miniStop.addEventListener('click', stopMusic);
+        miniNext.addEventListener('click', nextSong);
+        miniPrev.addEventListener('click', prevSong);
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('ended', songEnded);
+
         addressDropdownBtn.addEventListener('click', ()=>{ addressModal.classList.add('show'); updateListSelection(addressListEl,selectedAddress); });
         addressClose.addEventListener('click', ()=> addressModal.classList.remove('show'));
         sniDropdownBtn.addEventListener('click', ()=>{ sniModal.classList.add('show'); updateListSelection(sniListEl,selectedSNI); });
         sniClose.addEventListener('click', ()=> sniModal.classList.remove('show'));
 
-        setTimeout(()=>{ loadingScreen.classList.add('hidden'); mainContent.style.display='flex'; addLog('System ready — WS + HTTPUPGRADE + XHTTP ACTIVE'); }, 1800);
+        setTimeout(()=>{ 
+            loadingScreen.classList.add('hidden'); 
+            mainContent.style.display='flex'; 
+            addLog('System ready — WS + HTTPUPGRADE + XHTTP ACTIVE');
+            setTimeout(autoPlayMusic, 300);
+        }, 1800);
+        
         setInterval(simulateSpeedStream, 500);
         setInterval(updateRuntime, 1000);
     }
@@ -403,8 +651,8 @@
         const now=Date.now();
         if((now-lastUpdateTime)/1000 >=0.5){
             const dl=Math.random()*25000+8000, ul=Math.random()*12000+4000;
-            speedDownload.textContent=(dl/1024).toFixed(1); speedDownloadUnit.textContent='MB/s';
-            speedUpload.textContent=(ul/1024).toFixed(1); speedUploadUnit.textContent='MB/s';
+            speedDownload.textContent=(dl/1024).toFixed(1);
+            speedUpload.textContent=(ul/1024).toFixed(1);
             speedLatency.textContent=Math.floor(Math.random()*14+4);
             speedHistory.push(dl); if(speedHistory.length>40) speedHistory.shift();
             updateGraph(); lastUpdateTime=now;
@@ -456,7 +704,7 @@
     }
 
     buildButtonBar(protocolBar, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS, v=>{ selectedProtocol=v; addLog('Protocol: '+v.toUpperCase()); });
-    buildButtonBar(transportBar, TRANSPORTS, selectedTransport, TRANSPORT_LABELS, v=>{ selectedTransport=v; addLog('Transport: '+v.toUpperCase()); });
+    buildButtonBar(transportBar, TRANSPORTS, selectedTransport, TRANSPORT_LABELS, v=>{ selectedTransport=v; addLog('Transport: '+TRANSPORT_LABELS[v]); });
 
     copyBtn.addEventListener('click',()=>{
         navigator.clipboard.writeText(configDisplay.textContent).then(()=>{
