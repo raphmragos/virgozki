@@ -115,6 +115,103 @@
             text-shadow: 0 0 6px rgba(0, 204, 255, 0.3);
         }
 
+        /* ==================== NEW: SYSTEM INFO & STATUS BOXES ==================== */
+        .system-row {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 10px;
+        }
+        .system-box {
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 2px;
+            padding: 12px;
+            background: rgba(0, 255, 157, 0.015);
+        }
+        .system-box.small {
+            padding: 10px;
+        }
+        .sys-title {
+            font-size: 10px;
+            color: var(--neon-green);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sys-title .status-badge {
+            font-size: 8px;
+            padding: 1px 5px;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            border-radius: 1px;
+        }
+        .sys-item {
+            font-size: 10px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            gap: 4px;
+        }
+        .sys-item span:first-child { color: var(--text-dim); flex-shrink: 0; }
+        .sys-item span:last-child { color: var(--neon-blue); word-break: break-all; text-align: right; }
+
+        /* SMALL SYSTEM GRAPH */
+        .graph-container {
+            width: 100%;
+            height: 55px;
+            margin-top: 6px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 204, 255, 0.15);
+            background: rgba(0, 204, 255, 0.02);
+        }
+        .graph-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .graph-dot {
+            position: absolute;
+            bottom: 0;
+            width: 3px;
+            background: var(--neon-blue);
+            box-shadow: 0 0 4px var(--neon-blue);
+            transition: height 0.3s ease;
+        }
+
+        /* SYSTEM LOG BOX */
+        .log-box {
+            border: 1px solid rgba(255, 42, 85, 0.25);
+            border-radius: 2px;
+            padding: 12px;
+            background: rgba(255, 42, 85, 0.015);
+        }
+        .log-title {
+            font-size: 10px;
+            color: var(--neon-red);
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .log-content {
+            height: 70px;
+            overflow-y: auto;
+            font-size: 9px;
+            line-height: 1.4;
+            color: var(--text-dim);
+            background: rgba(0,0,0,0.15);
+            padding: 6px;
+            border: 1px solid rgba(255, 42, 85, 0.1);
+        }
+        .log-content::-webkit-scrollbar { width: 2px; }
+        .log-content::-webkit-scrollbar-thumb { background: var(--neon-red); }
+        .log-entry { margin-bottom: 2px; }
+        .log-time { color: var(--neon-red); margin-right: 4px; }
+        .log-success { color: var(--neon-green); }
+        .log-info { color: var(--neon-blue); }
+
         /* ==================== DATA PANELS ==================== */
         .data-grid {
             display: grid;
@@ -182,11 +279,8 @@
             color: var(--neon-green);
             font-size: 13px;
             font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.2s;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; transition: 0.2s;
         }
         .select-btn:hover {
             background: rgba(0, 255, 157, 0.1);
@@ -213,8 +307,7 @@
             color: var(--text-dim);
             font-size: 12px;
             font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
+            cursor: pointer; transition: 0.2s;
         }
         .switch-btn.active {
             border-color: var(--neon-purple);
@@ -222,9 +315,7 @@
             background: rgba(199, 125, 255, 0.08);
             box-shadow: inset 0 0 8px rgba(199, 125, 255, 0.15);
         }
-        .switch-btn:hover {
-            border-color: var(--neon-purple);
-        }
+        .switch-btn:hover { border-color: var(--neon-purple); }
 
         /* ==================== CONFIG TERMINAL ==================== */
         .terminal-box {
@@ -235,222 +326,103 @@
             background: rgba(255, 42, 85, 0.02);
         }
         .terminal-header {
-            position: absolute;
-            top: 10px;
-            left: 16px;
-            font-size: 10px;
-            color: var(--neon-red);
-            font-weight: 700;
+            position: absolute; top: 10px; left: 16px;
+            font-size: 10px; color: var(--neon-red); font-weight: 700;
         }
         .config-terminal {
-            width: 100%;
-            min-height: 90px;
-            margin-top: 20px;
-            background: transparent;
-            border: none;
-            color: var(--neon-green);
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            line-height: 1.5;
-            resize: none;
-            outline: none;
+            width: 100%; min-height: 90px; margin-top: 20px;
+            background: transparent; border: none;
+            color: var(--neon-green); font-family: 'Courier New', monospace;
+            font-size: 11px; line-height: 1.5; resize: none; outline: none;
         }
         .copy-terminal {
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            padding: 6px 12px;
-            background: transparent;
-            border: 1px solid var(--neon-red);
-            border-radius: 2px;
-            color: var(--neon-red);
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
+            position: absolute; top: 8px; right: 12px;
+            padding: 6px 12px; background: transparent;
+            border: 1px solid var(--neon-red); border-radius: 2px;
+            color: var(--neon-red); font-size: 10px; font-weight: 700;
+            cursor: pointer; transition: 0.2s;
         }
-        .copy-terminal:hover {
-            background: rgba(255, 42, 85, 0.1);
-        }
+        .copy-terminal:hover { background: rgba(255, 42, 85, 0.1); }
 
-        /* ✨ SOBRANG LIIT NA DRAGGABLE PLAYER - HINDI BILOG */
+        /* ✨ SOBRANG LIIT NA DRAGGABLE PLAYER - INILIPAT SA KANAN */
         .cyber-player {
-            position: fixed;
-            top: 18px;
-            left: 18px;
+            position: fixed; 
+            top: 18px; 
+            right: 18px; /* ✅ DEFAULT POSITION: KANAN */
+            left: auto; /* ✅ TINANGGAL ANG LEFT POSITION */
             width: 140px;
-            border: 1px solid rgba(199, 125, 255, 0.4);
-            border-radius: 3px;
-            padding: 8px;
-            background: rgba(2, 5, 16, 0.92);
+            border: 1px solid rgba(199, 125, 255, 0.4); border-radius: 3px;
+            padding: 8px; background: rgba(2, 5, 16, 0.92);
             box-shadow: 0 0 8px rgba(199, 125, 255, 0.12);
-            z-index: 99999;
-            user-select: none;
-            cursor: grab;
-            touch-action: none;
-            backdrop-filter: blur(4px);
+            z-index: 99999; user-select: none; cursor: grab;
+            touch-action: none; backdrop-filter: blur(4px);
         }
-        .cyber-player:active {
-            cursor: grabbing;
-            box-shadow: 0 0 15px rgba(199, 125, 255, 0.25);
-        }
+        .cyber-player:active { cursor: grabbing; box-shadow: 0 0 15px rgba(199, 125, 255, 0.25); }
         .player-drag-hint {
             width: 100%; padding: 2px 0; margin-bottom: 5px;
             border-bottom: 1px solid rgba(199,125,255,0.2);
-            text-align: center;
-            font-size: 8px; color: var(--neon-purple); font-weight: 500;
+            text-align: center; font-size: 8px; color: var(--neon-purple); font-weight: 500;
         }
         .player-name {
-            font-size: 9px;
-            color: var(--neon-purple);
-            font-weight: 700;
-            margin-bottom: 6px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: center;
+            font-size: 9px; color: var(--neon-purple); font-weight: 700;
+            margin-bottom: 6px; white-space: nowrap; overflow: hidden;
+            text-overflow: ellipsis; text-align: center;
         }
-        .player-controls {
-            display: flex;
-            gap: 6px;
-            justify-content: center;
-        }
+        .player-controls { display: flex; gap: 6px; justify-content: center; }
         .ctrl-btn {
-            width: 24px;
-            height: 24px;
-            border: 1px solid var(--neon-purple);
-            border-radius: 2px;
-            background: transparent;
-            color: var(--neon-purple);
-            font-size: 10px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
+            width: 24px; height: 24px; border: 1px solid var(--neon-purple);
+            border-radius: 2px; background: transparent; color: var(--neon-purple);
+            font-size: 10px; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; padding: 0;
         }
-        .ctrl-btn:hover {
-            background: rgba(199, 125, 255, 0.15);
-            transform: scale(1.05);
-        }
+        .ctrl-btn:hover { background: rgba(199, 125, 255, 0.15); transform: scale(1.05); }
 
         /* ==================== MODAL ==================== */
         .cyber-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(2, 5, 16, 0.96);
-            z-index: 9999;
-            display: none;
-            flex-direction: column;
-            padding: 24px 16px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 5, 16, 0.96); z-index: 9999;
+            display: none; flex-direction: column; padding: 24px 16px;
         }
-        .cyber-modal.show {
-            display: flex;
-        }
+        .cyber-modal.show { display: flex; }
         .modal-title {
-            font-size: 16px;
-            font-weight: 900;
-            color: var(--neon-green);
-            text-shadow: 0 0 8px rgba(0, 255, 157, 0.4);
-            margin-bottom: 16px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
+            font-size: 16px; font-weight: 900; color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(0, 255, 157, 0.4); margin-bottom: 16px;
+            padding-bottom: 10px; border-bottom: 1px solid var(--border);
         }
-        .modal-list {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 6px;
-        }
-        .modal-list::-webkit-scrollbar {
-            width: 3px;
-        }
-        .modal-list::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 0;
-        }
+        .modal-list { flex: 1; overflow-y: auto; padding-right: 6px; }
+        .modal-list::-webkit-scrollbar { width: 3px; }
+        .modal-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 0; }
         .modal-item {
-            padding: 14px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 2px;
-            font-size: 13px;
-            color: var(--text);
-            cursor: pointer;
-            transition: 0.2s;
+            padding: 14px; margin-bottom: 8px; border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 2px; font-size: 13px; color: var(--text);
+            cursor: pointer; transition: 0.2s;
         }
         .modal-item:hover, .modal-item.selected {
-            border-color: var(--neon-green);
-            background: rgba(0, 255, 157, 0.05);
-            padding-left: 18px;
+            border-color: var(--neon-green); background: rgba(0, 255, 157, 0.05); padding-left: 18px;
         }
         .modal-close {
-            margin-top: 14px;
-            padding: 14px;
-            border: 1px solid var(--neon-red);
-            border-radius: 2px;
-            background: transparent;
-            color: var(--neon-red);
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
+            margin-top: 14px; padding: 14px; border: 1px solid var(--neon-red);
+            border-radius: 2px; background: transparent; color: var(--neon-red);
+            font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s;
         }
-        .modal-close:hover {
-            background: rgba(255, 42, 85, 0.1);
-        }
+        .modal-close:hover { background: rgba(255, 42, 85, 0.1); }
 
         /* ==================== LOADING SCREEN ==================== */
         .cyber-loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-main);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 999999;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-main); display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 999999;
         }
-        .cyber-loading.hidden {
-            display: none;
-        }
+        .cyber-loading.hidden { display: none; }
         .load-text {
-            font-size: 20px;
-            font-weight: 900;
-            color: var(--neon-green);
-            text-shadow: 0 0 12px rgba(0, 255, 157, 0.5);
-            margin-bottom: 12px;
-            letter-spacing: 2px;
-            animation: pulse 1.5s infinite;
+            font-size: 20px; font-weight: 900; color: var(--neon-green);
+            text-shadow: 0 0 12px rgba(0, 255, 157, 0.5); margin-bottom: 12px;
+            letter-spacing: 2px; animation: pulse 1.5s infinite;
         }
-        @keyframes pulse {
-            0%,100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        .load-bar {
-            width: 190px;
-            height: 4px;
-            background: rgba(0, 255, 157, 0.1);
-            border-radius: 0;
-            overflow: hidden;
-        }
-        .load-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
-            animation: load 2s ease-out forwards;
-        }
-        @keyframes load {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .load-bar { width: 190px; height: 4px; background: rgba(0, 255, 157, 0.1); border-radius: 0; overflow: hidden; }
+        .load-fill { height: 100%; width: 0%; background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); animation: load 2s ease-out forwards; }
+        @keyframes load { 0% { width: 0%; } 100% { width: 100%; } }
     </style>
 </head>
 <body>
@@ -470,12 +442,39 @@
         <div class="corner-mark"></div>
         <div class="corner-mark"></div>
         <div class="header-title">VIRGOZKI VPN SYSTEM</div>
-        <div class="header-sub">SECURE CONNECTION INTERFACE v2.4.0</div>
+        <div class="header-sub">SECURE CONNECTION INTERFACE v2.5.0</div>
         <div class="status-line">
             <div class="pulse-dot"></div>
             <span>ONLINE | ENCRYPTED</span>
             <span class="uptime" id="runtime-display">00:00:00</span>
         </div>
+    </div>
+
+    <!-- NEW: SYSTEM INFO & STATUS PANEL -->
+    <div class="system-row">
+        <div class="system-box">
+            <div class="sys-title">
+                <span>SYSTEM INFO</span>
+                <span class="status-badge">ACTIVE VISIT</span>
+            </div>
+            <div class="sys-item"><span>IP ADDRESS</span><span id="sys-ip">DETECTING...</span></div>
+            <div class="sys-item"><span>REGION</span><span id="sys-region">DETECTING...</span></div>
+            <div class="sys-item"><span>LOCATION</span><span id="sys-address">DETECTING...</span></div>
+            <div class="sys-item"><span>CONNECTION</span><span class="success">SECURE</span></div>
+        </div>
+        <div class="system-box small">
+            <div class="sys-title">SYSTEM GRAPH</div>
+            <div class="graph-container" id="sys-graph"></div>
+        </div>
+    </div>
+
+    <!-- NEW: SYSTEM LOG -->
+    <div class="log-box">
+        <div class="log-title">
+            <span>SYSTEM LOG</span>
+            <span id="log-time">--:--:--</span>
+        </div>
+        <div class="log-content" id="system-log"></div>
     </div>
 
     <!-- DATA GRID -->
@@ -601,10 +600,69 @@
         'iwant-trailer.akamaized.net', '⬇️⬇️FOR UNLI YOUTUBE ONLY⬇️⬇️', 'youtube.com', 'googlevideo.com'
     ];
 
+    // === NEW: SYSTEM ELEMENTS ===
+    const sysIp = document.getElementById('sys-ip');
+    const sysRegion = document.getElementById('sys-region');
+    const sysAddress = document.getElementById('sys-address');
+    const systemLog = document.getElementById('system-log');
+    const logTime = document.getElementById('log-time');
+    const sysGraph = document.getElementById('sys-graph');
+
+    // === NEW: SYSTEM LOG FUNCTION ===
+    function addLog(msg, type='info') {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', {hour12:false});
+        logTime.textContent = timeStr;
+        const entry = document.createElement('div');
+        entry.className = `log-entry log-${type}`;
+        entry.innerHTML = `<span class="log-time">[${timeStr}]</span> ${msg}`;
+        systemLog.appendChild(entry);
+        systemLog.scrollTop = systemLog.scrollHeight;
+    }
+
+    // === NEW: AUTO IP / REGION / ADDRESS DETECTION ===
+    async function loadSystemInfo() {
+        addLog('Initializing system detection...', 'info');
+        try {
+            const res = await fetch('https://ipapi.co/json/');
+            const data = await res.json();
+            sysIp.textContent = data.ip || 'UNAVAILABLE';
+            sysRegion.textContent = `${data.region || 'UNKNOWN'} | ${data.country_name || 'UNKNOWN'}`;
+            sysAddress.textContent = `${data.city || 'UNKNOWN'}, ${data.country_name || 'UNKNOWN'}`;
+            addLog(`IP: ${data.ip || 'DETECTED'}`, 'success');
+            addLog(`Location loaded successfully`, 'success');
+        } catch (e) {
+            sysIp.textContent = 'OFFLINE';
+            sysRegion.textContent = 'UNKNOWN';
+            sysAddress.textContent = 'UNKNOWN';
+            addLog('Location API unreachable', 'info');
+        }
+    }
+
+    // === NEW: SMALL SYSTEM GRAPH ===
+    const graphBars = 12;
+    let graphPoints = Array(graphBars).fill(0);
+    for(let i=0; i<graphBars; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'graph-dot';
+        bar.style.left = `${(i/graphBars)*100}%`;
+        bar.style.height = '0%';
+        sysGraph.appendChild(bar);
+    }
+    const graphBarsEl = sysGraph.querySelectorAll('.graph-dot');
+    function updateGraph() {
+        graphPoints.shift();
+        graphPoints.push(Math.floor(Math.random() * 70) + 20);
+        graphPoints.forEach((val, i) => {
+            graphBarsEl[i].style.height = val + '%';
+        });
+    }
+
+    // === AUDIO PLAYER ===
     const audio = new Audio();
     audio.volume = 0.7;
-    audio.preload = 'none'; // ✅ AYOS: Hindi na mag-aantala ng preload para hindi matagal
-    audio.crossOrigin = 'anonymous'; // ✅ AYOS: Para sa pagbabahagi ng file
+    audio.preload = 'none';
+    audio.crossOrigin = 'anonymous';
     const songs = [
         { name: 'NEFFEX - Control', url: 'https://dl.dropboxusercontent.com/scl/fi/5qeqe89ibmyikcj7dmgie/NEFFEX-Control-Official-Lyric-Video-Copyright-Free-No.242-MP3_160K.mp3?rlkey=8mec522bb0mycbgeiw3b2p1st&st=n3xggf1g&dl=1' },
         { name: 'NEFFEX - Crown', url: 'https://dl.dropboxusercontent.com/scl/fi/z4sbip8lthzy5piuolpn2/NEFFEX-Crown-Copyright-Free-No.15-MP3_160K.mp3?rlkey=7gf528zikfyrxeav2blxh2ixl&st=b3diiygv&dl=1' },
@@ -646,7 +704,7 @@
     const songName = document.getElementById('song-name');
     const player = document.getElementById('floating-player');
 
-    // ✨ DRAG FUNCTIONALITY - WALANG PINAGBAGO
+    // DRAG FUNCTIONALITY - GUMAGANA PA RIN NG PERPEKTO
     let isDragging = false, offsetX, offsetY;
     function dragStart(e) {
         if (e.target.closest('.ctrl-btn')) return;
@@ -685,7 +743,8 @@
         songName.textContent = songs[i].name; 
         audio.src = songs[i].url;
         audio.onerror = () => {
-            console.log("⚠️ Hindi ma-access ang audio file - palitan ang link kung kailangan");
+            console.log("⚠️ Hindi ma-access ang audio file");
+            addLog('Audio stream unavailable', 'info');
             isPlaying = false;
             playBtn.textContent = '▶';
         };
@@ -694,9 +753,11 @@
         audio.play().then(()=>{ 
             isPlaying = true; 
             playBtn.textContent = '⏸';
+            addLog('Audio playback started', 'info');
         }).catch(()=>{ 
             isPlaying = false; 
             playBtn.textContent = '▶';
+            addLog('Playback blocked by browser', 'info');
         }); 
     }
     function nextSong() { 
@@ -714,9 +775,10 @@
         audio.currentTime = 0; 
         isPlaying = false; 
         playBtn.textContent = '▶';
+        addLog('Audio playback stopped', 'info');
     }
 
-    // ✨ BUILD CONFIG - WALANG PINAGBAGO
+    // BUILD CONFIG - WALANG PINAGBAGO
     function buildConfig() {
         const addr=selectedAddress, sni=selectedSNI, host=currentHost, path=PATHS[selectedProtocol][selectedTransport];
         let transportParam = '';
@@ -752,8 +814,15 @@
         items.forEach(item=>{
             const el=document.createElement('div'); el.className='modal-item'; el.textContent=item;
             el.addEventListener('click',()=>{
-                if(type==='address'){ selectedAddress=item; addressSelected.textContent='TARGET SET: '+item; addressBtnTxt.textContent=item; addressModal.classList.remove('show'); }
-                else { selectedSNI=item; sniSelected.textContent='SNI SET: '+item; sniBtnTxt.textContent=item; sniModal.classList.remove('show'); }
+                if(type==='address'){ 
+                    selectedAddress=item; addressSelected.textContent='TARGET SET: '+item; addressBtnTxt.textContent=item; 
+                    addLog(`Target address set: ${item}`, 'success');
+                    addressModal.classList.remove('show'); 
+                } else { 
+                    selectedSNI=item; sniSelected.textContent='SNI SET: '+item; sniBtnTxt.textContent=item; 
+                    addLog(`SNI set: ${item}`, 'success');
+                    sniModal.classList.remove('show'); 
+                }
                 updateUI();
             });
             container.appendChild(el);
@@ -766,6 +835,7 @@
             const b=document.createElement('button'); b.className='switch-btn'+(i===sel?' active':''); b.textContent=lbl?lbl[i]:i;
             b.addEventListener('click',()=>{
                 container.querySelectorAll('.switch-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); cb(i); updateUI();
+                addLog(`Protocol changed: ${lbl[i] || i}`, 'info');
             });
             container.appendChild(b);
         });
@@ -780,7 +850,7 @@
     }
 
     window.addEventListener('load',()=>{
-        setTimeout(()=>{
+        setTimeout(async ()=>{
             loadingScreen.classList.add('hidden');
             mainContent.style.display='flex';
             loadSong(0);
@@ -790,11 +860,23 @@
             buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS, v=>selectedProtocol=v);
             buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS, v=>selectedTransport=v);
             setInterval(updateRuntime, 1000);
+            setInterval(updateGraph, 1200);
+
+            await loadSystemInfo();
+            addLog('System interface loaded successfully', 'success');
+            addLog('Encryption modules active', 'success');
+            addLog('Ready for configuration generation', 'info');
         }, 2000);
 
-        addressBtn.addEventListener('click',()=>addressModal.classList.add('show'));
+        addressBtn.addEventListener('click',()=>{
+            addLog('Opening address selection list', 'info');
+            addressModal.classList.add('show');
+        });
         addressClose.addEventListener('click',()=>addressModal.classList.remove('show'));
-        sniBtn.addEventListener('click',()=>sniModal.classList.add('show'));
+        sniBtn.addEventListener('click',()=>{
+            addLog('Opening SNI selection list', 'info');
+            sniModal.classList.add('show');
+        });
         sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
 
         playBtn.addEventListener('click', togglePlay);
@@ -806,6 +888,9 @@
         copyBtn.addEventListener('click',()=>{
             navigator.clipboard.writeText(configDisplay.value).then(()=>{
                 copyBtn.textContent='COPIED ✓'; setTimeout(()=>copyBtn.textContent='COPY',2000);
+                addLog('Config copied to clipboard', 'success');
+            }).catch(()=>{
+                addLog('Copy permission denied', 'info');
             });
         });
     });
