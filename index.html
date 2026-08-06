@@ -222,8 +222,7 @@
             width: 3px;
             background: var(--neon-blue);
             box-shadow: 0 0 4px var(--neon-blue);
-          transition: height: 0.3s ease;
-          
+            transition: height: 0.3s ease;
         }
        .log-box {
             border: 1px solid rgba(255, 42, 85, 0.25);
@@ -341,7 +340,12 @@
             color: var(--text-dim);
             font-size: 12px;
             font-weight: 600;
-            cursor: pointer; transition: 0.2s;
+            cursor: pointer;
+            transition: 0.2s;
+            /* Proteksyon laban sa doble na pag-click */
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
         }
         .switch-btn.active {
             border-color: var(--neon-purple);
@@ -606,6 +610,7 @@
     let selectedTransport = 'ws';
     let selectedAddress = currentHost;
     let selectedSNI = currentHost;
+    let isProcessing = false; // Iwas doble click
 
     let addressList = [
         currentHost, '⬇️⬇️STS NO LOAD AND BYPASS⬇️⬇️', 'firebase.googleapis.com', 'google.com', 'firebase-settings.googleapis.com',
@@ -630,13 +635,12 @@
     const copyBypassBtn = document.getElementById('copy-bypass');
     const bypassConfig = document.getElementById('bypass-config');
 
-    // ==================== 🎵 MUSIC PLAYER - HINDI BINAGO ANG LISTAHAN MO ====================
+    // ==================== 🎵 MUSIC PLAYER - HINDI BINAGO ====================
     const audio = new Audio();
     audio.volume = 0.7;
     audio.preload = 'none';
     audio.crossOrigin = 'anonymous';
 
-    // ✅ ITO ANG LISTAHAN NG KANTA NA IBINIGAY MO - HINDI BINAGO
     const songs = [
         { name: "NEFFEX - Control", url: "https://dl.dropboxusercontent.com/scl/fi/5qeqe89ibmyikcj7dmgie/NEFFEX-Control-Official-Lyric-Video-Copyright-Free-No.242-MP3_160K.mp3?rlkey=8mec522bb0mycbgeiw3b2p1st&st=n3xggf1g&dl=1" },
         { name: "NEFFEX - Crown", url: "https://dl.dropboxusercontent.com/scl/fi/z4sbip8lthzy5piuolpn2/NEFFEX-Crown-Copyright-Free-No.15-MP3_160K.mp3?rlkey=7gf528zikfyrxeav2blxh2ixl&st=b3diiygv&dl=1" },
@@ -697,7 +701,6 @@
         addLog('Music stopped', 'info');
     }
 
-    // Ikabit ang mga button
     playBtn.addEventListener('click', togglePlay);
     document.getElementById('prev').addEventListener('click', prevSong);
     document.getElementById('next').addEventListener('click', nextSong);
@@ -822,96 +825,124 @@
         runtimeDisplay.textContent=[3600,60,1].map(t=>String(Math.floor(d/t)%60).padStart(2,'0')).join(':');
     }
 
-    function buildList(container, items, type) {
-        container.innerHTML='';
-        items.forEach(item=>{
-            const el=document.createElement('div'); el.className='modal-item'; el.textContent=item;
-            el.addEventListener('click',()=>{
-                if(type==='address'){ 
-                    selectedAddress=item; addressSelected.textContent='TARGET SET: '+item; addressBtnTxt.textContent=item; 
-                    addLog(`Target address set: ${item}`, 'success');
-                    addressModal.classList.remove('show'); 
-                } else { 
-                    selectedSNI=item; sniSelected.textContent='SNI SET: '+item; sniBtnTxt.textContent=item; 
-                    addLog(`SNI set: ${item}`, 'success');
-                    sniModal.classList.remove('show'); 
-                }
-                updateUI();
-            });
-            container.appendChild(el);
-        });
-    }
-
-    function buildOptions(container, items, sel, lbl, cb) {
-        container.innerHTML='';
-        items.forEach(i=>{
-            const b=document.createElement('button'); b.className='switch-btn'+(i===sel?' active':''); b.textContent=lbl[i]||i;
-            b.addEventListener('click',()=>{cb(i); updateUI(); addLog(`Switched to: ${lbl[i]||i}`, 'success');});
-            container.appendChild(b);
-        });
-    }
-
-    function updateUI() {
-        infoHost.textContent=selectedAddress;
-        infoSni.textContent=selectedSNI;
-        infoProto.textContent=PROTOCOL_LABELS[selectedProtocol];
-        infoTransport.textContent=TRANSPORT_LABELS[selectedTransport];
-        configDisplay.value=buildConfig();
-    }
-
-    copyBypassBtn.addEventListener('click',()=>{
-        navigator.clipboard.writeText(bypassConfig.value).then(()=>{
-            copyBypassBtn.textContent='COPIED ✓';
-            setTimeout(()=>copyBypassBtn.textContent='COPY',2000);
-            addLog('Bypass config copied!', 'success');
-        }).catch(()=>addLog('Copy failed', 'info'));
-    });
-
-    copyBtn.addEventListener('click',()=>{
-        navigator.clipboard.writeText(bypassConfig.value).then(()=>{
-            copyBypassBtn.textContent='COPIED ✓';
-            setTimeout(()=>copyBypassBtn.textContent='COPY',2000);
-            addLog('Bypass config copied!', 'success');
-        }).catch(()=>addLog('Copy failed', 'info'));
-    });
-
-    copyBtn.addEventListener('click',()=>{
-        navigator.clipboard.writeText(configDisplay.value).then(()=>{
-            copyBtn.textContent='COPIED ✓';
-            setTimeout(()=>copyBtn.textContent='COPY',2000);
-            addLog('Config copied to clipboard', 'success');
-        }).catch(()=>addLog('Copy permission denied', 'info'));
-    });
-
-    addressBtn.addEventListener('click',()=>{
-        buildList(addressListEl, addressList, 'address');
-        addressModal.classList.add('show');
-        addLog('Opening address list', 'info');
-    });
-    addressClose.addEventListener('click',()=>addressModal.classList.remove('show'));
-    sniBtn.addEventListener('click',()=>{
-        buildList(sniListEl, sniList, 'sni');
-        sniModal.classList.add('show');
-        addLog('Opening SNI list', 'info');
-    });
-    sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
-
-    window.addEventListener('load',()=>{
-        setTimeout(()=>{
-            loadingScreen.classList.add('hidden');
-            mainContent.style.display='flex';
+function buildList(container, items, type) {
+    container.innerHTML='';
+    items.forEach(item=>{
+        const el=document.createElement('div'); 
+        el.className='modal-item'; 
+        el.textContent=item;
+        el.addEventListener('click',()=>{
+            if(type==='address'){ 
+                selectedAddress=item; 
+                addressSelected.textContent='TARGET SET: '+item; 
+                addressBtnTxt.textContent=item; 
+                addLog(`Target address set: ${item}`, 'success');
+                addressModal.classList.remove('show'); 
+            } else { 
+                selectedSNI=item; 
+                sniSelected.textContent='SNI SET: '+item; 
+                sniBtnTxt.textContent=item; 
+                addLog(`SNI set: ${item}`, 'success');
+                sniModal.classList.remove('show'); 
+            }
             updateUI();
-            buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS, v=>selectedProtocol=v);
-            buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS, v=>selectedTransport=v);
-            setInterval(updateRuntime, 1000);
-            setInterval(updateGraph, 1200);
-
-            addLog('System interface loaded successfully', 'success');
-            addLog('Encryption modules active', 'success');
-            addLog('Ready for configuration generation', 'info');
-        }, 1200);
+        });
+        container.appendChild(el);
     });
+}
+
+// ✅ INAYOS NA ANG BUILDOPTIONS: WALANG DOBLE NA TAWAG
+function buildOptions(container, items, activeItem, labels) {
+    container.innerHTML='';
+    items.forEach(item=>{
+        const b=document.createElement('button');
+        b.className='switch-btn' + (item === activeItem ? ' active' : '');
+        b.textContent = labels[item] || item;
+        
+        b.addEventListener('click', ()=>{
+            if (isProcessing) return;
+            isProcessing = true;
+
+            // ✅ TANGGAL SA LAHAT, ILAGAY SA PININDOT
+            container.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('active'));
+            b.classList.add('active');
+
+            // ✅ PALITAN ANG VALUE
+            if (container === protoButtons) selectedProtocol = item;
+            if (container === transButtons) selectedTransport = item;
+
+            addLog(`Switched to: ${labels[item]||item}`, 'success');
+            updateUI();
+
+            setTimeout(()=> isProcessing = false, 200);
+        });
+        container.appendChild(b);
+    });
+}
+
+function updateUI() {
+    infoHost.textContent=selectedAddress;
+    infoSni.textContent=selectedSNI;
+    infoProto.textContent=PROTOCOL_LABELS[selectedProtocol];
+    infoTransport.textContent=TRANSPORT_LABELS[selectedTransport];
+    configDisplay.value=buildConfig();
+
+    // ✅ AYUSIN ANG DISPLAY NG BUTTONS HABANG HINDI NAGLO-LOAD
+    buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS);
+    buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
+}
+
+// ✅ INAYOS NA ANG COPY BUTTONS: ISA-ISA LANG AT TAMA ANG KINOKOPYA
+copyBypassBtn.addEventListener('click',()=>{
+    navigator.clipboard.writeText(bypassConfig.value).then(()=>{
+        copyBypassBtn.textContent='COPIED ✓';
+        setTimeout(()=>copyBypassBtn.textContent='COPY',2000);
+        addLog('Bypass config copied!', 'success');
+    }).catch(()=>addLog('Copy failed', 'info'));
+});
+
+copyBtn.addEventListener('click',()=>{
+    navigator.clipboard.writeText(configDisplay.value).then(()=>{
+        copyBtn.textContent='COPIED ✓';
+        setTimeout(()=>copyBtn.textContent='COPY',2000);
+        addLog('Config copied to clipboard', 'success');
+    }).catch(()=>addLog('Copy permission denied', 'info'));
+});
+
+addressBtn.addEventListener('click',()=>{
+    buildList(addressListEl, addressList, 'address');
+    addressModal.classList.add('show');
+    addLog('Opening address list', 'info');
+});
+addressClose.addEventListener('click',()=>addressModal.classList.remove('show'));
+
+sniBtn.addEventListener('click',()=>{
+    buildList(sniListEl, sniList, 'sni');
+    sniModal.classList.add('show');
+    addLog('Opening SNI list', 'info');
+});
+sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
+
+window.addEventListener('load',()=>{
+    setTimeout(()=>{
+        loadingScreen.classList.add('hidden');
+        mainContent.style.display='flex';
+        
+        // ✅ TAMA NA ANG UNANG PAGKABUO: WALA NANG DAGDAG NA CB
+        buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS);
+        buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
+        
+        updateUI();
+        setInterval(updateRuntime, 1000);
+        setInterval(updateGraph, 1200);
+
+        addLog('System interface loaded successfully', 'success');
+        addLog('Encryption modules active', 'success');
+        addLog('Ready for configuration generation', 'info');
+    }, 1200);
+});
 })();
 </script>
 </body>
 </html>
+
