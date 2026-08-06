@@ -113,6 +113,61 @@
             text-shadow: 0 0 6px rgba(0, 204, 255, 0.3);
         }
 
+        .bypass-box {
+            border: 1px solid var(--neon-green);
+            border-radius: 2px;
+            padding: 16px;
+            background: rgba(0, 255, 157, 0.02);
+            position: relative;
+        }
+        .bypass-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px rgba(0, 255, 157, 0.3);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .bypass-title::before { content: '⚡'; }
+        .bypass-code-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        .bypass-code {
+            flex: 1;
+            min-height: 70px;
+            padding: 10px;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(0, 255, 157, 0.15);
+            border-radius: 2px;
+            color: var(--neon-blue);
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            line-height: 1.4;
+            word-break: break-all;
+            resize: none;
+            outline: none;
+        }
+        .copy-bypass-btn {
+            padding: 10px 12px;
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            border-radius: 2px;
+            color: var(--neon-green);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+        .copy-bypass-btn:hover {
+            background: rgba(0, 255, 157, 0.1);
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+        }
+
         .system-row {
             display: grid;
             grid-template-columns: 1.6fr 1fr;
@@ -167,10 +222,10 @@
             width: 3px;
             background: var(--neon-blue);
             box-shadow: 0 0 4px var(--neon-blue);
-            transition: height 0.3s ease;
+          transition: height: 0.3s ease;
+          
         }
-
-        .log-box {
+       .log-box {
             border: 1px solid rgba(255, 42, 85, 0.25);
             border-radius: 2px;
             padding: 12px;
@@ -419,6 +474,14 @@
         </div>
     </div>
 
+    <div class="bypass-box">
+        <div class="bypass-title">BYPASS UNLI TIKTOK ALLNET NO DEDUCT</div>
+        <div class="bypass-code-wrapper">
+            <textarea class="bypass-code" id="bypass-config" readonly>nm-ssh://eXmEHKsBqCxcBIozaVazvnUtBlxEwZwBQbYMxFYPB0enOifkOSFSDybe6jK68Tp0+SkEjcMb6KDnb/GeTxdkF2Z0powFlg+Pzic7Auq3NZ5x/q76UGXcCetgirsB8QMBEnvTjkGwRZvwlgZ4HN/ISrEJEyVFxnxjgSaCUZvECbFUBfdjgb0wP4ux8QqDqCfAXBD92EWGT9auxCqg8CKeSmlJCeGMwfp2IrzojIGrEQo+dd+UK6QBDwo9XHbp5rJWw+iXtar3i3x8nvMwszyRdPK7Kry9nDvSIT83XVfNscyVuFPYshLVvMGGbz3KqKDq0sZ+3JbI04m4XYte95vuoUcdrOjGef3/WioW42JLmMuWTx3d2cEjJNs8eLKS6lnArGPHf8QKS3ETcBCQoz3saQV7vIVXwKX/E199WVEi4fGCQiUt6SVeQACkfgP0Zy42cEoVVKzwAm5cLOA5xelN7MCNv8lkz7F7cIWqx6gzu46n8bJc7YnKzX3BB8ocvNskgEtNsyHopjqdWXC5bpZL45ti6A6wVes5vIlAwYFm6EF3myYLZNp2hvWyDFtLFLtzDnv8yi22QOJg60TUQZr21uCL/O9Qfo3Bzwczk0PMYEF4GRgRIu7huxdMzk0sDwHdBXV4H46ebpB8lMP3flcPubbjAwGRFNUnpyFjNdVZFhHH37U8xrdyONwlJ+vArn0MzFvF7OsKn8CpkIMZ64u7WEphg//hvhnp/bP/EifQWuZtHcsiwsWn9llimqecEd7d</textarea>
+            <button class="copy-bypass-btn" id="copy-bypass">COPY</button>
+        </div>
+    </div>
+
     <div class="system-row">
         <div class="system-box">
             <div class="sys-title">
@@ -556,7 +619,7 @@
         'firebase-settings.crashlytics.com', 'firebaseinstallations.googleapis.com', 'fonts.googleapis.com',
         'firebaseremoteconfigrealtime.googleapis.com', 'benefits-client-production.voyagerapis.com', 'cdn-settings.appsflyersdk.com', 
         'app-analytics-services.com', '⬇️⬇️FOR DITO BYPASS IWANTTFC ⬇️⬇️', 'qa.iwanttfc.com', 'help.iwanttfc.com', 'support.iwanttfc.com', 'api.iwanttfc.com', 
-        'iwant-trailer.akamaized.net', '⬇️⬇️FOR UNLI YOUTUBE ONLY⬇️⬇️', 'youtube.com', 'googlevideo.com', '⬇️⬇️BYPASS UNLI TIKTOK FOR STS, GTM AND DITO⬇️⬇️',
+        'iwant-trailer.akamaized.net', '⬇️⬇️FOR UNLI YOUTUBE ONLY⬇️⬇️', 'youtube.com', 'googlevideo.com', '⬇️⬇️BYPASS UNLI TIKTOK FOR STS, GTM AND DITO ZERO MB⬇️⬇️',
         'api24-normal.tiktokv.com', 'api24-normal-alisg.tiktokv.com', 'api24-normal-useast1a.tiktokv.com', 'tiktok.surf2sawa.org', 'tiktok.com', 'www.tiktok.com', 
         'm.tiktok.com', 
     ];
@@ -564,6 +627,82 @@
     const systemLog = document.getElementById('system-log');
     const logTime = document.getElementById('log-time');
     const sysGraph = document.getElementById('sys-graph');
+    const copyBypassBtn = document.getElementById('copy-bypass');
+    const bypassConfig = document.getElementById('bypass-config');
+
+    // ==================== 🎵 MUSIC PLAYER - HINDI BINAGO ANG LISTAHAN MO ====================
+    const audio = new Audio();
+    audio.volume = 0.7;
+    audio.preload = 'none';
+    audio.crossOrigin = 'anonymous';
+
+    // ✅ ITO ANG LISTAHAN NG KANTA NA IBINIGAY MO - HINDI BINAGO
+    const songs = [
+        { name: "NEFFEX - Control", url: "https://dl.dropboxusercontent.com/scl/fi/5qeqe89ibmyikcj7dmgie/NEFFEX-Control-Official-Lyric-Video-Copyright-Free-No.242-MP3_160K.mp3?rlkey=8mec522bb0mycbgeiw3b2p1st&st=n3xggf1g&dl=1" },
+        { name: "NEFFEX - Crown", url: "https://dl.dropboxusercontent.com/scl/fi/z4sbip8lthzy5piuolpn2/NEFFEX-Crown-Copyright-Free-No.15-MP3_160K.mp3?rlkey=7gf528zikfyrxeav2blxh2ixl&st=b3diiygv&dl=1" },
+        { name: "NEFFEX - Fight Back", url: "https://dl.dropboxusercontent.com/scl/fi/3pjn86px04k8mq7q5q3h6/NEFFEX-Fight-Back-Official-Video-No.37-MP3_160K.mp3?rlkey=k1j7x2woagxujekwxano6n4ge&st=bcl0xd7o&dl=1" },
+        { name: "NEFFEX - Purpose", url: "https://dl.dropboxusercontent.com/scl/fi/ixhlx1kiw3gqnij817rz7/NEFFEX-Purpose-Copyright-Free-No.177-MP3_160K.mp3?rlkey=civmcmnzols7yy2b64dduiq8y&st=j6kqivoc&dl=1" },
+        { name: "NEFFEX - Rumors", url: "https://dl.dropboxusercontent.com/scl/fi/6trrxr9mcu9mhbl061dkj/NEFFEX-Rumors-Lyrics-MP3_160K.mp3?rlkey=fh14ss4axvmt4up01c467nrxk&st=dvsyyzsd&dl=1" },
+        { name: "NEFFEX - Best of Me", url: "https://dl.dropboxusercontent.com/scl/fi/rypimhnwa3f0sc7becgz8/NEFFEX-Best-of-Me-Copyright-Free-No.23-MP3_160K.mp3?rlkey=l6fqcjlklv2f08g8v9du23fb3&st=nguyidh9&dl=1" },
+        { name: "NEFFEX - Chance", url: "https://dl.dropboxusercontent.com/scl/fi/cyxhytondpo74u1mbqdl5/NEFFEX-Chance-Copyright-Free-No.65-MP3_160K.mp3?rlkey=ha1km8kbvg6f8va6sozefdw96&st=v0eg4i31&dl=1" },
+        { name: "NEFFEX - Cold", url: "https://dl.dropboxusercontent.com/scl/fi/3sxfjqb6ph9tfv6k1cz0h/NEFFEX-Cold-Copyright-Free-No.60-MP3_160K.mp3?rlkey=2wxp3ofoq9v26vxd9fh3iq9er&st=ghcd60wa&dl=1" },
+        { name: "NEFFEX - Grateful", url: "https://dl.dropboxusercontent.com/scl/fi/v5419s2y2klq6ookxpzrd/NEFFEX-Grateful-Copyright-Free-No.54-MP3_160K.mp3?rlkey=6to3htylrlnxsru26ik2neds1&st=q47h5sgq&dl=1" },
+        { name: "NEFFEX - Life", url: "https://dl.dropboxusercontent.com/scl/fi/uw1f789tb9v4i2k4xyw42/NEFFEX-Life-Copyright-Free-No.42-MP3_160K.mp3?rlkey=y9y56c3ui6f8kx8ar6l2f9pzv&st=9sgmxut6&dl=1" }
+    ];
+
+    let currentSongIndex = 0, isPlaying = false;
+    const playBtn = document.getElementById('play');
+    const songName = document.getElementById('song-name');
+
+    function loadSong(i) { 
+        songName.textContent = songs[i].name; 
+        audio.src = songs[i].url;
+        audio.onerror = () => {
+            addLog('⚠️ Audio link blocked (Dropbox limitado). Gamitin ang Catbox.moe', 'info');
+            isPlaying = false;
+            playBtn.textContent = '▶';
+        };
+    }
+    function togglePlay() { 
+        if(isPlaying){ 
+            audio.pause(); 
+            isPlaying = false; 
+            playBtn.textContent = '▶'; 
+            addLog('Music paused', 'info');
+        } else { 
+            audio.play().then(()=>{ 
+                isPlaying = true; 
+                playBtn.textContent = '⏸'; 
+                addLog('🎵 Music playing', 'success'); 
+            }).catch(()=>{
+                addLog('❌ Hindi ma-play ang link. Palitan ng ibang host', 'info');
+            }); 
+        }
+    }
+    function nextSong() { 
+        currentSongIndex = (currentSongIndex + 1) % songs.length; 
+        loadSong(currentSongIndex); 
+        if(isPlaying) audio.play().catch(e=>{}); 
+    }
+    function prevSong() { 
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; 
+        loadSong(currentSongIndex); 
+        if(isPlaying) audio.play().catch(e=>{}); 
+    }
+    function stopMusic() { 
+        audio.pause(); 
+        audio.currentTime = 0; 
+        isPlaying = false; 
+        playBtn.textContent = '▶';
+        addLog('Music stopped', 'info');
+    }
+
+    // Ikabit ang mga button
+    playBtn.addEventListener('click', togglePlay);
+    document.getElementById('prev').addEventListener('click', prevSong);
+    document.getElementById('next').addEventListener('click', nextSong);
+    document.getElementById('stop').addEventListener('click', stopMusic);
+    // ==================== END OF MUSIC PLAYER ====================
 
     function addLog(msg, type='info') {
         const now = new Date();
@@ -594,24 +733,6 @@
         });
     }
 
-    const audio = new Audio();
-    audio.volume = 0.7;
-    audio.preload = 'none';
-    audio.crossOrigin = 'anonymous';
-    const songs = [
-        { name: 'NEFFEX - Control', url: 'https://dl.dropboxusercontent.com/scl/fi/5qeqe89ibmyikcj7dmgie/NEFFEX-Control-Official-Lyric-Video-Copyright-Free-No.242-MP3_160K.mp3?rlkey=8mec522bb0mycbgeiw3b2p1st&st=n3xggf1g&dl=1' },
-        { name: 'NEFFEX - Crown', url: 'https://dl.dropboxusercontent.com/scl/fi/z4sbip8lthzy5piuolpn2/NEFFEX-Crown-Copyright-Free-No.15-MP3_160K.mp3?rlkey=7gf528zikfyrxeav2blxh2ixl&st=b3diiygv&dl=1' },
-        { name: 'NEFFEX - Fight Back', url: 'https://dl.dropboxusercontent.com/scl/fi/3pjn86px04k8mq7q5q3h6/NEFFEX-Fight-Back-Official-Video-No.37-MP3_160K.mp3?rlkey=k1j7x2woagxujekwxano6n4ge&st=bcl0xd7o&dl=1' },
-        { name: 'NEFFEX - Purpose', url: 'https://dl.dropboxusercontent.com/scl/fi/ixhlx1kiw3gqnij817rz7/NEFFEX-Purpose-Copyright-Free-No.177-MP3_160K.mp3?rlkey=civmcmnzols7yy2b64dduiq8y&st=j6kqivoc&dl=1' },
-        { name: 'NEFFEX - Rumors', url: 'https://dl.dropboxusercontent.com/scl/fi/6trrxr9mcu9mhbl061dkj/NEFFEX-Rumors-Lyrics-MP3_160K.mp3?rlkey=fh14ss4axvmt4up01c467nrxk&st=dvsyyzsd&dl=1' },
-        { name: 'NEFFEX - Best of Me', url: 'https://dl.dropboxusercontent.com/scl/fi/rypimhnwa3f0sc7becgz8/NEFFEX-Best-of-Me-Copyright-Free-No.23-MP3_160K.mp3?rlkey=l6fqcjlklv2f08g8v9du23fb3&st=nguyidh9&dl=1' },
-        { name: 'NEFFEX - Chance', url: 'https://dl.dropboxusercontent.com/scl/fi/cyxhytondpo74u1mbqdl5/NEFFEX-Chance-Copyright-Free-No.65-MP3_160K.mp3?rlkey=ha1km8kbvg6f8va6sozefdw96&st=v0eg4i31&dl=1' },
-        { name: 'NEFFEX - Cold', url: 'https://dl.dropboxusercontent.com/scl/fi/3sxfjqb6ph9tfv6k1cz0h/NEFFEX-Cold-Copyright-Free-No.60-MP3_160K.mp3?rlkey=2wxp3ofoq9v26vxd9fh3iq9er&st=ghcd60wa&dl=1' },
-        { name: 'NEFFEX - Grateful', url: 'https://dl.dropboxusercontent.com/scl/fi/v5419s2y2klq6ookxpzrd/NEFFEX-Grateful-Copyright-Free-No.54-MP3_160K.mp3?rlkey=6to3htylrlnxsru26ik2neds1&st=q47h5sgq&dl=1' },
-        { name: 'NEFFEX - Life', url: 'https://dl.dropboxusercontent.com/scl/fi/uw1f789tb9v4i2k4xyw42/NEFFEX-Life-Copyright-Free-No.42-MP3_160K.mp3?rlkey=y9y56c3ui6f8kx8ar6l2f9pzv&st=9sgmxut6&dl=1' }
-    ];
-    let currentSongIndex = 0, isPlaying = false;
-
     const loadingScreen = document.getElementById('loading-screen');
     const mainContent = document.getElementById('main-content');
     const infoHost = document.getElementById('info-host');
@@ -635,8 +756,6 @@
     const sniClose = document.getElementById('sni-close');
     const protoButtons = document.getElementById('proto-buttons');
     const transButtons = document.getElementById('trans-buttons');
-    const playBtn = document.getElementById('play');
-    const songName = document.getElementById('song-name');
     const player = document.getElementById('floating-player');
 
     let isDragging = false, offsetX, offsetY;
@@ -672,44 +791,6 @@
     document.addEventListener('touchmove', dragMove, {passive:false});
     document.addEventListener('mouseup', dragEnd);
     document.addEventListener('touchend', dragEnd);
-
-    function loadSong(i) { 
-        songName.textContent = songs[i].name; 
-        audio.src = songs[i].url;
-        audio.onerror = () => {
-            addLog('Audio stream unavailable', 'info');
-            isPlaying = false;
-            playBtn.textContent = '▶';
-        };
-    }
-    function togglePlay() { 
-        audio.play().then(()=>{ 
-            isPlaying = true; 
-            playBtn.textContent = '⏸';
-            addLog('Audio playback started', 'info');
-        }).catch(()=>{ 
-            isPlaying = false; 
-            playBtn.textContent = '▶';
-            addLog('Playback blocked by browser', 'info');
-        }); 
-    }
-    function nextSong() { 
-        currentSongIndex = (currentSongIndex + 1) % songs.length; 
-        loadSong(currentSongIndex); 
-        if(isPlaying) audio.play().catch(e=>{}); 
-    }
-    function prevSong() { 
-        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; 
-        loadSong(currentSongIndex); 
-        if(isPlaying) audio.play().catch(e=>{}); 
-    }
-    function stopMusic() { 
-        audio.pause(); 
-        audio.currentTime = 0; 
-        isPlaying = false; 
-        playBtn.textContent = '▶';
-        addLog('Audio playback stopped', 'info');
-    }
 
     function buildConfig() {
         const addr=selectedAddress, sni=selectedSNI, host=currentHost, path=PATHS[selectedProtocol][selectedTransport];
@@ -764,11 +845,8 @@
     function buildOptions(container, items, sel, lbl, cb) {
         container.innerHTML='';
         items.forEach(i=>{
-            const b=document.createElement('button'); b.className='switch-btn'+(i===sel?' active':''); b.textContent=lbl?lbl[i]:i;
-            b.addEventListener('click',()=>{
-                container.querySelectorAll('.switch-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); cb(i); updateUI();
-                addLog(`Protocol changed: ${lbl[i] || i}`, 'info');
-            });
+            const b=document.createElement('button'); b.className='switch-btn'+(i===sel?' active':''); b.textContent=lbl[i]||i;
+            b.addEventListener('click',()=>{cb(i); updateUI(); addLog(`Switched to: ${lbl[i]||i}`, 'success');});
             container.appendChild(b);
         });
     }
@@ -781,14 +859,48 @@
         configDisplay.value=buildConfig();
     }
 
+    copyBypassBtn.addEventListener('click',()=>{
+        navigator.clipboard.writeText(bypassConfig.value).then(()=>{
+            copyBypassBtn.textContent='COPIED ✓';
+            setTimeout(()=>copyBypassBtn.textContent='COPY',2000);
+            addLog('Bypass config copied!', 'success');
+        }).catch(()=>addLog('Copy failed', 'info'));
+    });
+
+    copyBtn.addEventListener('click',()=>{
+        navigator.clipboard.writeText(bypassConfig.value).then(()=>{
+            copyBypassBtn.textContent='COPIED ✓';
+            setTimeout(()=>copyBypassBtn.textContent='COPY',2000);
+            addLog('Bypass config copied!', 'success');
+        }).catch(()=>addLog('Copy failed', 'info'));
+    });
+
+    copyBtn.addEventListener('click',()=>{
+        navigator.clipboard.writeText(configDisplay.value).then(()=>{
+            copyBtn.textContent='COPIED ✓';
+            setTimeout(()=>copyBtn.textContent='COPY',2000);
+            addLog('Config copied to clipboard', 'success');
+        }).catch(()=>addLog('Copy permission denied', 'info'));
+    });
+
+    addressBtn.addEventListener('click',()=>{
+        buildList(addressListEl, addressList, 'address');
+        addressModal.classList.add('show');
+        addLog('Opening address list', 'info');
+    });
+    addressClose.addEventListener('click',()=>addressModal.classList.remove('show'));
+    sniBtn.addEventListener('click',()=>{
+        buildList(sniListEl, sniList, 'sni');
+        sniModal.classList.add('show');
+        addLog('Opening SNI list', 'info');
+    });
+    sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
+
     window.addEventListener('load',()=>{
         setTimeout(()=>{
             loadingScreen.classList.add('hidden');
             mainContent.style.display='flex';
-            loadSong(0);
             updateUI();
-            buildList(addressListEl, addressList, 'address');
-            buildList(sniListEl, sniList, 'sni');
             buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS, v=>selectedProtocol=v);
             buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS, v=>selectedTransport=v);
             setInterval(updateRuntime, 1000);
@@ -797,33 +909,7 @@
             addLog('System interface loaded successfully', 'success');
             addLog('Encryption modules active', 'success');
             addLog('Ready for configuration generation', 'info');
-        }, 800);
-
-        addressBtn.addEventListener('click',()=>{
-            addLog('Opening address selection list', 'info');
-            addressModal.classList.add('show');
-        });
-        addressClose.addEventListener('click',()=>addressModal.classList.remove('show'));
-        sniBtn.addEventListener('click',()=>{
-            addLog('Opening SNI selection list', 'info');
-            sniModal.classList.add('show');
-        });
-        sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
-
-        playBtn.addEventListener('click', togglePlay);
-        document.getElementById('next').addEventListener('click', nextSong);
-        document.getElementById('prev').addEventListener('click', prevSong);
-        document.getElementById('stop').addEventListener('click', stopMusic);
-        audio.addEventListener('ended', nextSong);
-
-        copyBtn.addEventListener('click',()=>{
-            navigator.clipboard.writeText(configDisplay.value).then(()=>{
-                copyBtn.textContent='COPIED ✓'; setTimeout(()=>copyBtn.textContent='COPY',2000);
-                addLog('Config copied to clipboard', 'success');
-            }).catch(()=>{
-                addLog('Copy permission denied', 'info');
-            });
-        });
+        }, 1200);
     });
 })();
 </script>
