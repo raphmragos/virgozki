@@ -50,7 +50,6 @@
             z-index: 0;
         }
 
-        /* ANTI-DECRYPT: Block inspect, view source, dev tools */
         html {
             -webkit-devtools: disable;
             -moz-devtools: disable;
@@ -354,7 +353,6 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            /* Proteksyon laban sa doble na pag-click */
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
@@ -613,10 +611,8 @@
 // 🛡️ ANTI-DECRYPT & ANTI-EXPOSE PROTECTION SYSTEM
 // ==============================================
 (function() {
-    // Block right click / inspect / copy source
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', e => {
-        // Block F12, Ctrl+Shift+I/J/C, Ctrl+U, Ctrl+S
         if(e.key === 'F12' || 
            (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) ||
            (e.ctrlKey && e.key.toUpperCase() === 'U') ||
@@ -626,7 +622,6 @@
         }
     });
 
-    // Detect Dev Tools / Modded Apps / Debuggers
     let devToolsOpen = false;
     const checkDevTools = () => {
         const threshold = 160;
@@ -635,7 +630,6 @@
         if(widthThreshold || heightThreshold || window.debuggerDetected) {
             if(!devToolsOpen) {
                 devToolsOpen = true;
-                // Hide all content if dev tools/modded access detected
                 document.body.innerHTML = '<div style="width:100%;height:100vh;display:flex;align-items:center;justify-content:center;background:#020510;color:#ff2a55;font-family:monospace;text-align:center;padding:20px;">⚠️ SECURITY ALERT<br>UNAUTHORIZED ACCESS DETECTED<br>CONFIG DATA LOCKED</div>';
             }
         } else {
@@ -644,31 +638,26 @@
     };
     setInterval(checkDevTools, 1000);
 
-    // Infinite debugger block to stop decryptors
     const blockDebugger = () => {
-        try {
-            Function.prototype.constructor('debugger')();
-        } catch(e) {}
+        try { Function.prototype.constructor('debugger')(); } catch(e) {}
         setTimeout(blockDebugger, 50);
     };
     blockDebugger();
 
-    // Override toString/valueOf to hide raw config data from extractors
     const hideRawData = () => {
         const originalToString = Object.prototype.toString;
         const originalValueOf = Object.prototype.valueOf;
         Object.prototype.toString = function() {
-            if(this && this.id && (this.id.includes('config') || this.id.includes('bypass'))) return '[ENCRYPTED SECURE DATA]';
+            if(this?.id?.includes('config') || this?.id?.includes('bypass')) return '[ENCRYPTED SECURE DATA]';
             return originalToString.call(this);
         };
         Object.prototype.valueOf = function() {
-            if(this && this.id && (this.id.includes('config') || this.id.includes('bypass'))) return '[LOCKED]';
+            if(this?.id?.includes('config') || this?.id?.includes('bypass')) return '[LOCKED]';
             return originalValueOf.call(this);
         };
     };
     hideRawData();
 
-    // Block view-source and direct raw access
     if(window.location.protocol === 'view-source:' || window.location.hash === '#raw') {
         document.body.innerHTML = '<div style="width:100%;height:100vh;display:flex;align-items:center;justify-content:center;background:#020510;color:#ff2a55;font-family:monospace;text-align:center;padding:20px;">⚠️ ACCESS DENIED<br>RAW SOURCE PROTECTED</div>';
     }
@@ -696,7 +685,7 @@
     let selectedTransport = 'ws';
     let selectedAddress = currentHost;
     let selectedSNI = currentHost;
-    let isProcessing = false; // Iwas doble click
+    let isProcessing = false;
 
     let addressList = [
         currentHost, '⬇️⬇️STS NO LOAD AND BYPASS⬇️⬇️', 'firebase.googleapis.com', 'google.com', 'firebase-settings.googleapis.com',
@@ -711,8 +700,7 @@
         'firebaseremoteconfigrealtime.googleapis.com', 'benefits-client-production.voyagerapis.com', 'cdn-settings.appsflyersdk.com', 
         'app-analytics-services.com', '⬇️⬇️FOR DITO BYPASS IWANTTFC ⬇️⬇️', 'qa.iwanttfc.com', 'help.iwanttfc.com', 'support.iwanttfc.com', 'api.iwanttfc.com', 
         'iwant-trailer.akamaized.net', '⬇️⬇️FOR UNLI YOUTUBE ONLY⬇️⬇️', 'youtube.com', 'googlevideo.com', '⬇️⬇️BYPASS UNLI TIKTOK FOR STS, GTM AND DITO ZERO MB⬇️⬇️',
-        'api24-normal.tiktokv.com', 'api24-normal-alisg.tiktokv.com', 'api24-normal-useast1a.tiktokv.com', 'tiktok.surf2sawa.org', 'tiktok.com', 'www.tiktok.com', 
-        'm.tiktok.com', 
+        'api24-normal.tiktokv.com', 'api24-normal-alisg.tiktokv.com', 'api24-normal-useast1a.tiktokv.com', 'tiktok.surf2sawa.org', 'tiktok.com', 'www.tiktok.com', 'm.tiktok.com'
     ];
 
     const systemLog = document.getElementById('system-log');
@@ -723,7 +711,7 @@
     const copyBypassBtn2 = document.getElementById('copy-bypass-2');
     const bypassConfig2 = document.getElementById('bypass-config-2');
 
-    // ==================== 🎵 MUSIC PLAYER - HINDI BINAGO ====================
+    // ==================== 🎵 MUSIC PLAYER WITH AUTO NEXT ====================
     const audio = new Audio();
     audio.volume = 0.7;
     audio.preload = 'none';
@@ -746,11 +734,17 @@
     const playBtn = document.getElementById('play');
     const songName = document.getElementById('song-name');
 
+    // AUTO PLAY NEXT KAPAG NATAPOS ANG KANTA ✅
+    audio.addEventListener('ended', () => {
+        nextSong();
+        addLog('🎵 Auto-playing next song', 'info');
+    });
+
     function loadSong(i) { 
         songName.textContent = songs[i].name; 
         audio.src = songs[i].url;
         audio.onerror = () => {
-            addLog('⚠️ Audio link blocked (Dropbox limitado). Gamitin ang Catbox.moe', 'info');
+            addLog('⚠️ Dropbox link blocked/limited. Suggestion: upload to Catbox.moe for stable play', 'info');
             isPlaying = false;
             playBtn.textContent = '▶';
         };
@@ -767,19 +761,19 @@
                 playBtn.textContent = '⏸'; 
                 addLog('🎵 Music playing', 'success'); 
             }).catch(()=>{
-                addLog('❌ Hindi ma-play ang link. Palitan ng ibang host', 'info');
+                addLog('❌ Cannot play. Tap play again or check network', 'info');
             }); 
         }
     }
     function nextSong() { 
         currentSongIndex = (currentSongIndex + 1) % songs.length; 
         loadSong(currentSongIndex); 
-        if(isPlaying) audio.play().catch(e=>{}); 
+        if(isPlaying) audio.play().catch(()=>{}); 
     }
     function prevSong() { 
         currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; 
         loadSong(currentSongIndex); 
-        if(isPlaying) audio.play().catch(e=>{}); 
+        if(isPlaying) audio.play().catch(()=>{}); 
     }
     function stopMusic() { 
         audio.pause(); 
@@ -796,7 +790,7 @@
     // ==================== END OF MUSIC PLAYER ====================
 
     function addLog(msg, type='info') {
-                const now = new Date();
+        const now = new Date();
         const timeStr = now.toLocaleTimeString('en-US', {hour12:false});
         logTime.textContent = timeStr;
         const entry = document.createElement('div');
@@ -812,225 +806,227 @@
         const bar = document.createElement('div');
         bar.className = 'graph-dot';
         bar.style.left = `${(i/graphBars)*100}%`;
-        bar.style.height = '0%';
+        bar.style.height
+   = `${Math.random() * 40 + 10}px`;
         sysGraph.appendChild(bar);
     }
-    const graphBarsEl = sysGraph.querySelectorAll('.graph-dot');
     function updateGraph() {
         graphPoints.shift();
-        graphPoints.push(Math.floor(Math.random() * 70) + 20);
-        graphPoints.forEach((val, i) => {
-            graphBarsEl[i].style.height = val + '%';
+        graphPoints.push(Math.random() * 45 + 8);
+        const bars = sysGraph.querySelectorAll('.graph-dot');
+        bars.forEach((bar, idx) => {
+            bar.style.height = `${graphPoints[idx]}px`;
+        });
+    }
+    setInterval(updateGraph, 800);
+
+    let startTime = Date.now();
+    function updateUptime() {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
+        const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
+        const s = String(elapsed % 60).padStart(2, '0');
+        document.getElementById('runtime-display').textContent = `${h}:${m}:${s}`;
+    }
+    setInterval(updateUptime, 1000);
+
+    copyBypassBtn1.addEventListener('click', () => {
+        navigator.clipboard.writeText(bypassConfig1.value).then(() => {
+            copyBypassBtn1.textContent = 'COPIED!';
+            addLog('Bypass Config 1 copied to clipboard', 'success');
+            setTimeout(() => copyBypassBtn1.textContent = 'COPY', 2000);
+        }).catch(() => {
+            bypassConfig1.select();
+            document.execCommand('copy');
+            copyBypassBtn1.textContent = 'COPIED!';
+            addLog('Bypass Config 1 copied to clipboard', 'success');
+            setTimeout(() => copyBypassBtn1.textContent = 'COPY', 2000);
+        });
+    });
+
+    copyBypassBtn2.addEventListener('click', () => {
+        navigator.clipboard.writeText(bypassConfig2.value).then(() => {
+            copyBypassBtn2.textContent = 'COPIED!';
+            addLog('Bypass Config 2 copied to clipboard', 'success');
+            setTimeout(() => copyBypassBtn2.textContent = 'COPY', 2000);
+        }).catch(() => {
+            bypassConfig2.select();
+            document.execCommand('copy');
+            copyBypassBtn2.textContent = 'COPIED!';
+            addLog('Bypass Config 2 copied to clipboard', 'success');
+            setTimeout(() => copyBypassBtn2.textContent = 'COPY', 2000);
+        });
+    });
+
+    function renderSwitchButtons(containerId, options, labels, selectedVal, callback) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = `switch-btn ${opt === selectedVal ? 'active' : ''}`;
+            btn.textContent = labels[opt];
+            btn.addEventListener('click', () => {
+                container.querySelectorAll('.switch-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                callback(opt);
+                generateConfig();
+            });
+            container.appendChild(btn);
         });
     }
 
-    const loadingScreen = document.getElementById('loading-screen');
-    const mainContent = document.getElementById('main-content');
-    const infoHost = document.getElementById('info-host');
-    const infoSni = document.getElementById('info-sni');
-    const infoProto = document.getElementById('info-proto');
-    const infoTransport = document.getElementById('info-transport');
-    const runtimeDisplay = document.getElementById('runtime-display');
-    const configDisplay = document.getElementById('config-display');
-    const copyBtn = document.getElementById('copy-btn');
-    const addressBtn = document.getElementById('address-btn');
-    const addressBtnTxt = document.getElementById('address-btn-txt');
-    const addressSelected = document.getElementById('address-selected');
-    const addressModal = document.getElementById('address-modal');
-    const addressListEl = document.getElementById('address-list');
-    const addressClose = document.getElementById('address-close');
-    const sniBtn = document.getElementById('sni-btn');
-    const sniBtnTxt = document.getElementById('sni-btn-txt');
-    const sniSelected = document.getElementById('sni-selected');
-    const sniModal = document.getElementById('sni-modal');
-    const sniListEl = document.getElementById('sni-list');
-    const sniClose = document.getElementById('sni-close');
-    const protoButtons = document.getElementById('proto-buttons');
-    const transButtons = document.getElementById('trans-buttons');
-    const player = document.getElementById('floating-player');
+    function renderModalList(listId, items, selectedItem, callback) {
+        const list = document.getElementById(listId);
+        list.innerHTML = '';
+        items.forEach(item => {
+            const el = document.createElement('div');
+            if(item.startsWith('⬇️')) {
+                el.style.padding = '10px 14px';
+                el.style.color = 'var(--neon-blue)';
+                el.style.fontSize = '10px';
+                el.style.opacity = '0.6';
+                el.style.cursor = 'default';
+                el.textContent = item;
+            } else {
+                el.className = `modal-item ${item === selectedItem ? 'selected' : ''}`;
+                el.textContent = item;
+                el.addEventListener('click', () => {
+                    callback(item);
+                    document.getElementById(listId.replace('-list', '-modal')).classList.remove('show');
+                    generateConfig();
+                });
+            }
+            list.appendChild(el);
+        });
+    }
+
+    document.getElementById('address-btn').addEventListener('click', () => {
+        renderModalList('address-list', addressList, selectedAddress, (val) => {
+            selectedAddress = val;
+            document.getElementById('address-btn-txt').textContent = val.length > 28 ? val.slice(0,25)+'...' : val;
+            document.getElementById('address-selected').textContent = `SELECTED: ${val}`;
+            document.getElementById('info-host').textContent = val;
+            addLog(`Target address set to: ${val}`, 'info');
+        });
+        document.getElementById('address-modal').classList.add('show');
+    });
+
+    document.getElementById('sni-btn').addEventListener('click', () => {
+        renderModalList('sni-list', sniList, selectedSNI, (val) => {
+            selectedSNI = val;
+            document.getElementById('sni-btn-txt').textContent = val.length > 28 ? val.slice(0,25)+'...' : val;
+            document.getElementById('sni-selected').textContent = `SELECTED: ${val}`;
+            document.getElementById('info-sni').textContent = val;
+            addLog(`SNI host set to: ${val}`, 'info');
+        });
+        document.getElementById('sni-modal').classList.add('show');
+    });
+
+    document.getElementById('address-close').addEventListener('click', () => {
+        document.getElementById('address-modal').classList.remove('show');
+    });
+    document.getElementById('sni-close').addEventListener('click', () => {
+        document.getElementById('sni-modal').classList.remove('show');
+    });
+
+    function generateConfig() {
+        if(isProcessing) return;
+        isProcessing = true;
+        const path = PATHS[selectedProtocol][selectedTransport];
+        let config = '';
+
+        if(selectedProtocol === 'vless') {
+            config = `vless://${UUID}@${selectedAddress}:443?path=${encodeURIComponent(path)}&security=tls&sni=${selectedSNI}&type=${selectedTransport}&fp=randomized#VIRGOZKI-${PROTOCOL_LABELS[selectedProtocol]}-${TRANSPORT_LABELS[selectedTransport]}`;
+        } else if(selectedProtocol === 'trojan') {
+            config = `trojan://${UUID}@${selectedAddress}:443?path=${encodeURIComponent(path)}&security=tls&sni=${selectedSNI}&type=${selectedTransport}&fp=randomized#VIRGOZKI-${PROTOCOL_LABELS[selectedProtocol]}-${TRANSPORT_LABELS[selectedTransport]}`;
+        } else if(selectedProtocol === 'vmess') {
+            const vmessObj = {
+                v: '2', ps: `VIRGOZKI-${PROTOCOL_LABELS[selectedProtocol]}-${TRANSPORT_LABELS[selectedTransport]}`,
+                add: selectedAddress, port: 443, id: UUID, scy: 'auto',
+                net: selectedTransport, path: path, host: selectedSNI,
+                tls: 'tls', sni: selectedSNI, fp: 'randomized'
+            };
+            config = `vmess://${btoa(JSON.stringify(vmessObj))}`;
+        } else if(selectedProtocol === 'shadowsocks') {
+            config = `ss://${btoa(`${SS_METHOD}:${SS_PASSWORD}`)}@${selectedAddress}:443?plugin=${encodeURIComponent(`${selectedTransport};path=${path};host=${selectedSNI}`)}#VIRGOZKI-${PROTOCOL_LABELS[selectedProtocol]}-${TRANSPORT_LABELS[selectedTransport]}`;
+        }
+
+        document.getElementById('config-display').value = config;
+        document.getElementById('info-proto').textContent = PROTOCOL_LABELS[selectedProtocol];
+        document.getElementById('info-transport').textContent = TRANSPORT_LABELS[selectedTransport];
+        isProcessing = false;
+    }
+
+    document.getElementById('copy-btn').addEventListener('click', () => {
+        const configText = document.getElementById('config-display').value;
+        if(configText === 'WAITING FOR INPUT...') {
+            addLog('⚠️ Select address and SNI first before copying!', 'info');
+            return;
+        }
+        navigator.clipboard.writeText(configText).then(() => {
+            document.getElementById('copy-btn').textContent = 'COPIED!';
+            addLog('Generated config copied to clipboard', 'success');
+            setTimeout(() => document.getElementById('copy-btn').textContent = 'COPY', 2000);
+        }).catch(() => {
+            document.getElementById('config-display').select();
+            document.execCommand('copy');
+            document.getElementById('copy-btn').textContent = 'COPIED!';
+            addLog('Generated config copied to clipboard', 'success');
+            setTimeout(() => document.getElementById('copy-btn').textContent = 'COPY', 2000);
+        });
+    });
 
     let isDragging = false, offsetX, offsetY;
-    function dragStart(e) {
-        if (e.target.closest('.ctrl-btn')) return;
+    const player = document.getElementById('floating-player');
+    player.addEventListener('mousedown', (e) => {
         isDragging = true;
-        const rect = player.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        offsetX = clientX - rect.left;
-        offsetY = clientY - rect.top;
-        player.style.transition = 'none';
-    }
-    function dragMove(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        const newX = Math.max(0, Math.min(window.innerWidth - player.offsetWidth, clientX - offsetX));
-        const newY = Math.max(0, Math.min(window.innerHeight - player.offsetHeight, clientY - offsetY));
-        player.style.left = newX + 'px';
-        player.style.top = newY + 'px';
+        offsetX = e.clientX - player.getBoundingClientRect().left;
+        offsetY = e.clientY - player.getBoundingClientRect().top;
+    });
+    document.addEventListener('mousemove', (e) => {
+        if(!isDragging) return;
+        const newX = Math.max(0, Math.min(window.innerWidth - player.offsetWidth, e.clientX - offsetX));
+        const newY = Math.max(0, Math.min(window.innerHeight - player.offsetHeight, e.clientY - offsetY));
+        player.style.left = `${newX}px`;
+        player.style.top = `${newY}px`;
         player.style.right = 'auto';
-        player.style.bottom = 'auto';
-    }
-    function dragEnd() {
-        isDragging = false;
-        player.style.transition = 'all 0.2s ease';
-    }
-    player.addEventListener('mousedown', dragStart);
-    player.addEventListener('touchstart', dragStart);
-    document.addEventListener('mousemove', dragMove);
-    document.addEventListener('touchmove', dragMove, {passive:false});
-    document.addEventListener('mouseup', dragEnd);
-    document.addEventListener('touchend', dragEnd);
+    });
+    document.addEventListener('mouseup', () => isDragging = false);
 
-    function buildConfig() {
-        const addr=selectedAddress, sni=selectedSNI, host=currentHost, path=PATHS[selectedProtocol][selectedTransport];
-        let transportParam = '';
-        switch(selectedTransport){
-            case 'ws': transportParam = `type=ws&path=${encodeURIComponent(path)}&host=${host}`; break;
-            case 'httpupgrade': transportParam = `type=httpupgrade&path=${encodeURIComponent(path)}&host=${host}`; break;
-            case 'xhttp': transportParam = `type=xhttp&path=${encodeURIComponent(path)}&host=${host}&mode=packet-upstream`; break;
-        }
+    player.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        const touch = e.touches[0];
+        offsetX = touch.clientX - player.getBoundingClientRect().left;
+        offsetY = touch.clientY - player.getBoundingClientRect().top;
+    });
+    document.addEventListener('touchmove', (e) => {
+        if(!isDragging) return;
+        const touch = e.touches[0];
+        const newX = Math.max(0, Math.min(window.innerWidth - player.offsetWidth, touch.clientX - offsetX));
+        const newY = Math.max(0, Math.min(window.innerHeight - player.offsetHeight, touch.clientY - offsetY));
+        player.style.left = `${newX}px`;
+        player.style.top = `${newY}px`;
+        player.style.right = 'auto';
+        e.preventDefault();
+    });
+    document.addEventListener('touchend', () => isDragging = false);
 
-        switch(selectedProtocol){
-            case 'vless': 
-                const vlessAlpn = selectedTransport === 'xhttp' ? 'h2%2Chttp%2F1.1' : 'http%2F1.1';
-                return `vless://${UUID}@${addr}:443?encryption=none&${transportParam}&security=tls&fp=chrome&sni=${sni}&alpn=${vlessAlpn}#VLESS-${selectedTransport.toUpperCase()}-VIRGOZKI`;
-            case 'trojan': 
-                const trojanAlpn = selectedTransport === 'xhttp' ? 'h2%2Chttp%2F1.1' : 'http%2F1.1';
-                return `trojan://${SS_PASSWORD}@${addr}:443?${transportParam}&security=tls&fp=chrome&sni=${sni}&alpn=${trojanAlpn}#TROJAN-${selectedTransport.toUpperCase()}-VIRGOZKI`;
-            case 'vmess': 
-                const alpnVal = selectedTransport === 'xhttp' ? 'h2,http/1.1' : 'http/1.1';
-                return `vmess://${btoa(JSON.stringify({v:'2',ps:`VMESS-${selectedTransport.toUpperCase()}-VIRGOZKI`,add:addr,port:'443',id:UUID,aid:'0',scy:'auto',net:selectedTransport,host:host,path:path,tls:'tls',sni:sni,fp:'chrome',alpn:alpnVal})).replace(/=+$/,'')}`;
-            case 'shadowsocks': 
-                const ssCred = btoa(`${SS_METHOD}:${SS_PASSWORD}`).replace(/=+$/,'');
-                return `ss://${ssCred}@${addr}:443?${transportParam}&security=tls&sni=${sni}#SS-${selectedTransport.toUpperCase()}-VIRGOZKI`;
-        }
-    }
-
-    function updateRuntime() {
-        const d=Math.floor(performance.now()/1000);
-        runtimeDisplay.textContent=[3600,60,1].map(t=>String(Math.floor(d/t)%60).padStart(2,'0')).join(':');
-    }
-
-    function buildList(container, items, type) {
-        container.innerHTML='';
-        items.forEach(item=>{
-            const el=document.createElement('div'); 
-            el.className='modal-item'; 
-            el.textContent=item;
-            el.addEventListener('click',()=>{
-                if(type==='address'){ 
-                    selectedAddress=item; 
-                    addressSelected.textContent='TARGET SET: '+item; 
-                    addressBtnTxt.textContent=item; 
-                    addLog(`Target address set: ${item}`, 'success');
-                    addressModal.classList.remove('show'); 
-                } else { 
-                    selectedSNI=item; 
-                    sniSelected.textContent='SNI SET: '+item; 
-                    sniBtnTxt.textContent=item; 
-                    addLog(`SNI set: ${item}`, 'success');
-                    sniModal.classList.remove('show'); 
-                }
-                updateUI();
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('loading-screen').classList.add('hidden');
+            document.getElementById('main-content').style.display = 'flex';
+            renderSwitchButtons('proto-buttons', PROTOCOLS, PROTOCOL_LABELS, selectedProtocol, (val) => {
+                selectedProtocol = val;
+                addLog(`Protocol changed to: ${PROTOCOL_LABELS[val]}`, 'info');
             });
-            container.appendChild(el);
-        });
-    }
-
-    function buildOptions(container, items, activeItem, labels) {
-        container.innerHTML='';
-        items.forEach(item=>{
-            const b=document.createElement('button');
-            b.className='switch-btn' + (item === activeItem ? ' active' : '');
-            b.textContent = labels[item] || item;
-            
-            b.addEventListener('click', ()=>{
-                if (isProcessing) return;
-                isProcessing = true;
-
-                container.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('active'));
-                b.classList.add('active');
-
-                if (container === protoButtons) selectedProtocol = item;
-                if (container === transButtons) selectedTransport = item;
-
-                addLog(`Switched to: ${labels[item]||item}`, 'success');
-                updateUI();
-
-                setTimeout(()=> isProcessing = false, 200);
+            renderSwitchButtons('trans-buttons', TRANSPORTS, TRANSPORT_LABELS, selectedTransport, (val) => {
+                selectedTransport = val;
+                addLog(`Transport changed to: ${TRANSPORT_LABELS[val]}`, 'info');
             });
-            container.appendChild(b);
-        });
-    }
-
-    function updateUI() {
-        infoHost.textContent=selectedAddress;
-        infoSni.textContent=selectedSNI;
-        infoProto.textContent=PROTOCOL_LABELS[selectedProtocol];
-        infoTransport.textContent=TRANSPORT_LABELS[selectedTransport];
-        configDisplay.value=buildConfig();
-
-        buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS);
-        buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
-    }
-
-    // ✅ Gumagana na ang parehong bypass copy buttons
-    copyBypassBtn1.addEventListener('click',()=>{
-        navigator.clipboard.writeText(bypassConfig1.value).then(()=>{
-            copyBypassBtn1.textContent='COPIED ✓';
-            setTimeout(()=>copyBypassBtn1.textContent='COPY',2000);
-            addLog('Bypass Config 1 copied!', 'success');
-        }).catch(()=>addLog('Copy failed', 'info'));
-    });
-
-    copyBypassBtn2.addEventListener('click',()=>{
-        navigator.clipboard.writeText(bypassConfig2.value).then(()=>{
-            copyBypassBtn2.textContent='COPIED ✓';
-            setTimeout(()=>copyBypassBtn2.textContent='COPY',2000);
-            addLog('Bypass Config 2 copied!', 'success');
-        }).catch(()=>addLog('Copy failed', 'info'));
-    });
-
-    copyBtn.addEventListener('click',()=>{
-        navigator.clipboard.writeText(configDisplay.value).then(()=>{
-            copyBtn.textContent='COPIED ✓';
-            setTimeout(()=>copyBtn.textContent='COPY',2000);
-            addLog('Generated Config copied!', 'success');
-        }).catch(()=>addLog('Copy permission denied', 'info'));
-    });
-
-    addressBtn.addEventListener('click',()=>{
-        buildList(addressListEl, addressList, 'address');
-        addressModal.classList.add('show');
-        addLog('Opening address list', 'info');
-    });
-    addressClose.addEventListener('click',()=>addressModal.classList.remove('show'));
-
-    sniBtn.addEventListener('click',()=>{
-        buildList(sniListEl, sniList, 'sni');
-        sniModal.classList.add('show');
-        addLog('Opening SNI list', 'info');
-    });
-    sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
-
-    window.addEventListener('load',()=>{
-        setTimeout(()=>{
-            loadingScreen.classList.add('hidden');
-            mainContent.style.display='flex';
-            
-            buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS);
-            buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
-            
-            updateUI();
-            setInterval(updateRuntime, 1000);
-            setInterval(updateGraph, 1200);
-
-            addLog('System interface loaded successfully', 'success');
-            addLog('Encryption modules active', 'success');
-            addLog('Anti-Decrypt Protection Enabled', 'success');
-            addLog('Ready for configuration generation', 'info');
+            generateConfig();
+            addLog('System initialized successfully', 'success');
+            addLog('Interface loaded and secure', 'success');
+            addLog('Ready to generate custom configs', 'info');
         }, 1200);
     });
 })();
