@@ -24,10 +24,6 @@
             font-family: 'Courier New', 'Orbitron', monospace;
             -webkit-tap-highlight-color: transparent;
             text-transform: uppercase;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
 
         body {
@@ -48,12 +44,6 @@
             background: repeating-linear-gradient(transparent, rgba(0, 255, 157, 0.018) 1px, transparent 2px);
             pointer-events: none;
             z-index: 0;
-        }
-
-        html {
-            -webkit-devtools: disable;
-            -moz-devtools: disable;
-            devtools: disable;
         }
 
         .container {
@@ -160,7 +150,6 @@
             word-break: break-all;
             resize: none;
             outline: none;
-            cursor: copy;
         }
         .copy-bypass-btn {
             padding: 10px 12px;
@@ -353,6 +342,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
+            /* Proteksyon laban sa doble na pag-click */
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
@@ -381,7 +371,6 @@
             background: transparent; border: none;
             color: var(--neon-green); font-family: 'Courier New', monospace;
             font-size: 11px; line-height: 1.5; resize: none; outline: none;
-            cursor: copy;
         }
         .copy-terminal {
             position: absolute; top: 8px; right: 12px;
@@ -490,17 +479,17 @@
     </div>
 
     <div class="bypass-box">
-        <div class="bypass-title">BYPASS UNLI TIKTOK ALLNET NO DEDUCT (SG SERVER) AUGUST 15 EXPIRED</div>
+        <div class="bypass-title">BYPASS UNLI TIKTOK ALLNET NO DEDUCT (UNLI TIME)</div>
         <div class="bypass-code-wrapper">
-            <textarea class="bypass-code" id="bypass-config-1" readonly>nm-ssh://PP4d6pfFW6KxCpptBIQW9yO1Ko6rPwZk48KI/hmTMmVcsmWaLGd/V7CoBk+athijtMq3Al8LtNuLGwwZFD5vAEINmZtJ+fGjZa8+pdlZB0YdP2SHE/VpnDDs5+KlUnDJwoblcvDmrUEI5FB/kd0d/ohn11Inin+EsUk6VTy/tH6mOvQGoLMoATo7VKWoobJEL4YS/yLd5O7qLmIZkmh7cHbNx+VnQlDQTIhYuO42FbvGzg4FTFR9xeVDQqNJ7AA+7JruPj0QzPF/jqxN4ND/W+2Zpugf0b6/XpON3O/UYMk/7bTAbsamB0vu3gqnf1i4h9FqWuEBbnb74R9C1HpVq6uMndcvnIfJV03cXgMorxvXstAg9xrEfJjoReNmRWmK9KU3g7r7ymj4pdMEzZExh/72LpgqBPdHd/9o1z5BRD7Qgs/SmkOMLWHYz1Du96sanD+DQyMSEsZjjlPmvchgvgR5XkXwFBUA2U7iMikc2bpBwvWaxtPBUwXQ4eX5DoK4P4AVsaD1lFrM0P0Kf2CNVaghSQX+JkGvHvakhhTZeDDOH1mfzUvzIEfaPPPP9pMLQdbSEsPSxhHo76qFq3dIXkjpgN7bcbkwlS6CH+TUCJ/esdlryCjCD23N5l8LBD24FUC42VOKsySwN7ifxMV45gqVCv9JOIhNt5d/UZJRyQBUygzDDlp7Mb7SY2+xvD7tk+PkAZm5N2+pwvbknTE52FmH/0GM3IHhXJEaFoFcDjLStHLUJKVn1hw/1p/gmNrJ78Cjh3vf0ZEhE05fyUf9opmutaRFa6rwI26Kb/EaSR3//o72CoyTLu3bU+69u5kT</textarea>
+            <textarea class="bypass-code" id="bypass-config-1" readonly>nm-ssh://eXmEHKsBqCxcBIozaVazvnUtBlxEwZwBQbYMxFYPB0enOifkOSFSDybe6jK68Tp0+SkEjcMb6KDnb/GeTxdkF2Z0powFlg+Pzic7Auq3NZ5x/q76UGXcCetgirsB8QMBEnvTjkGwRZvwlgZ4HN/ISrEJEyVFxnxjgSaCUZvECbFUBfdjgb0wP4ux8QqDqCfAXBD92EWGT9auxCqg8CKeSmlJCeGMwfp2IrzojIGrEQo+dd+UK6QBDwo9XHbp5rJWw+iXtar3i3x8nvMwszyRdPK7Kry9nDvSIT83XVfNscyVuFPYshLVvMGGbz3KqKDq0sZ+3JbI04m4XYte95vuoUcdrOjGef3/WioW42JLmMuWTx3d2cEjJNs8eLKS6lnArGPHf8QKS3ETcBCQoz3saQV7vIVXwKX/E199WVEi4fGCQiUt6SVeQACkfgP0Zy42cEoVVKzwAm5cLOA5xelN7MCNv8lkz7F7cIWqx6gzu46n8bJc7YnKzX3BB8ocvNskgEtNsyHopjqdWXC5bpZL45ti6A6wVes5vIlAwYFm6EF3myYLZNp2hvWyDFtLFLtzDnv8yi22QOJg60TUQZr21uCL/O9Qfo3Bzwczk0PMYEF4GRgRIu7huxdMzk0sDwHdBXV4H46ebpB8lMP3flcPubbjAwGRFNUnpyFjNdVZFhHH37U8xrdyONwlJ+vArn0MzFvF7OsKn8CpkIMZ64u7WEphg//hvhnp/bP/EifQWuZtHcsiwsWn9llimqecEd7d</textarea>
             <button class="copy-bypass-btn" id="copy-bypass-1">COPY</button>
         </div>
     </div>
   
      <div class="bypass-box">
-        <div class="bypass-title">BYPASS UNLI TIKTOK ALLNET NO DEDUCT (NO EXPIRED)</div>
+        <div class="bypass-title">BYPASS UNLI TIKTOK ALLNET NO DEDUCT (SG SERVER) AUGUST 15 EXPIRED</div>
         <div class="bypass-code-wrapper">
-            <textarea class="bypass-code" id="bypass-config-2" readonly>nm-ssh://eXmEHKsBqCxcBIozaVazvnUtBlxEwZwBQbYMxFYPB0enOifkOSFSDybe6jK68Tp0+SkEjcMb6KDnb/GeTxdkF2Z0powFlg+Pzic7Auq3NZ5x/q76UGXcCetgirsB8QMB4hyER6oPEVA1/OaiwZqSR7NdQhrnWR00zubWhmt8ESOY/ek4msjo/nzS1t3cnc4C4hwUSNkW9wP8d1XrgSf0awQ4v2mJvX4QM5uWRFJiRRznHfRyELqANJID1JQ36aqOUDFe/p3AMJQzNJhkt94wlepci/gUfrhgtyT45l8s5unlAmFqvW8kElx9bncrPRPnrr68Q6md7YCiFuwPXybSA+kLTMW5OOEOaCIYRvvyyZyiGtfXBLcHuSOO844d0OWueqoR2oHQiqvnBar+Hu+7iDcKs1TTaiRhSNl4VXGSKxbKyl/ARkAUJ63Z6BrNXLkndjBij33rLMjXPvmPu6jvsvj65KGnq+/ysKAj4LkCTJ7MY8NUswAqpJcOseN1h06wkEtl/+/12rA9m5viTJf+c82Ujb76IzH3nIVTt13GLxBjQPVe4lT7kfcP1yUKxNT1Ks4K+f0qFUSScxZxvLBdzfEM2ZWFOvzt6SvKIld07Ah9Sr2hkQV/rcE2Zjjy+8fE5GagtwWbUGegBYCDqfIWtsTWTwSs8cHRhxy63+m/32Wu1a9YnJ6KxAqpbd/abg76NdilNN9n1jIYmOK+EYnfDhdhB29h2J7LrGcW3N3OrUmXJR+JqGG+TB63cJFiRNzuYlZEfQg/LYt2tOZXbAKjHQ==</textarea>
+            <textarea class="bypass-code" id="bypass-config-2" readonly>nm-ssh://PP4d6pfFW6KxCpptBIQW9yO1Ko6rPwZk48KI/hmTMmVcsmWaLGd/V7CoBk+athijtMq3Al8LtNuLGwwZFD5vAEINmZtJ+fGjZa8+pdlZB0YdP2SHE/VpnDDs5+KlUnDJwoblcvDmrUEI5FB/kd0d/ohn11Inin+EsUk6VTy/tH6mOvQGoLMoATo7VKWoobJEL4YS/yLd5O7qLmIZkmh7cHbNx+VnQlDQTIhYuO42FbvGzg4FTFR9xeVDQqNJ7AA+7JruPj0QzPF/jqxN4ND/W+2Zpugf0b6/XpON3O/UYMk/7bTAbsamB0vu3gqnf1i4h9FqWuEBbnb74R9C1HpVq6uMndcvnIfJV03cXgMorxvXstAg9xrEfJjoReNmRWmK9KU3g7r7ymj4pdMEzZExh/72LpgqBPdHd/9o1z5BRD7Qgs/SmkOMLWHYz1Du96sanD+DQyMSEsZjjlPmvchgvgR5XkXwFBUA2U7iMikc2bpBwvWaxtPBUwXQ4eX5DoK4P4AVsaD1lFrM0P0Kf2CNVaghSQX+JkGvHvakhhTZeDDOH1mfzUvzIEfaPPPP9pMLQdbSEsPSxhHo76qFq3dIXkjpgN7bcbkwlS6CH+TUCJ/esdlryCjCD23N5l8LBD24FUC42VOKsySwN7ifxMV45gqVCv9JOIhNt5d/UZJRyQBUygzDDlp7Mb7SY2+xvD7tk+PkAZm5N2+pwvbknTE52FmH/0GM3IHhXJEaFoFcDjLStHLUJKVn1hw/1p/gmNrJ78Cjh3vf0ZEhE05fyUf9opmutaRFa6rwI26Kb/EaSR3//o72CoyTLu3bU+69u5kT</textarea>
             <button class="copy-bypass-btn" id="copy-bypass-2">COPY</button>
         </div>
     </div>
@@ -586,7 +575,7 @@
 
 <div class="cyber-player" id="floating-player">
     <div class="player-drag-hint">⋮ DRAG ⋮</div>
-    <div class="player-name" id="song-name">NEFFEX - FIGHT BACK</div>
+    <div class="player-name" id="song-name">SYSTEM SOUND - NEFFEX</div>
     <div class="player-controls">
         <button class="ctrl-btn" id="prev" title="PREV">◀</button>
         <button class="ctrl-btn" id="play" title="PLAY/PAUSE">▶</button>
@@ -607,62 +596,6 @@
 </div>
 
 <script>
-// ==============================================
-// 🛡️ ANTI-DECRYPT & ANTI-EXPOSE PROTECTION SYSTEM
-// ==============================================
-(function() {
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-        if(e.key === 'F12' || 
-           (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) ||
-           (e.ctrlKey && e.key.toUpperCase() === 'U') ||
-           (e.ctrlKey && e.key.toUpperCase() === 'S')) {
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    let devToolsOpen = false;
-    const checkDevTools = () => {
-        const threshold = 160;
-        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-        if(widthThreshold || heightThreshold || window.debuggerDetected) {
-            if(!devToolsOpen) {
-                devToolsOpen = true;
-                document.body.innerHTML = '<div style="width:100%;height:100vh;display:flex;align-items:center;justify-content:center;background:#020510;color:#ff2a55;font-family:monospace;text-align:center;padding:20px;">⚠️ SECURITY ALERT<br>UNAUTHORIZED ACCESS DETECTED<br>CONFIG DATA LOCKED</div>';
-            }
-        } else {
-            devToolsOpen = false;
-        }
-    };
-    setInterval(checkDevTools, 1000);
-
-    const blockDebugger = () => {
-        try { Function.prototype.constructor('debugger')(); } catch(e) {}
-        setTimeout(blockDebugger, 50);
-    };
-    blockDebugger();
-
-    const hideRawData = () => {
-        const originalToString = Object.prototype.toString;
-        const originalValueOf = Object.prototype.valueOf;
-        Object.prototype.toString = function() {
-            if(this?.id?.includes('config') || this?.id?.includes('bypass')) return '[ENCRYPTED SECURE DATA]';
-            return originalToString.call(this);
-        };
-        Object.prototype.valueOf = function() {
-            if(this?.id?.includes('config') || this?.id?.includes('bypass')) return '[LOCKED]';
-            return originalValueOf.call(this);
-        };
-    };
-    hideRawData();
-
-    if(window.location.protocol === 'view-source:' || window.location.hash === '#raw') {
-        document.body.innerHTML = '<div style="width:100%;height:100vh;display:flex;align-items:center;justify-content:center;background:#020510;color:#ff2a55;font-family:monospace;text-align:center;padding:20px;">⚠️ ACCESS DENIED<br>RAW SOURCE PROTECTED</div>';
-    }
-})();
-
 (function() {
     const UUID = 'b831381d-6324-4d53-ad4f-8cda48b30811';
     const SS_METHOD = 'aes-256-gcm';
@@ -685,7 +618,7 @@
     let selectedTransport = 'ws';
     let selectedAddress = currentHost;
     let selectedSNI = currentHost;
-    let isProcessing = false;
+    let isProcessing = false; // Iwas doble click
 
     let addressList = [
         currentHost, '⬇️⬇️STS NO LOAD AND BYPASS⬇️⬇️', 'firebase.googleapis.com', 'google.com', 'firebase-settings.googleapis.com',
@@ -700,7 +633,8 @@
         'firebaseremoteconfigrealtime.googleapis.com', 'benefits-client-production.voyagerapis.com', 'cdn-settings.appsflyersdk.com', 
         'app-analytics-services.com', '⬇️⬇️FOR DITO BYPASS IWANTTFC ⬇️⬇️', 'qa.iwanttfc.com', 'help.iwanttfc.com', 'support.iwanttfc.com', 'api.iwanttfc.com', 
         'iwant-trailer.akamaized.net', '⬇️⬇️FOR UNLI YOUTUBE ONLY⬇️⬇️', 'youtube.com', 'googlevideo.com', '⬇️⬇️BYPASS UNLI TIKTOK FOR STS, GTM AND DITO ZERO MB⬇️⬇️',
-        'api24-normal.tiktokv.com', 'api24-normal-alisg.tiktokv.com', 'api24-normal-useast1a.tiktokv.com', 'tiktok.surf2sawa.org', 'tiktok.com', 'www.tiktok.com', 'm.tiktok.com'
+        'api24-normal.tiktokv.com', 'api24-normal-alisg.tiktokv.com', 'api24-normal-useast1a.tiktokv.com', 'tiktok.surf2sawa.org', 'tiktok.com', 'www.tiktok.com', 
+        'm.tiktok.com', 
     ];
 
     const systemLog = document.getElementById('system-log');
@@ -711,7 +645,7 @@
     const copyBypassBtn2 = document.getElementById('copy-bypass-2');
     const bypassConfig2 = document.getElementById('bypass-config-2');
 
-    // ==================== 🎵 MUSIC PLAYER WITH AUTO NEXT ====================
+    // ==================== 🎵 MUSIC PLAYER - HINDI BINAGO ====================
     const audio = new Audio();
     audio.volume = 0.7;
     audio.preload = 'none';
@@ -734,17 +668,11 @@
     const playBtn = document.getElementById('play');
     const songName = document.getElementById('song-name');
 
-    // AUTO PLAY NEXT KAPAG NATAPOS ANG KANTA ✅
-    audio.addEventListener('ended', () => {
-        nextSong();
-        addLog('🎵 Auto-playing next song', 'info');
-    });
-
     function loadSong(i) { 
         songName.textContent = songs[i].name; 
         audio.src = songs[i].url;
         audio.onerror = () => {
-            addLog('⚠️ Dropbox link blocked/limited. Suggestion: upload to Catbox.moe for stable play', 'info');
+            addLog('⚠️ Audio link blocked (Dropbox limitado). Gamitin ang Catbox.moe', 'info');
             isPlaying = false;
             playBtn.textContent = '▶';
         };
@@ -761,19 +689,19 @@
                 playBtn.textContent = '⏸'; 
                 addLog('🎵 Music playing', 'success'); 
             }).catch(()=>{
-                addLog('❌ Cannot play. Tap play again or check network', 'info');
+                addLog('❌ Hindi ma-play ang link. Palitan ng ibang host', 'info');
             }); 
         }
     }
     function nextSong() { 
         currentSongIndex = (currentSongIndex + 1) % songs.length; 
         loadSong(currentSongIndex); 
-        if(isPlaying) audio.play().catch(()=>{}); 
+        if(isPlaying) audio.play().catch(e=>{}); 
     }
     function prevSong() { 
         currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; 
         loadSong(currentSongIndex); 
-        if(isPlaying) audio.play().catch(()=>{}); 
+        if(isPlaying) audio.play().catch(e=>{}); 
     }
     function stopMusic() { 
         audio.pause(); 
@@ -806,227 +734,224 @@
         const bar = document.createElement('div');
         bar.className = 'graph-dot';
         bar.style.left = `${(i/graphBars)*100}%`;
-        bar.style.height
-   = `${Math.random() * 40 + 10}px`;
+        bar.style.height = '0%';
         sysGraph.appendChild(bar);
     }
+    const graphBarsEl = sysGraph.querySelectorAll('.graph-dot');
     function updateGraph() {
         graphPoints.shift();
-        graphPoints.push(Math.random() * 45 + 8);
-        const bars = sysGraph.querySelectorAll('.graph-dot');
-        bars.forEach((bar, idx) => {
-            bar.style.height = `${graphPoints[idx]}px`;
-        });
-    }
-    setInterval(updateGraph, 800);
-
-    let startTime = Date.now();
-    function updateUptime() {
-        const elapsed = Math.floor((Date.now() - startTime) / 1000);
-        const h = String(Math.floor(elapsed / 3600)).padStart(2, '0');
-        const m = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
-        const s = String(elapsed % 60).padStart(2, '0');
-        document.getElementById('runtime-display').textContent = `${h}:${m}:${s}`;
-    }
-    setInterval(updateUptime, 1000);
-
-    copyBypassBtn1.addEventListener('click', () => {
-        navigator.clipboard.writeText(bypassConfig1.value).then(() => {
-            copyBypassBtn1.textContent = 'COPIED!';
-            addLog('Bypass Config 1 copied to clipboard', 'success');
-            setTimeout(() => copyBypassBtn1.textContent = 'COPY', 2000);
-        }).catch(() => {
-            bypassConfig1.select();
-            document.execCommand('copy');
-            copyBypassBtn1.textContent = 'COPIED!';
-            addLog('Bypass Config 1 copied to clipboard', 'success');
-            setTimeout(() => copyBypassBtn1.textContent = 'COPY', 2000);
-        });
-    });
-
-    copyBypassBtn2.addEventListener('click', () => {
-        navigator.clipboard.writeText(bypassConfig2.value).then(() => {
-            copyBypassBtn2.textContent = 'COPIED!';
-            addLog('Bypass Config 2 copied to clipboard', 'success');
-            setTimeout(() => copyBypassBtn2.textContent = 'COPY', 2000);
-        }).catch(() => {
-            bypassConfig2.select();
-            document.execCommand('copy');
-            copyBypassBtn2.textContent = 'COPIED!';
-            addLog('Bypass Config 2 copied to clipboard', 'success');
-            setTimeout(() => copyBypassBtn2.textContent = 'COPY', 2000);
-        });
-    });
-
-    function renderSwitchButtons(containerId, options, labels, selectedVal, callback) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = '';
-        options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = `switch-btn ${opt === selectedVal ? 'active' : ''}`;
-            btn.textContent = labels[opt];
-            btn.addEventListener('click', () => {
-                container.querySelectorAll('.switch-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                callback(opt);
-                generateConfig();
-            });
-            container.appendChild(btn);
+        graphPoints.push(Math.floor(Math.random() * 70) + 20);
+        graphPoints.forEach((val, i) => {
+            graphBarsEl[i].style.height = val + '%';
         });
     }
 
-    function renderModalList(listId, items, selectedItem, callback) {
-        const list = document.getElementById(listId);
-        list.innerHTML = '';
-        items.forEach(item => {
-            const el = document.createElement('div');
-            if(item.startsWith('⬇️')) {
-                el.style.padding = '10px 14px';
-                el.style.color = 'var(--neon-blue)';
-                el.style.fontSize = '10px';
-                el.style.opacity = '0.6';
-                el.style.cursor = 'default';
-                el.textContent = item;
-            } else {
-                el.className = `modal-item ${item === selectedItem ? 'selected' : ''}`;
-                el.textContent = item;
-                el.addEventListener('click', () => {
-                    callback(item);
-                    document.getElementById(listId.replace('-list', '-modal')).classList.remove('show');
-                    generateConfig();
-                });
-            }
-            list.appendChild(el);
-        });
-    }
-
-    document.getElementById('address-btn').addEventListener('click', () => {
-        renderModalList('address-list', addressList, selectedAddress, (val) => {
-            selectedAddress = val;
-            document.getElementById('address-btn-txt').textContent = val.length > 28 ? val.slice(0,25)+'...' : val;
-            document.getElementById('address-selected').textContent = `SELECTED: ${val}`;
-            document.getElementById('info-host').textContent = val;
-            addLog(`Target address set to: ${val}`, 'info');
-        });
-        document.getElementById('address-modal').classList.add('show');
-    });
-
-    document.getElementById('sni-btn').addEventListener('click', () => {
-        renderModalList('sni-list', sniList, selectedSNI, (val) => {
-            selectedSNI = val;
-            document.getElementById('sni-btn-txt').textContent = val.length > 28 ? val.slice(0,25)+'...' : val;
-            document.getElementById('sni-selected').textContent = `SELECTED: ${val}`;
-            document.getElementById('info-sni').textContent = val;
-            addLog(`SNI host set to: ${val}`, 'info');
-        });
-        document.getElementById('sni-modal').classList.add('show');
-    });
-
-    document.getElementById('address-close').addEventListener('click', () => {
-        document.getElementById('address-modal').classList.remove('show');
-    });
-    document.getElementById('sni-close').addEventListener('click', () => {
-        document.getElementById('sni-modal').classList.remove('show');
-    });
-
-    function generateConfig() {
-        if(isProcessing) return;
-        isProcessing = true;
-        const path = PATHS[selectedProtocol][selectedTransport];
-        let config = '';
-
-        if(selectedProtocol === 'vless') {
-            config = `vless://${UUID}@${selectedAddress}:443?path=${encodeURIComponent(path)}&security=tls&sni=${selectedSNI}&type=${selectedTransport}&fp=randomized#VIRGOZKI-${PROTOCOL_LABELS[selectedProtocol]}-${TRANSPORT_LABELS[selectedTransport]}`;
-        } else if(selectedProtocol === 'trojan') {
-            config = `trojan://${UUID}@${selectedAddress}:443?path=${encodeURIComponent(path)}&security=tls&sni=${selectedSNI}&type=${selectedTransport}&fp=randomized#VIRGOZKI-${PROTOCOL_LABELS[selectedProtocol]}-${TRANSPORT_LABELS[selectedTransport]}`;
-        } else if(selectedProtocol === 'vmess') {
-            const vmessObj = {
-                v: '2', ps: `VIRGOZKI-${PROTOCOL_LABELS[selectedProtocol]}-${TRANSPORT_LABELS[selectedTransport]}`,
-                add: selectedAddress, port: 443, id: UUID, scy: 'auto',
-                net: selectedTransport, path: path, host: selectedSNI,
-                tls: 'tls', sni: selectedSNI, fp: 'randomized'
-            };
-            config = `vmess://${btoa(JSON.stringify(vmessObj))}`;
-        } else if(selectedProtocol === 'shadowsocks') {
-            config = `ss://${btoa(`${SS_METHOD}:${SS_PASSWORD}`)}@${selectedAddress}:443?plugin=${encodeURIComponent(`${selectedTransport};path=${path};host=${selectedSNI}`)}#VIRGOZKI-${PROTOCOL_LABELS[selectedProtocol]}-${TRANSPORT_LABELS[selectedTransport]}`;
-        }
-
-        document.getElementById('config-display').value = config;
-        document.getElementById('info-proto').textContent = PROTOCOL_LABELS[selectedProtocol];
-        document.getElementById('info-transport').textContent = TRANSPORT_LABELS[selectedTransport];
-        isProcessing = false;
-    }
-
-    document.getElementById('copy-btn').addEventListener('click', () => {
-        const configText = document.getElementById('config-display').value;
-        if(configText === 'WAITING FOR INPUT...') {
-            addLog('⚠️ Select address and SNI first before copying!', 'info');
-            return;
-        }
-        navigator.clipboard.writeText(configText).then(() => {
-            document.getElementById('copy-btn').textContent = 'COPIED!';
-            addLog('Generated config copied to clipboard', 'success');
-            setTimeout(() => document.getElementById('copy-btn').textContent = 'COPY', 2000);
-        }).catch(() => {
-            document.getElementById('config-display').select();
-            document.execCommand('copy');
-            document.getElementById('copy-btn').textContent = 'COPIED!';
-            addLog('Generated config copied to clipboard', 'success');
-            setTimeout(() => document.getElementById('copy-btn').textContent = 'COPY', 2000);
-        });
-    });
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainContent = document.getElementById('main-content');
+    const infoHost = document.getElementById('info-host');
+    const infoSni = document.getElementById('info-sni');
+    const infoProto = document.getElementById('info-proto');
+    const infoTransport = document.getElementById('info-transport');
+    const runtimeDisplay = document.getElementById('runtime-display');
+    const configDisplay = document.getElementById('config-display');
+    const copyBtn = document.getElementById('copy-btn');
+    const addressBtn = document.getElementById('address-btn');
+    const addressBtnTxt = document.getElementById('address-btn-txt');
+    const addressSelected = document.getElementById('address-selected');
+    const addressModal = document.getElementById('address-modal');
+    const addressListEl = document.getElementById('address-list');
+    const addressClose = document.getElementById('address-close');
+    const sniBtn = document.getElementById('sni-btn');
+    const sniBtnTxt = document.getElementById('sni-btn-txt');
+    const sniSelected = document.getElementById('sni-selected');
+    const sniModal = document.getElementById('sni-modal');
+    const sniListEl = document.getElementById('sni-list');
+    const sniClose = document.getElementById('sni-close');
+    const protoButtons = document.getElementById('proto-buttons');
+    const transButtons = document.getElementById('trans-buttons');
+    const player = document.getElementById('floating-player');
 
     let isDragging = false, offsetX, offsetY;
-    const player = document.getElementById('floating-player');
-    player.addEventListener('mousedown', (e) => {
+    function dragStart(e) {
+        if (e.target.closest('.ctrl-btn')) return;
         isDragging = true;
-        offsetX = e.clientX - player.getBoundingClientRect().left;
-        offsetY = e.clientY - player.getBoundingClientRect().top;
-    });
-    document.addEventListener('mousemove', (e) => {
-        if(!isDragging) return;
-        const newX = Math.max(0, Math.min(window.innerWidth - player.offsetWidth, e.clientX - offsetX));
-        const newY = Math.max(0, Math.min(window.innerHeight - player.offsetHeight, e.clientY - offsetY));
-        player.style.left = `${newX}px`;
-        player.style.top = `${newY}px`;
-        player.style.right = 'auto';
-    });
-    document.addEventListener('mouseup', () => isDragging = false);
-
-    player.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        const touch = e.touches[0];
-        offsetX = touch.clientX - player.getBoundingClientRect().left;
-        offsetY = touch.clientY - player.getBoundingClientRect().top;
-    });
-    document.addEventListener('touchmove', (e) => {
-        if(!isDragging) return;
-        const touch = e.touches[0];
-        const newX = Math.max(0, Math.min(window.innerWidth - player.offsetWidth, touch.clientX - offsetX));
-        const newY = Math.max(0, Math.min(window.innerHeight - player.offsetHeight, touch.clientY - offsetY));
-        player.style.left = `${newX}px`;
-        player.style.top = `${newY}px`;
-        player.style.right = 'auto';
+        const rect = player.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
+        player.style.transition = 'none';
+    }
+    function dragMove(e) {
+        if (!isDragging) return;
         e.preventDefault();
-    });
-    document.addEventListener('touchend', () => isDragging = false);
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const newX = Math.max(0, Math.min(window.innerWidth - player.offsetWidth, clientX - offsetX));
+        const newY = Math.max(0, Math.min(window.innerHeight - player.offsetHeight, clientY - offsetY));
+        player.style.left = newX + 'px';
+        player.style.top = newY + 'px';
+        player.style.right = 'auto';
+        player.style.bottom = 'auto';
+    }
+    function dragEnd() {
+        isDragging = false;
+        player.style.transition = 'all 0.2s ease';
+    }
+    player.addEventListener('mousedown', dragStart);
+    player.addEventListener('touchstart', dragStart);
+    document.addEventListener('mousemove', dragMove);
+    document.addEventListener('touchmove', dragMove, {passive:false});
+    document.addEventListener('mouseup', dragEnd);
+    document.addEventListener('touchend', dragEnd);
 
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            document.getElementById('loading-screen').classList.add('hidden');
-            document.getElementById('main-content').style.display = 'flex';
-            renderSwitchButtons('proto-buttons', PROTOCOLS, PROTOCOL_LABELS, selectedProtocol, (val) => {
-                selectedProtocol = val;
-                addLog(`Protocol changed to: ${PROTOCOL_LABELS[val]}`, 'info');
+    function buildConfig() {
+        const addr=selectedAddress, sni=selectedSNI, host=currentHost, path=PATHS[selectedProtocol][selectedTransport];
+        let transportParam = '';
+        switch(selectedTransport){
+            case 'ws': transportParam = `type=ws&path=${encodeURIComponent(path)}&host=${host}`; break;
+            case 'httpupgrade': transportParam = `type=httpupgrade&path=${encodeURIComponent(path)}&host=${host}`; break;
+            case 'xhttp': transportParam = `type=xhttp&path=${encodeURIComponent(path)}&host=${host}&mode=packet-upstream`; break;
+        }
+
+        switch(selectedProtocol){
+            case 'vless': 
+                const vlessAlpn = selectedTransport === 'xhttp' ? 'h2%2Chttp%2F1.1' : 'http%2F1.1';
+                return `vless://${UUID}@${addr}:443?encryption=none&${transportParam}&security=tls&fp=chrome&sni=${sni}&alpn=${vlessAlpn}#VLESS-${selectedTransport.toUpperCase()}-VIRGOZKI`;
+            case 'trojan': 
+                const trojanAlpn = selectedTransport === 'xhttp' ? 'h2%2Chttp%2F1.1' : 'http%2F1.1';
+                return `trojan://${SS_PASSWORD}@${addr}:443?${transportParam}&security=tls&fp=chrome&sni=${sni}&alpn=${trojanAlpn}#TROJAN-${selectedTransport.toUpperCase()}-VIRGOZKI`;
+            case 'vmess': 
+                const alpnVal = selectedTransport === 'xhttp' ? 'h2,http/1.1' : 'http/1.1';
+                return `vmess://${btoa(JSON.stringify({v:'2',ps:`VMESS-${selectedTransport.toUpperCase()}-VIRGOZKI`,add:addr,port:'443',id:UUID,aid:'0',scy:'auto',net:selectedTransport,host:host,path:path,tls:'tls',sni:sni,fp:'chrome',alpn:alpnVal})).replace(/=+$/,'')}`;
+            case 'shadowsocks': 
+                const ssCred = btoa(`${SS_METHOD}:${SS_PASSWORD}`).replace(/=+$/,'');
+                return `ss://${ssCred}@${addr}:443?${transportParam}&security=tls&sni=${sni}#SS-${selectedTransport.toUpperCase()}-VIRGOZKI`;
+        }
+    }
+
+    function updateRuntime() {
+        const d=Math.floor(performance.now()/1000);
+        runtimeDisplay.textContent=[3600,60,1].map(t=>String(Math.floor(d/t)%60).padStart(2,'0')).join(':');
+    }
+
+    function buildList(container, items, type) {
+        container.innerHTML='';
+        items.forEach(item=>{
+            const el=document.createElement('div'); 
+            el.className='modal-item'; 
+            el.textContent=item;
+            el.addEventListener('click',()=>{
+                if(type==='address'){ 
+                    selectedAddress=item; 
+                    addressSelected.textContent='TARGET SET: '+item; 
+                    addressBtnTxt.textContent=item; 
+                    addLog(`Target address set: ${item}`, 'success');
+                    addressModal.classList.remove('show'); 
+                } else { 
+                    selectedSNI=item; 
+                    sniSelected.textContent='SNI SET: '+item; 
+                    sniBtnTxt.textContent=item; 
+                    addLog(`SNI set: ${item}`, 'success');
+                    sniModal.classList.remove('show'); 
+                }
+                updateUI();
             });
-            renderSwitchButtons('trans-buttons', TRANSPORTS, TRANSPORT_LABELS, selectedTransport, (val) => {
-                selectedTransport = val;
-                addLog(`Transport changed to: ${TRANSPORT_LABELS[val]}`, 'info');
+            container.appendChild(el);
+        });
+    }
+
+    function buildOptions(container, items, activeItem, labels) {
+        container.innerHTML='';
+        items.forEach(item=>{
+            const b=document.createElement('button');
+            b.className='switch-btn' + (item === activeItem ? ' active' : '');
+            b.textContent = labels[item] || item;
+            
+            b.addEventListener('click', ()=>{
+                if (isProcessing) return;
+                isProcessing = true;
+
+                container.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('active'));
+                b.classList.add('active');
+
+                if (container === protoButtons) selectedProtocol = item;
+                if (container === transButtons) selectedTransport = item;
+
+                addLog(`Switched to: ${labels[item]||item}`, 'success');
+                updateUI();
+
+                setTimeout(()=> isProcessing = false, 200);
             });
-            generateConfig();
-            addLog('System initialized successfully', 'success');
-            addLog('Interface loaded and secure', 'success');
-            addLog('Ready to generate custom configs', 'info');
+            container.appendChild(b);
+        });
+    }
+
+    function updateUI() {
+        infoHost.textContent=selectedAddress;
+        infoSni.textContent=selectedSNI;
+        infoProto.textContent=PROTOCOL_LABELS[selectedProtocol];
+        infoTransport.textContent=TRANSPORT_LABELS[selectedTransport];
+        configDisplay.value=buildConfig();
+
+        buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS);
+        buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
+    }
+
+    // ✅ Gumagana na ang parehong bypass copy buttons
+    copyBypassBtn1.addEventListener('click',()=>{
+        navigator.clipboard.writeText(bypassConfig1.value).then(()=>{
+            copyBypassBtn1.textContent='COPIED ✓';
+            setTimeout(()=>copyBypassBtn1.textContent='COPY',2000);
+            addLog('Bypass Config 1 copied!', 'success');
+        }).catch(()=>addLog('Copy failed', 'info'));
+    });
+
+    copyBypassBtn2.addEventListener('click',()=>{
+        navigator.clipboard.writeText(bypassConfig2.value).then(()=>{
+            copyBypassBtn2.textContent='COPIED ✓';
+            setTimeout(()=>copyBypassBtn2.textContent='COPY',2000);
+            addLog('Bypass Config 2 copied!', 'success');
+        }).catch(()=>addLog('Copy failed', 'info'));
+    });
+
+    copyBtn.addEventListener('click',()=>{
+        navigator.clipboard.writeText(configDisplay.value).then(()=>{
+            copyBtn.textContent='COPIED ✓';
+            setTimeout(()=>copyBtn.textContent='COPY',2000);
+            addLog('Generated Config copied!', 'success');
+        }).catch(()=>addLog('Copy permission denied', 'info'));
+    });
+
+    addressBtn.addEventListener('click',()=>{
+        buildList(addressListEl, addressList, 'address');
+        addressModal.classList.add('show');
+        addLog('Opening address list', 'info');
+    });
+    addressClose.addEventListener('click',()=>addressModal.classList.remove('show'));
+
+    sniBtn.addEventListener('click',()=>{
+        buildList(sniListEl, sniList, 'sni');
+        sniModal.classList.add('show');
+        addLog('Opening SNI list', 'info');
+    });
+    sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
+
+    window.addEventListener('load',()=>{
+        setTimeout(()=>{
+            loadingScreen.classList.add('hidden');
+            mainContent.style.display='flex';
+            
+            buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS);
+            buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
+            
+            updateUI();
+            setInterval(updateRuntime, 1000);
+            setInterval(updateGraph, 1200);
+
+            addLog('System interface loaded successfully', 'success');
+            addLog('Encryption modules active', 'success');
+            addLog('Ready for configuration generation', 'info');
         }, 1200);
     });
 })();
