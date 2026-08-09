@@ -2,7 +2,7 @@
 <html lang="tl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewportviewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VIRGOZKI | CYBER SECURE PANEL</title>
     <style>
         :root {
@@ -451,7 +451,7 @@
         }
         @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
         .load-bar { width: 190px; height: 4px; background: rgba(0, 255, 157, 0.1); border-radius: 0; overflow: hidden; }
-        .load-fill { height: 100%; width: 0%; background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); animation: load 0.8s ease-out forwards; }
+        .load-fill { height: 100%; width: 0%; background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); animation: load 0.6s ease-out forwards; }
         @keyframes load { 0% { width: 0%; } 100% { width: 100%; } }
     </style>
 </head>
@@ -645,10 +645,10 @@
     const copyBypassBtn2 = document.getElementById('copy-bypass-2');
     const bypassConfig2 = document.getElementById('bypass-config-2');
 
-    // ==================== 🎵 MUSIC PLAYER - HINDI BINAGO ====================
+    // ==================== 🎵 MUSIC PLAYER - HINDI BINAGO, PROTEKTA LANG SA LOADING ====================
     const audio = new Audio();
     audio.volume = 0.7;
-    audio.preload = 'none';
+    audio.preload = 'none'; // Hindi muna maglo-load hanggang hindi pinindot
     audio.crossOrigin = 'anonymous';
 
     const songs = [
@@ -787,16 +787,15 @@
         e.preventDefault();
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        const newX = Math.max(0, Math.min(window.innerWidth - player.offsetWidth, clientX - offsetX));
         const newY = Math.max(0, Math.min(window.innerHeight - player.offsetHeight, clientY - offsetY));
-        player.style.left = newX + 'px';
+        const finalX = Math.min(window.innerWidth - player.offsetWidth, clientX - offsetX);
+        player.style.left = finalX + 'px';
         player.style.top = newY + 'px';
         player.style.right = 'auto';
-        player.style.bottom = 'auto';
     }
     function dragEnd() {
         isDragging = false;
-        player.style.transition = 'all 0.2s ease';
+        player.style.transition = 'box-shadow 0.2s ease';
     }
     player.addEventListener('mousedown', dragStart);
     player.addEventListener('touchstart', dragStart);
@@ -806,7 +805,7 @@
     document.addEventListener('touchend', dragEnd);
 
     function buildConfig() {
-        const addr=selectedAddress, sni=selectedSNI, host=currentHost, path=PATHS[selectedProtocol][selectedTransport];
+        const addr = selectedAddress, sni = selectedSNI, host = currentHost, path = PATHS[selectedProtocol][selectedTransport];
         let transportParam = '';
         switch(selectedTransport){
             case 'ws': transportParam = `type=ws&path=${encodeURIComponent(path)}&host=${host}`; break;
@@ -823,7 +822,7 @@
                 return `trojan://${SS_PASSWORD}@${addr}:443?${transportParam}&security=tls&fp=chrome&sni=${sni}&alpn=${trojanAlpn}#TROJAN-${selectedTransport.toUpperCase()}-VIRGOZKI`;
             case 'vmess': 
                 const alpnVal = selectedTransport === 'xhttp' ? 'h2,http/1.1' : 'http/1.1';
-                return `vmess://${btoa(JSON.stringify({v:'2',ps:`VMESS-${selectedTransport.toUpperCase()}-VIRGOZKI`,add:addr,port:'443',id:UUID,aid:'0',scy:'auto',net:selectedTransport,host:host,path:path,tls:'tls',sni:sni,fp:'chrome',alpn:alpnVal})).replace(/=+$/,'')}`;
+                return `vmess://${btoa(JSON.stringify({v:'2',ps:`VMESS-${selectedTransport.toUpperCase()}-VIRGOZKI`,add:addr,port:443,id:UUID,aid:0,scy:'auto',net:selectedTransport,host:host,path:path,tls:'tls',sni:sni,fp:'chrome',alpn:alpnVal})).replace(/=+$/,'')}`;
             case 'shadowsocks': 
                 const ssCred = btoa(`${SS_METHOD}:${SS_PASSWORD}`).replace(/=+$/,'');
                 return `ss://${ssCred}@${addr}:443?${transportParam}&security=tls&sni=${sni}#SS-${selectedTransport.toUpperCase()}-VIRGOZKI`;
@@ -831,27 +830,27 @@
     }
 
     function updateRuntime() {
-        const d=Math.floor(performance.now()/1000);
-        runtimeDisplay.textContent=[3600,60,1].map(t=>String(Math.floor(d/t)%60).padStart(2,'0')).join(':');
+        const d = Math.floor(performance.now() / 1000);
+        runtimeDisplay.textContent = [3600, 60, 1].map(t => String(Math.floor(d / t) % 60).padStart(2, '0')).join(':');
     }
 
     function buildList(container, items, type) {
-        container.innerHTML='';
-        items.forEach(item=>{
-            const el=document.createElement('div'); 
-            el.className='modal-item'; 
-            el.textContent=item;
-            el.addEventListener('click',()=>{
-                if(type==='address'){ 
-                    selectedAddress=item; 
-                    addressSelected.textContent='TARGET SET: '+item; 
-                    addressBtnTxt.textContent=item; 
+        container.innerHTML = '';
+        items.forEach(item => {
+            const el = document.createElement('div'); 
+            el.className = 'modal-item'; 
+            el.textContent = item;
+            el.addEventListener('click', () => {
+                if(type === 'address'){ 
+                    selectedAddress = item; 
+                    addressSelected.textContent = 'TARGET SET: ' + item; 
+                    addressBtnTxt.textContent = item; 
                     addLog(`Target address set: ${item}`, 'success');
                     addressModal.classList.remove('show'); 
                 } else { 
-                    selectedSNI=item; 
-                    sniSelected.textContent='SNI SET: '+item; 
-                    sniBtnTxt.textContent=item; 
+                    selectedSNI = item; 
+                    sniSelected.textContent = 'SNI SET: ' + item; 
+                    sniBtnTxt.textContent = item; 
                     addLog(`SNI set: ${item}`, 'success');
                     sniModal.classList.remove('show'); 
                 }
@@ -862,13 +861,13 @@
     }
 
     function buildOptions(container, items, activeItem, labels) {
-        container.innerHTML='';
-        items.forEach(item=>{
-            const b=document.createElement('button');
-            b.className='switch-btn' + (item === activeItem ? ' active' : '');
+        container.innerHTML = '';
+        items.forEach(item => {
+            const b = document.createElement('button');
+            b.className = 'switch-btn' + (item === activeItem ? ' active' : '');
             b.textContent = labels[item] || item;
             
-            b.addEventListener('click', ()=>{
+            b.addEventListener('click', () => {
                 if (isProcessing) return;
                 isProcessing = true;
 
@@ -881,80 +880,80 @@
                 addLog(`Switched to: ${labels[item]||item}`, 'success');
                 updateUI();
 
-                setTimeout(()=> isProcessing = false, 200);
+                setTimeout(() => isProcessing = false, 200);
             });
             container.appendChild(b);
         });
     }
 
     function updateUI() {
-        infoHost.textContent=selectedAddress;
-        infoSni.textContent=selectedSNI;
-        infoProto.textContent=PROTOCOL_LABELS[selectedProtocol];
-        infoTransport.textContent=TRANSPORT_LABELS[selectedTransport];
-        configDisplay.value=buildConfig();
+        infoHost.textContent = selectedAddress;
+        infoSni.textContent = selectedSNI;
+        infoProto.textContent = PROTOCOL_LABELS[selectedProtocol];
+        infoTransport.textContent = TRANSPORT_LABELS[selectedTransport];
+        configDisplay.value = buildConfig();
 
         buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS);
         buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
     }
 
-    // ✅ Gumagana na ang parehong bypass copy buttons
-    copyBypassBtn1.addEventListener('click',()=>{
-        navigator.clipboard.writeText(bypassConfig1.value).then(()=>{
-            copyBypassBtn1.textContent='COPIED ✓';
-            setTimeout(()=>copyBypassBtn1.textContent='COPY',2000);
+    // Copy functions
+    copyBypassBtn1.addEventListener('click', () => {
+        navigator.clipboard.writeText(bypassConfig1.value).then(() => {
+            copyBypassBtn1.textContent = 'COPIED ✓';
+            setTimeout(() => copyBypassBtn1.textContent = 'COPY', 2000);
             addLog('Bypass Config 1 copied!', 'success');
-        }).catch(()=>addLog('Copy failed', 'info'));
+        }).catch(() => addLog('Copy failed', 'info'));
     });
 
-    copyBypassBtn2.addEventListener('click',()=>{
-        navigator.clipboard.writeText(bypassConfig2.value).then(()=>{
-            copyBypassBtn2.textContent='COPIED ✓';
-            setTimeout(()=>copyBypassBtn2.textContent='COPY',2000);
+    copyBypassBtn2.addEventListener('click', () => {
+        navigator.clipboard.writeText(bypassConfig2.value).then(() => {
+            copyBypassBtn2.textContent = 'COPIED ✓';
+            setTimeout(() => copyBypassBtn2.textContent = 'COPY', 2000);
             addLog('Bypass Config 2 copied!', 'success');
-        }).catch(()=>addLog('Copy failed', 'info'));
+        }).catch(() => addLog('Copy failed', 'info'));
     });
 
-    copyBtn.addEventListener('click',()=>{
-        navigator.clipboard.writeText(configDisplay.value).then(()=>{
-            copyBtn.textContent='COPIED ✓';
-            setTimeout(()=>copyBtn.textContent='COPY',2000);
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(configDisplay.value).then(() => {
+            copyBtn.textContent = 'COPIED ✓';
+            setTimeout(() => copyBtn.textContent = 'COPY', 2000);
             addLog('Generated Config copied!', 'success');
-        }).catch(()=>addLog('Copy permission denied', 'info'));
+        }).catch(() => addLog('Copy permission denied', 'info'));
     });
 
-    addressBtn.addEventListener('click',()=>{
+    // Modal controls
+    addressBtn.addEventListener('click', () => {
         buildList(addressListEl, addressList, 'address');
         addressModal.classList.add('show');
         addLog('Opening address list', 'info');
     });
-    addressClose.addEventListener('click',()=>addressModal.classList.remove('show'));
+    addressClose.addEventListener('click', () => addressModal.classList.remove('show'));
 
-    sniBtn.addEventListener('click',()=>{
+    sniBtn.addEventListener('click', () => {
         buildList(sniListEl, sniList, 'sni');
         sniModal.classList.add('show');
         addLog('Opening SNI list', 'info');
     });
-    sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
+    sniClose.addEventListener('click', () => sniModal.classList.remove('show'));
 
-    window.addEventListener('load',()=>{
-        setTimeout(()=>{
+    // Start system - PINABILIS PARA HINDI TIMEOUT SA RUN.APP
+    window.addEventListener('load', () => {
+        setTimeout(() => {
             loadingScreen.classList.add('hidden');
-            mainContent.style.display='flex';
-            
-            buildOptions(protoButtons, PROTOCOLS, selectedProtocol, PROTOCOL_LABELS);
-            buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
+            mainContent.style.display = 'flex';
             
             updateUI();
             setInterval(updateRuntime, 1000);
             setInterval(updateGraph, 1200);
 
-            addLog('System interface loaded successfully', 'success');
-            addLog('Encryption modules active', 'success');
-            addLog('Ready for configuration generation', 'info');
-        }, 1200);
+            addLog('System loaded successfully', 'success');
+            addLog('Encryption active', 'success');
+            addLog('Ready for use', 'info');
+        }, 400); // Binawas sa 400ms lang para hindi ma-hit ang limit ng run.app
     });
 })();
 </script>
 </body>
 </html>
+
