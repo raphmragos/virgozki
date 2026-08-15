@@ -28,4 +28,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: raphmragos/virgozkimypanel:latest
+          tags: raphmragos/virgozkipanel:latest
