@@ -663,10 +663,10 @@
     const copyBypassBtn2 = document.getElementById('copy-bypass-2');
     const bypassConfig2 = document.getElementById('bypass-config-2');
 
-    // ==================== 🎵 MUSIC PLAYER - INAYOS AYON SA REQUEST ====================
+    // ==================== 🎵 MUSIC PLAYER - FIXED TIMEOUT ====================
     const audio = new Audio();
     audio.volume = 0.7;
-    audio.preload = 'metadata'; // Ayos: Hindi agad i-load lahat para mabilis mag-play
+    audio.preload = 'none'; // Iwas maagang timeout sa pag-load
     audio.crossOrigin = 'anonymous';
 
     const songs = [
@@ -689,7 +689,7 @@
     function loadSong(i) { 
         songName.textContent = songs[i].name; 
         audio.src = songs[i].url;
-        audio.preload = 'metadata'; // Ayos: Mabilisang pag-load lang ng kanta
+        audio.preload = 'metadata';
     }
 
     // ✅ AUTO NEXT MUSIC KAPAG NATAPOS NA
@@ -699,10 +699,10 @@
     });
 
     audio.onerror = () => {
-        addLog(`⚠️ Hindi ma-play ang: ${songs[currentSongIndex].name} | Lilipat sa susunod`, 'info');
+        addLog(`⚠️ Error sa kanta: ${songs[currentSongIndex].name} | Lilipat sa susunod`, 'info');
         isPlaying = false;
         playBtn.textContent = '▶';
-        nextSong(); // Kusang lumipat kapag error
+        nextSong(); // Kusang lumipat kapag error/timeout
     };
 
     function togglePlay() { 
@@ -717,7 +717,7 @@
                 playBtn.textContent = '⏸'; 
                 addLog(`🎵 Playing: ${songs[currentSongIndex].name}`, 'success'); 
             }).catch(()=>{
-                addLog('❌ Hindi ma-play. Subukan ulit o palitan ng kanta', 'info');
+                addLog('❌ Hindi ma-play. Subukan ulit', 'info');
             }); 
         }
     }
@@ -745,10 +745,28 @@
     document.getElementById('stop').addEventListener('click', stopMusic);
     // ==================== END OF MUSIC PLAYER ====================
 
-    // ✅ REAL-TIME MONITOR FUNCTIONS
+    // ✅ REAL-TIME MONITOR - FIXED TIMEOUT & CORS
+    async function fetchWithTimeout(url, options = {}, timeout = 15000) { // 15s timeout para hindi mabilis mag error
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+        try {
+            const response = await fetch(url, {
+                ...options,
+                signal: controller.signal,
+                cache: 'no-cache'
+            });
+            clearTimeout(id);
+            return response;
+        } catch (err) {
+            clearTimeout(id);
+            throw err;
+        }
+    }
+
     async function fetchUserInfo() {
         try {
-            const res = await fetch('https://ipapi.co/json/');
+            const res = await fetchWithTimeout('https://ipapi.co/json/');
+            if (!res.ok) throw new Error('Server error');
             const data = await res.json();
             document.getElementById('user-ip').textContent = data.ip || 'UNAVAILABLE';
             document.getElementById('user-country').textContent = data.country_name || 'UNAVAILABLE';
@@ -760,13 +778,16 @@
             document.getElementById('user-country').textContent = 'CHECK CONNECTION';
             document.getElementById('user-city').textContent = 'CHECK CONNECTION';
             document.getElementById('user-isp').textContent = 'CHECK CONNECTION';
-            addLog('Failed to load connection info', 'info');
+            addLog('Timeout/error sa pag-load ng info', 'info');
         }
     }
 
     function measurePing() {
         const start = performance.now();
-        fetch('https://1.1.1.1/cdn-cgi/trace', { mode: 'no-cors', cache: 'no-store' })
+        fetchWithTimeout('https://1.1.1.1/cdn-cgi/trace', { 
+            mode: 'no-cors', 
+            cache: 'no-store' 
+        }, 10000) // 10s timeout sa ping
             .finally(() => {
                 const ping = Math.round(performance.now() - start);
                 const pingEl = document.getElementById('user-ping');
@@ -817,7 +838,6 @@
     const infoSni = document.getElementById('info-sni');
     const infoProto = document.getElementById('info-proto');
     const infoTransport = document.getElementById('info-transport');
-    const runtimeDisplay = document.getElementById('runtime-display');
     const configDisplay = document.getElementById('config-display');
     const copyBtn = document.getElementById('copy-btn');
     const addressBtn = document.getElementById('address-btn');
@@ -997,7 +1017,7 @@
     });
     sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
 
-    // ✅ System Start - Pinahaba sa 3.5 seconds ang loading
+    // ✅ System Start
     window.addEventListener('load',()=>{
         setTimeout(()=>{
             loadingScreen.classList.add('hidden');
@@ -1017,7 +1037,7 @@
             addLog('Encryption modules active', 'success');
             addLog('Real-time monitor initialized', 'success');
             addLog('Ready for configuration generation', 'info');
-        }, 3500); // ⏱️ 3.5 seconds delay bago lumabas ang panel
+        }, 3500);
     });
 })();
 </script>
