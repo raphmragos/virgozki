@@ -168,44 +168,46 @@
             box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
         }
 
-        .system-row {
+        /* NEW REAL-TIME MONITOR STYLES */
+        .monitor-box {
+            border: 1px solid rgba(0, 204, 255, 0.25);
+            border-radius: 2px;
+            padding: 14px;
+            background: rgba(0, 204, 255, 0.02);
+        }
+        .monitor-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--neon-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .monitor-title::before { content: '📊'; }
+        .monitor-grid {
             display: grid;
-            grid-template-columns: 1.6fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
-        .system-box {
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 2px;
-            padding: 12px;
-            background: rgba(0, 255, 157, 0.015);
-        }
-        .system-box.small {
-            padding: 10px;
-        }
-        .sys-title {
-            font-size: 10px;
-            color: var(--neon-green);
-            margin-bottom: 8px;
+        .monitor-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .sys-title .status-badge {
-            font-size: 8px;
-            padding: 1px 5px;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            border-radius: 1px;
-        }
-        .sys-item {
-            font-size: 10px;
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             gap: 4px;
         }
-        .sys-item span:first-child { color: var(--text-dim); flex-shrink: 0; }
-        .sys-item span:last-child { color: var(--neon-blue); word-break: break-all; text-align: right; }
+        .monitor-label {
+            font-size: 9px;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+        }
+        .monitor-value {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--neon-blue);
+            word-break: break-all;
+        }
+        .monitor-value.success { color: var(--neon-green); }
+        .monitor-value.warn { color: var(--neon-yellow); }
 
         .graph-container {
             width: 100%;
@@ -451,7 +453,7 @@
         }
         @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
         .load-bar { width: 190px; height: 4px; background: rgba(0, 255, 157, 0.1); border-radius: 0; overflow: hidden; }
-        .load-fill { height: 100%; width: 0%; background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); animation: load 0.8s ease-out forwards; }
+        .load-fill { height: 100%; width: 0%; background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); animation: load 3.5s ease-out forwards; }
         @keyframes load { 0% { width: 0%; } 100% { width: 100%; } }
     </style>
 </head>
@@ -494,21 +496,36 @@
         </div>
     </div>
   
-    <div class="system-row">
-        <div class="system-box">
-            <div class="sys-title">
-                <span>SYSTEM INFO</span>
-                <span class="status-badge">ACTIVE VISIT</span>
+    <!-- ✅ NEW REAL-TIME MONITOR SECTION -->
+    <div class="monitor-box">
+        <div class="monitor-title">REAL-TIME CONNECTION MONITOR</div>
+        <div class="monitor-grid">
+            <div class="monitor-item">
+                <span class="monitor-label">YOUR IP ADDRESS</span>
+                <span class="monitor-value" id="user-ip">LOADING...</span>
             </div>
-            <div class="sys-item"><span>IP ADDRESS</span><span>BAWAL NGANI</span></div>
-            <div class="sys-item"><span>REGION</span><span>PHILIPPINES</span></div>
-            <div class="sys-item"><span>LOCATION</span><span>BAWAL NGANI</span></div>
-            <div class="sys-item"><span>CONNECTION</span><span class="success">SECURE</span></div>
+            <div class="monitor-item">
+                <span class="monitor-label">COUNTRY</span>
+                <span class="monitor-value" id="user-country">LOADING...</span>
+            </div>
+            <div class="monitor-item">
+                <span class="monitor-label">CITY / REGION</span>
+                <span class="monitor-value" id="user-city">LOADING...</span>
+            </div>
+            <div class="monitor-item">
+                <span class="monitor-label">INTERNET PROVIDER</span>
+                <span class="monitor-value" id="user-isp">LOADING...</span>
+            </div>
+            <div class="monitor-item">
+                <span class="monitor-label">SERVER UPTIME</span>
+                <span class="monitor-value success" id="monitor-uptime">00:00:00</span>
+            </div>
+            <div class="monitor-item">
+                <span class="monitor-label">PING LATENCY</span>
+                <span class="monitor-value" id="user-ping">-- MS</span>
+            </div>
         </div>
-        <div class="system-box small">
-            <div class="sys-title">SYSTEM GRAPH</div>
-            <div class="graph-container" id="sys-graph"></div>
-        </div>
+        <div class="graph-container" id="sys-graph"></div>
     </div>
 
     <div class="log-box">
@@ -619,6 +636,7 @@
     let selectedAddress = currentHost;
     let selectedSNI = currentHost;
     let isProcessing = false; // Iwas doble click
+    let startTime = Date.now();
 
     let addressList = [
         currentHost, '⬇️⬇️STS NO LOAD AND BYPASS⬇️⬇️', 'firebase.googleapis.com', 'google.com', 'firebase-settings.googleapis.com',
@@ -645,10 +663,10 @@
     const copyBypassBtn2 = document.getElementById('copy-bypass-2');
     const bypassConfig2 = document.getElementById('bypass-config-2');
 
-    // ==================== 🎵 MUSIC PLAYER - HINDI BINAGO ====================
+    // ==================== 🎵 MUSIC PLAYER - INAYOS AYON SA REQUEST ====================
     const audio = new Audio();
     audio.volume = 0.7;
-    audio.preload = 'none';
+    audio.preload = 'metadata'; // Ayos: Hindi agad i-load lahat para mabilis mag-play
     audio.crossOrigin = 'anonymous';
 
     const songs = [
@@ -671,12 +689,22 @@
     function loadSong(i) { 
         songName.textContent = songs[i].name; 
         audio.src = songs[i].url;
-        audio.onerror = () => {
-            addLog('⚠️ Audio link blocked (Dropbox limitado). Gamitin ang Catbox.moe', 'info');
-            isPlaying = false;
-            playBtn.textContent = '▶';
-        };
+        audio.preload = 'metadata'; // Ayos: Mabilisang pag-load lang ng kanta
     }
+
+    // ✅ AUTO NEXT MUSIC KAPAG NATAPOS NA
+    audio.addEventListener('ended', () => {
+        addLog(`🎵 Natapos ang kanta: ${songs[currentSongIndex].name}`, 'info');
+        nextSong();
+    });
+
+    audio.onerror = () => {
+        addLog(`⚠️ Hindi ma-play ang: ${songs[currentSongIndex].name} | Lilipat sa susunod`, 'info');
+        isPlaying = false;
+        playBtn.textContent = '▶';
+        nextSong(); // Kusang lumipat kapag error
+    };
+
     function togglePlay() { 
         if(isPlaying){ 
             audio.pause(); 
@@ -687,9 +715,9 @@
             audio.play().then(()=>{ 
                 isPlaying = true; 
                 playBtn.textContent = '⏸'; 
-                addLog('🎵 Music playing', 'success'); 
+                addLog(`🎵 Playing: ${songs[currentSongIndex].name}`, 'success'); 
             }).catch(()=>{
-                addLog('❌ Hindi ma-play ang link. Palitan ng ibang host', 'info');
+                addLog('❌ Hindi ma-play. Subukan ulit o palitan ng kanta', 'info');
             }); 
         }
     }
@@ -716,6 +744,43 @@
     document.getElementById('next').addEventListener('click', nextSong);
     document.getElementById('stop').addEventListener('click', stopMusic);
     // ==================== END OF MUSIC PLAYER ====================
+
+    // ✅ REAL-TIME MONITOR FUNCTIONS
+    async function fetchUserInfo() {
+        try {
+            const res = await fetch('https://ipapi.co/json/');
+            const data = await res.json();
+            document.getElementById('user-ip').textContent = data.ip || 'UNAVAILABLE';
+            document.getElementById('user-country').textContent = data.country_name || 'UNAVAILABLE';
+            document.getElementById('user-city').textContent = `${data.city || 'UNAVAILABLE'}, ${data.region || ''}`;
+            document.getElementById('user-isp').textContent = data.org || 'UNAVAILABLE';
+            addLog('Connection info loaded successfully', 'success');
+        } catch (err) {
+            document.getElementById('user-ip').textContent = 'CHECK CONNECTION';
+            document.getElementById('user-country').textContent = 'CHECK CONNECTION';
+            document.getElementById('user-city').textContent = 'CHECK CONNECTION';
+            document.getElementById('user-isp').textContent = 'CHECK CONNECTION';
+            addLog('Failed to load connection info', 'info');
+        }
+    }
+
+    function measurePing() {
+        const start = performance.now();
+        fetch('https://1.1.1.1/cdn-cgi/trace', { mode: 'no-cors', cache: 'no-store' })
+            .finally(() => {
+                const ping = Math.round(performance.now() - start);
+                const pingEl = document.getElementById('user-ping');
+                pingEl.textContent = `${ping} MS`;
+                pingEl.className = ping < 100 ? 'monitor-value success' : 'monitor-value';
+            });
+    }
+
+    function updateMonitorUptime() {
+        const d = Math.floor((Date.now() - startTime) / 1000);
+        document.getElementById('runtime-display').textContent = 
+        document.getElementById('monitor-uptime').textContent = 
+            [3600,60,1].map(t=>String(Math.floor(d/t)%60).padStart(2,'0')).join(':');
+    }
 
     function addLog(msg, type='info') {
         const now = new Date();
@@ -830,11 +895,6 @@
         }
     }
 
-    function updateRuntime() {
-        const d=Math.floor(performance.now()/1000);
-        runtimeDisplay.textContent=[3600,60,1].map(t=>String(Math.floor(d/t)%60).padStart(2,'0')).join(':');
-    }
-
     function buildList(container, items, type) {
         container.innerHTML='';
         items.forEach(item=>{
@@ -898,7 +958,7 @@
         buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
     }
 
-    // ✅ Gumagana na ang parehong bypass copy buttons
+    // ✅ Copy functions
     copyBypassBtn1.addEventListener('click',()=>{
         navigator.clipboard.writeText(bypassConfig1.value).then(()=>{
             copyBypassBtn1.textContent='COPIED ✓';
@@ -937,6 +997,7 @@
     });
     sniClose.addEventListener('click',()=>sniModal.classList.remove('show'));
 
+    // ✅ System Start - Pinahaba sa 3.5 seconds ang loading
     window.addEventListener('load',()=>{
         setTimeout(()=>{
             loadingScreen.classList.add('hidden');
@@ -946,15 +1007,20 @@
             buildOptions(transButtons, TRANSPORTS, selectedTransport, TRANSPORT_LABELS);
             
             updateUI();
-            setInterval(updateRuntime, 1000);
+            fetchUserInfo();
+            measurePing();
+            setInterval(updateMonitorUptime, 1000);
             setInterval(updateGraph, 1200);
+            setInterval(measurePing, 10000);
 
             addLog('System interface loaded successfully', 'success');
             addLog('Encryption modules active', 'success');
+            addLog('Real-time monitor initialized', 'success');
             addLog('Ready for configuration generation', 'info');
-        }, 1200);
+        }, 3500); // ⏱️ 3.5 seconds delay bago lumabas ang panel
     });
 })();
 </script>
 </body>
-    </html>
+</html>
+
