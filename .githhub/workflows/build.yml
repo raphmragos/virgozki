@@ -8,12 +8,14 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read # required para sa checkout
 
     steps:
       - name: Checkout files
         uses: actions/checkout@v4
 
-      - name: Set up Docker
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
@@ -29,3 +31,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: raphmragos/virgozkipanel:latest
+          cache-from: type=registry,ref=raphmragos/virgozkipanel:buildcache
+          cache-to: type=registry,ref=raphmragos/virgozkipanel:buildcache,mode=max
